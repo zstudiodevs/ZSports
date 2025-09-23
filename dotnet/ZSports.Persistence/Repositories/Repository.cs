@@ -40,6 +40,11 @@ public class Repository<TItem, TKey>(ZSportsDbContext dbContext) : IRepository<T
         dbContext.Set<TItem>().Update(item);
     }
 
+    public IQueryable<TItem> GetQueryable()
+    {
+        return dbContext.Set<TItem>();
+    }
+
     public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         await dbContext.SaveChangesAsync(cancellationToken);

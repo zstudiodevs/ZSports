@@ -1,8 +1,13 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using ZSports.Api.Services;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
+using ZSports.Domain.Entities;
 using ZSports.Persistence;
 using ZSports.Persistence.Repositories;
 
@@ -17,11 +22,40 @@ namespace ZSports.Api
 
             // Add services to the container.
             builder.Services.AddDbContext<ZSportsDbContext>(opts =>
-                opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), assembly => assembly.MigrationsAssembly(typeof(ZSportsDbContext).Assembly.FullName)));
+                opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                assembly => assembly.MigrationsAssembly(typeof(ZSportsDbContext).Assembly.FullName)));
 
-            builder.Services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
-            builder.Services.AddTransient<ISuperficieRepository, SuperficieRepository>();
-            builder.Services.AddTransient<ISuperficieService, SuperficieService>();
+            builder.Services.AddIdentity<Usuario, IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<ZSportsDbContext>()
+                .AddDefaultTokenProviders();
+
+            var jwtSettings = builder.Configuration.GetSection("Jwt");
+            var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+
+            builder.Services.AddAuthentication(opts =>
+            {
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(opts =>
+            {
+                opts.TokenValidationParameters = new()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidAudience = jwtSettings["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+
+            builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+            builder.Services.AddScoped<ISuperficieRepository, SuperficieRepository>();
+            builder.Services.AddScoped<ISuperficieService, SuperficieService>();
+            builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+            builder.Services.AddScoped<IRolesService, RolesService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -36,7 +70,7 @@ namespace ZSports.Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

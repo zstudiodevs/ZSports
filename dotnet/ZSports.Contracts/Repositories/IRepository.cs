@@ -11,5 +11,6 @@ public interface IRepository<TItem, TKey> where TItem : class
     Task<IEnumerable<TItem>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<IEnumerable<TItem>> GetPaginatedList(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
     void Update(TItem item);
+    IQueryable<TItem> GetQueryable();
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }
