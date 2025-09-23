@@ -1,3 +1,5 @@
 /dotnet/.vs/
+/dotnet/.vs/**/*
 /dotnet/**/bin/
 /dotnet/**/obj/
+/.vs

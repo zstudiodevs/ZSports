@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using ZSports.Domain.Entities;
 
 namespace ZSports.Persistence;
 
-public class ZSportsDbContext(DbContextOptions opts): DbContext(opts)
+public class ZSportsDbContext(DbContextOptions opts): IdentityDbContext<Usuario, IdentityRole<Guid>, Guid>(opts)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
