@@ -19,9 +19,12 @@
     "module": "ES2022",
     "paths": {
       "@app/*": ["./src/app/*"],
+      "@env/*": ["./src/environment/*"],
       "@components/*": ["./src/components/*"],
       "@services/*": ["./src/app/services/*"],
-    }
+    },
+    "strictPropertyInitialization": false,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

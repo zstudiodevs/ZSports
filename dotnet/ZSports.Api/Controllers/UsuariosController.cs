@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ZSports.Contracts.Services;
 using ZSports.Contracts.Usuarios;
@@ -22,6 +23,7 @@ public class UsuariosController(
     }
 
     [HttpPost("login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginUsuarioDto loginDto)
     {
         var result = await usuarioService.LoginAsync(loginDto);
@@ -39,5 +41,14 @@ public class UsuariosController(
             return Unauthorized(new { error = "Refresh token inválido o expirado." });
 
         return Ok(result);
+    }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout([FromBody] string refreshToken)
+    {
+        var result = await usuarioService.LogoutAsync(refreshToken);
+        if (!result)
+            return BadRequest(new { error = "No se pudo cerrar la sesión." });
+        return Ok(new { message = "Sesión cerrada correctamente." });
     }
 }

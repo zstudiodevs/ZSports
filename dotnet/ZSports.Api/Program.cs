@@ -61,6 +61,17 @@ namespace ZSports.Api
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? [];
+            builder.Services.AddCors(opts =>
+            {
+                opts.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.WithOrigins(origins)
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -69,10 +80,10 @@ namespace ZSports.Api
                 app.MapOpenApi();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

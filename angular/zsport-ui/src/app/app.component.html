@@ -1,3 +1,6 @@
-<zs-shell [profileAction]="onProfileAction">
-  <router-outlet></router-outlet>
+<zs-shell
+	[secondaryButtons]="secondaryButtons"
+	(secondaryButtonClicked)="onSecondaryButtonClicked($event)"
+>
+	<router-outlet></router-outlet>
 </zs-shell>

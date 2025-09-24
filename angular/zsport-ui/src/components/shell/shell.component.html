@@ -1,22 +1,31 @@
 <mat-toolbar class="toolbar">
-    <button mat-icon-button (click)="sidenav.toggle()" class="menu-button">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>ZSport UI</span>
-    <span class="spacer"></span>
-    <button mat-icon-button class="theme-button" (click)="toggleTheme()" aria-label="Toggle theme">
-        <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
-    </button>
-    <button mat-icon-button class="profile-button" aria-label="Profile" (click)="onProfileClick()">
-        <mat-icon>account_circle</mat-icon>
-    </button>
+	<zs-button
+		class="menu-button"
+		[buttonType]="'icon'"
+		[type]="'button'"
+		[icon]="'menu'"
+		(onClick)="sidenav.toggle()"
+	/>
+	<span>ZSport UI</span>
+	<span class="spacer"></span>
+	@for(button of this.secondaryButtons; track $index) {
+	<zs-button
+		[id]="button.id"
+		[buttonType]="button.type"
+		[color]="button.color"
+		[disabled]="button.disabled"
+		[type]="button.htmlType"
+		[icon]="button.icon"
+		[label]="button.label"
+		(onClick)="secondaryButtonClicked.emit(button.id)"
+	/>
+	}
 </mat-toolbar>
-
 <mat-drawer-container autosize class="sidenav-container">
-    <mat-drawer #sidenav class="sidenav" [mode]="this.sidenavMode">
-        <p>Drawer content goes here</p>
-    </mat-drawer>
-    <mat-drawer-content class="sidenav-content">
-        <ng-content></ng-content>
-    </mat-drawer-content>
+	<mat-drawer #sidenav class="sidenav" [mode]="this.sidenavMode">
+		<p>Drawer content goes here</p>
+	</mat-drawer>
+	<mat-drawer-content class="sidenav-content">
+		<ng-content></ng-content>
+	</mat-drawer-content>
 </mat-drawer-container>

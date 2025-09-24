@@ -1,0 +1,49 @@
+<mat-card class="card">
+	<mat-card-header class="card-header">
+		<mat-card-title>Iniciar Sesión</mat-card-title>
+		<mat-card-subtitle>
+			Ingrese sus credenciales para continuar
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content class="card-content">
+		<form [formGroup]="this.formGroup" class="form">
+			<mat-form-field appearance="fill" class="full-width">
+				<mat-label>Correo Electrónico</mat-label>
+				<input matInput formControlName="email" type="email" />
+				<mat-error *ngIf="this.formGroup.get('email')?.hasError('required')">
+					El correo electrónico es obligatorio.
+				</mat-error>
+				<mat-error *ngIf="this.formGroup.get('email')?.hasError('email')">
+					Ingrese un correo electrónico válido.
+				</mat-error>
+			</mat-form-field>
+
+			<mat-form-field appearance="fill" class="full-width">
+				<mat-label>Contraseña</mat-label>
+				<input matInput formControlName="password" type="password" />
+				<mat-error *ngIf="this.formGroup.get('password')?.hasError('required')">
+					La contraseña es obligatoria.
+				</mat-error>
+				<mat-error
+					*ngIf="this.formGroup.get('password')?.hasError('minlength')"
+				>
+					La contraseña debe tener al menos 6 caracteres.
+				</mat-error>
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+	<mat-card-actions class="card-actions">
+		<button
+			mat-raised-button
+			class="login-button"
+			(click)="onLogin()"
+			[disabled]="this.formGroup.invalid"
+		>
+			Iniciar Sesión
+		</button>
+
+		<button mat-button class="cancel-button" (click)="this.onCancel()">
+			Cancelar
+		</button>
+	</mat-card-actions>
+</mat-card>

@@ -1,8 +1,29 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+	ApplicationConfig,
+	provideZoneChangeDetection,
+	isDevMode,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
+import { provideRouterStore } from '@ngrx/router-store';
+import { authReducer } from '../state/auth/auth.reducer';
+import { AuthEffects } from '../state/auth/auth.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+	providers: [
+		provideZoneChangeDetection({ eventCoalescing: true }),
+		provideAnimationsAsync(),
+		provideRouter(routes),
+		provideHttpClient(),
+		provideStore({ auth: authReducer }),
+		provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+		provideEffects(AuthEffects),
+		provideRouterStore(),
+	],
 };

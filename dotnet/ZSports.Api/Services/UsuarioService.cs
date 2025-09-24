@@ -7,6 +7,7 @@ using System.Text;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
 using ZSports.Contracts.Usuarios;
+using ZSports.Domain.Constants;
 using ZSports.Domain.Entities;
 
 namespace ZSports.Api.Services;
@@ -19,9 +20,6 @@ public class UsuarioService(
 {
     public async Task<(bool Succeeded, IEnumerable<string> Errors)> RegistrarUsuarioAsync(RegisterUsuarioDto dto)
     {
-        if (!await roleManager.RoleExistsAsync(dto.Rol))
-            return (false, new[] { $"El rol '{dto.Rol}' no existe." });
-
         var existingUser = await userManager.FindByEmailAsync(dto.Email);
         if (existingUser != null)
             return (false, new[] { "El email ya está registrado." });
@@ -29,14 +27,12 @@ public class UsuarioService(
         var user = new Usuario();
         user.UserName = dto.Username;
         user.Email = dto.Email;
-        user.SetNombre(dto.Nombre);
-        user.SetApellido(dto.Apellido);
 
         var result = await userManager.CreateAsync(user, dto.Password);
         if (!result.Succeeded)
             return (false, result.Errors.Select(e => e.Description));
 
-        var roleResult = await userManager.AddToRoleAsync(user, dto.Rol);
+        var roleResult = await userManager.AddToRoleAsync(user, Roles.Player);
         if (!roleResult.Succeeded)
             return (false, roleResult.Errors.Select(e => e.Description));
 
@@ -84,9 +80,16 @@ public class UsuarioService(
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             RefreshToken = refreshToken.Token,
-            Email = user.Email,
             Username = user.UserName,
-            Roles = roles
+            Usuario = new UsuarioDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Nombre = user.Nombre,
+                Apellido = user.Apellido,
+                Activo = user.Activo,
+                Roles = roles
+            }
         };
     }
     public async Task<LoginUsuarioResponseDto?> RefreshTokenAsync(RefreshTokenDto dto)
@@ -140,9 +143,28 @@ public class UsuarioService(
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             RefreshToken = newRefreshToken.Token,
-            Email = user.Email,
             Username = user.UserName,
-            Roles = roles
+            Usuario = new UsuarioDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Nombre = user.Nombre,
+                Apellido = user.Apellido,
+                Activo = user.Activo,
+                Roles = roles
+            }
         };
+    }
+    public async Task<bool> LogoutAsync(string refreshToken)
+    {
+        var token = await repository.GetQueryable()
+            .FirstOrDefaultAsync(rt => rt.Token == refreshToken && !rt.Revoked);
+
+        if (token == null)
+            return false;
+
+        token.Revoked = true;
+        await repository.SaveChangesAsync();
+        return true;
     }
 }

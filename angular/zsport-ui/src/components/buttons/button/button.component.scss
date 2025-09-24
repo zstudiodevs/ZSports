@@ -1,0 +1,13 @@
+button[mat-raised-button] {
+	background-color: var(--success);
+	color: var(--text-primary);
+}
+button[mat-stroked-button] {
+	background-color: var(--danger);
+	color: var(--sport-green);
+}
+
+button[mat-icon-button] {
+	background-color: transparent;
+	color: var(--text-primary);
+}
