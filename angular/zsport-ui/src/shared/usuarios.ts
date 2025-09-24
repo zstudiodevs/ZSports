@@ -24,3 +24,8 @@ export interface RegistroUsuario {
 	email: string;
 	password: string;
 }
+
+export interface RegistroUsuarioResponse {
+	succeded: boolean;
+	errors: string[];
+}

@@ -18,11 +18,21 @@
 	}
 
 	.card-content {
+		text-align: center;
 		.form {
 			display: flex;
 			flex-direction: column;
 			align-items: stretch;
 			gap: 15px;
+		}
+
+		.register-text {
+			display: block;
+			color: var(--blue-accent);
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 	}
 

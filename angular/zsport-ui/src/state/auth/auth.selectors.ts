@@ -28,3 +28,23 @@ export const selectAuthUsuario = createSelector(
 	selectAuthState,
 	(state) => state.usuario
 );
+
+// Selector para el error
+export const selectAuthError = createSelector(
+	selectAuthState,
+	(state) => state.error
+);
+
+export const selectLoggedInSucceded = createSelector(
+	selectAuthState,
+	(state) => ({
+		succeded: !!state.token,
+		errors: state.error
+	})
+);
+
+// Selector para el estado de registro
+export const selectAuthRegisterSucceded = createSelector(
+	selectAuthState,
+	(state) => ({ succeded: state.registerSucceded, errors: state.error }) 
+);

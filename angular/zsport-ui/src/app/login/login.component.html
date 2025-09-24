@@ -7,6 +7,17 @@
 	</mat-card-header>
 	<mat-card-content class="card-content">
 		<form [formGroup]="this.formGroup" class="form">
+			<mat-form-field *ngIf="this.isRegistering" appearance="fill" class="full-width">
+				<mat-label>Nombre de Usuario</mat-label>
+				<input matInput formControlName="userName" type="text" />
+				<mat-error *ngIf="this.formGroup.get('userName')?.hasError('required')">
+					El nombre de usuario es obligatorio.
+				</mat-error>
+				<mat-error *ngIf="this.formGroup.get('userName')?.hasError('maxlength')">
+					El nombre de usuario no puede tener más de 255 caracteres.
+				</mat-error>
+			</mat-form-field>
+
 			<mat-form-field appearance="fill" class="full-width">
 				<mat-label>Correo Electrónico</mat-label>
 				<input matInput formControlName="email" type="email" />
@@ -31,9 +42,24 @@
 				</mat-error>
 			</mat-form-field>
 		</form>
+		<span class="register-text" (click)="this.onRegisterTextClick()">
+			@if (this.isRegistering) {
+				¿No tienes cuenta? Registrate!
+			} @else {
+				¿Ya tienes cuenta? Inicia Sesión!
+			}
+		</span>
 	</mat-card-content>
 	<mat-card-actions class="card-actions">
-		<button
+		@if (this.isRegistering) {
+			<button
+			mat-raised-button
+			class="login-button"
+			(click)="onRegister()"
+			[disabled]="this.formGroup.invalid"
+			>Registrarse</button>
+		} @else {
+			<button
 			mat-raised-button
 			class="login-button"
 			(click)="onLogin()"
@@ -41,6 +67,7 @@
 		>
 			Iniciar Sesión
 		</button>
+		}
 
 		<button mat-button class="cancel-button" (click)="this.onCancel()">
 			Cancelar

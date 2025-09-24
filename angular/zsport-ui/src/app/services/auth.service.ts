@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { LoginUsuarioResponse } from '../../shared/usuarios';
+import { LoginUsuario, LoginUsuarioResponse, RegistroUsuario } from '../../shared/usuarios';
 import { Action, Store } from '@ngrx/store';
 import {
 	selectAuthRefreshToken,
+	selectAuthRegisterSucceded,
 	selectAuthToken,
 	selectAuthUserName,
 	selectAuthUsuario,
+	selectLoggedInSucceded,
 } from '../../state/auth/auth.selectors';
 
 @Injectable({
@@ -22,6 +24,9 @@ export class AuthService {
 	public userName$ = this.store.select(selectAuthUserName);
 	public usuario$ = this.store.select(selectAuthUsuario);
 
+	public registerSucceded$ = this.store.select(selectAuthRegisterSucceded);
+	public loggedInSucceded$ = this.store.select(selectLoggedInSucceded);
+
 	constructor(private readonly http: HttpClient) {}
 
 	public isLoggedIn(): boolean {
@@ -29,11 +34,12 @@ export class AuthService {
 		return !!token;
 	}
 
-	public login(username: string, password: string) {
-		return this.http.post<LoginUsuarioResponse>(`${this.authUrl}/login`, {
-			email: username,
-			password: password,
-		});
+	public register(data: RegistroUsuario) {
+		return this.http.post<{succeded: boolean, errors: string[]}>(`${this.authUrl}/register`, data);
+	}
+
+	public login(data: LoginUsuario) {
+		return this.http.post<LoginUsuarioResponse>(`${this.authUrl}/login`, data);
 	}
 
 	public logout(refreshToken: string) {
