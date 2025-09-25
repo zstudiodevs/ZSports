@@ -1,3 +1,17 @@
-<mat-card>
-    
+<mat-card class="profile-card">
+	<mat-card-header>
+		<mat-card-title class="profile-card-title">
+			<zs-button
+				[id]="this.backButton.id"
+				[icon]="this.backButton.icon"
+				[disabled]="this.backButton.disabled"
+				[type]="this.backButton.htmlType"
+				[buttonType]="this.backButton.type"
+				[color]="this.backButton.color"
+				[label]="this.backButton.label"
+				(click)="this.onBackButtonClicked()"
+			/>
+			Mi Perfil
+		</mat-card-title>
+	</mat-card-header>
 </mat-card>

@@ -5,6 +5,7 @@ import { ShellComponent } from '@components/shell/shell.component';
 import { LoginComponent } from './login/login.component';
 import { Button } from '@components/buttons/button/button.component';
 import { AuthService } from './services/auth.service';
+import { NavigationService } from './services/navigation.service';
 
 const themeButton: Button = {
 	id: 'theme-button',
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit {
 	title = 'zsport-ui';
 	private dialog = inject(MatDialog);
 	private readonly authService = inject(AuthService);
+	private readonly navigationService = inject(NavigationService);
 
 	protected secondaryButtons: Button[] = [];
 
@@ -80,6 +82,10 @@ export class AppComponent implements OnInit {
 			}
 			case 'theme-button': {
 				this.toggleTheme();
+				break;
+			}
+			case 'profile-button': {
+				this.navigationService.navigateTo(['/my-profile']);
 				break;
 			}
 			default:

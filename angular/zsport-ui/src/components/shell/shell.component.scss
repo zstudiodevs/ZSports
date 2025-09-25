@@ -35,3 +35,11 @@ $sidenav-container-height: calc(100vh - #{$toolbar-height});
 		border-right: 1px solid var(--border-color);
 	}
 }
+
+@media screen and (min-width: 600px) {
+	.sidenav-container {
+		.sidenav {
+			border-radius: 0;
+		}
+	}
+}

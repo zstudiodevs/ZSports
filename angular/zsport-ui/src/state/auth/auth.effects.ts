@@ -19,17 +19,18 @@ export class AuthEffects {
 					return { type: 'NO_ACTION' };
 				}
 			})
-		))
+		)
+	);
 
 	register$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(authActions.register),
 			fetch({
 				run: ({ email, password, userName }) =>
-					this.authService.register({email, password, userName}).pipe(
+					this.authService.register({ email, password, userName }).pipe(
 						filter((response) => response.succeded),
 						map((response) => {
-							return authActions.registerSuccess({response});
+							return authActions.registerSuccess({ response });
 						})
 					),
 				onError: (action, error) => {
@@ -44,7 +45,7 @@ export class AuthEffects {
 			ofType(authActions.login),
 			fetch({
 				run: ({ email, password }) =>
-					this.authService.login({email, password}).pipe(
+					this.authService.login({ email, password }).pipe(
 						filter((response) => !!response),
 						map((response) => {
 							localStorage.setItem('authToken', response.token);
@@ -79,11 +80,13 @@ export class AuthEffects {
 			ofType(authActions.updateRefreshToken),
 			fetch({
 				run: ({ refreshToken }) =>
-					this.authService
-						.refreshToken(refreshToken)
-						.pipe(
-							map((response) => authActions.refreshTokenUpdated({ response }))
-						),
+					this.authService.refreshToken(refreshToken).pipe(
+						map((response) => {
+							localStorage.setItem('authToken', response.token);
+							localStorage.setItem('refreshToken', response.refreshToken);
+							return authActions.refreshTokenUpdated({ response });
+						})
+					),
 				onError: (action, error) =>
 					authActions.refreshTokenUpdateFailure({ error }),
 			})
