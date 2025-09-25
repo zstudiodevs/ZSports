@@ -33,6 +33,17 @@ public class UsuariosController(
         return Ok(result);
     }
 
+    [HttpGet("validate-token")]
+    [AllowAnonymous]
+    public IActionResult ValidateToken()
+    {
+        // Si el token es válido, el usuario estará autenticado
+        if (User.Identity?.IsAuthenticated == true)
+            return Ok(new { valid = true });
+
+        return Unauthorized(new { valid = false });
+    }
+
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto dto)
     {

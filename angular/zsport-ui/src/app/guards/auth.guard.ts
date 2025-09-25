@@ -18,38 +18,67 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(): Observable<boolean | UrlTree> {
 		return this.authService.token$.pipe(
+			take(1),
 			switchMap((token) => {
-				if (token) {
-					return of(true);
+				let tokenToValidate = token;
+				if (!tokenToValidate) {
+					tokenToValidate = localStorage.getItem('authToken');
 				}
 
-				// Buscar token en localStorage
-				const localToken = localStorage.getItem('token');
-				const localRefreshToken = localStorage.getItem('refreshToken');
-				if (localToken && localRefreshToken) {
-					// Registrar el token en el store
-					this.store.dispatch(setToken({ token: localToken, refreshToken: localRefreshToken }));
-					return of(true);
-				}
-
-				// Si no hay token, revisa refreshToken
-				return this.authService.refreshToken$.pipe(
-					take(1),
-					switchMap((refreshToken) => {
-						if (refreshToken) {
-							// Intenta refrescar el token
-							return this.authService.refreshToken(refreshToken).pipe(
-								map((response) => {
-									// Si el refresh fue exitoso, permite acceso
-									return !!response ? true : this.router.createUrlTree(['/']);
-								}),
-								catchError(() => of(this.router.createUrlTree(['/'])))
+				if (tokenToValidate) {
+					// Validar token contra el backend
+					return this.authService.validateToken().pipe(
+						map((res) => {
+							if (res && res.valid) {
+								return true;
+							} else {
+								// Si el token no es válido, intentar refresh
+								return null;
+							}
+						}),
+						catchError(() => of(null)),
+						switchMap((isValid) => {
+							if (isValid === true) {
+								return of(true);
+							}
+							// Buscar refreshToken en store o localStorage
+							return this.authService.refreshToken$.pipe(
+								take(1),
+								switchMap((refreshToken) => {
+									let refreshToUse = refreshToken || localStorage.getItem('refreshToken');
+									if (refreshToUse) {
+										return this.authService.refreshToken(refreshToUse).pipe(
+											map((response) => {
+												return !!response ? true : this.router.createUrlTree(['/']);
+											}),
+											catchError(() => of(this.router.createUrlTree(['/'])))
+										);
+									}
+									// Si no hay refreshToken, redirige a login
+									return of(this.router.createUrlTree(['/']));
+								})
 							);
-						}
-						// Si no hay refreshToken, redirige a login
-						return of(this.router.createUrlTree(['/']));
-					})
-				);
+						})
+					);
+				} else {
+					// No hay token, buscar refreshToken
+					return this.authService.refreshToken$.pipe(
+						take(1),
+						switchMap((refreshToken) => {
+							let refreshToUse = refreshToken || localStorage.getItem('refreshToken');
+							if (refreshToUse) {
+								return this.authService.refreshToken(refreshToUse).pipe(
+									map((response) => {
+										return !!response ? true : this.router.createUrlTree(['/']);
+									}),
+									catchError(() => of(this.router.createUrlTree(['/'])))
+								);
+							}
+							// Si no hay refreshToken, redirige a login
+							return of(this.router.createUrlTree(['/']));
+						})
+					);
+				}
 			})
 		);
 	}

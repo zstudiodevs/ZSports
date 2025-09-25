@@ -48,6 +48,10 @@ export class AuthService {
 		});
 	}
 
+	public validateToken() {
+		return this.http.get<{valid: boolean}>(`${this.authUrl}/validate-token`);
+	}
+
 	public refreshToken(refreshToken: string) {
 		return this.http.post<LoginUsuarioResponse>(
 			`${this.authUrl}/refresh-token`,
