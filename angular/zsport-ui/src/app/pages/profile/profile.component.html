@@ -1,17 +1,84 @@
 <mat-card class="profile-card">
-	<mat-card-header>
-		<mat-card-title class="profile-card-title">
+	@if (this.loading$ | async) {
+		<div class="loading-container">
+			<mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+		</div>
+	} @else {
+		<mat-card-header class="profile-card-header">
 			<zs-button
 				[id]="this.backButton.id"
 				[icon]="this.backButton.icon"
 				[disabled]="this.backButton.disabled"
 				[type]="this.backButton.htmlType"
 				[buttonType]="this.backButton.type"
-				[color]="this.backButton.color"
 				[label]="this.backButton.label"
 				(click)="this.onBackButtonClicked()"
 			/>
-			Mi Perfil
-		</mat-card-title>
+			<div>
+				<mat-card-title class="profile-card-title">
+					Mi Perfil
+				</mat-card-title>
+				<mat-card-subtitle class="profile-card-subtitle">
+					{{ this.username$ | async }}
+				</mat-card-subtitle>
+			</div>
 	</mat-card-header>
+	<mat-card-content class="profile-card-content">
+		<form [formGroup]="this.form" class="profile-form">
+			<mat-form-field appearance="outline">
+				<mat-label>Nombre</mat-label>
+				<input matInput formControlName="nombre" />
+				<mat-error *ngIf="this.form.get('nombre')?.hasError('required')">
+					El nombre es obligatorio.
+				</mat-error>
+				<mat-error *ngIf="this.form.get('nombre')?.hasError('maxlength')">
+					El nombre no puede exceder los 100 caracteres.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Apellido</mat-label>
+				<input matInput formControlName="apellido" />
+				<mat-error *ngIf="this.form.get('apellido')?.hasError('required')">
+					El apellido es obligatorio.
+				</mat-error>
+				<mat-error *ngIf="this.form.get('apellido')?.hasError('maxlength')">
+					El apellido no puede exceder los 100 caracteres.
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Email</mat-label>
+				<input matInput formControlName="email" />
+				<mat-error *ngIf="this.form.get('email')?.hasError('required')">
+					El email es obligatorio.
+				</mat-error>
+				<mat-error *ngIf="this.form.get('email')?.hasError('email')">
+					El email no es válido.
+				</mat-error>
+				<mat-error *ngIf="this.form.get('email')?.hasError('maxlength')">
+					El email no puede exceder los 200 caracteres.
+				</mat-error>
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+	<mat-card-actions class="profile-card-actions">
+		<zs-button
+			[id]="this.saveButton.id"
+			[icon]="this.saveButton.icon"
+			[disabled]="this.saveButton.disabled || this.form.invalid"
+			[type]="this.saveButton.htmlType"
+			[buttonType]="this.saveButton.type"
+			[label]="this.saveButton.label"
+			(click)="this.onSaveButtonClicked()"
+		/>
+		<zs-button
+			[id]="this.cancelButton.id"
+			[icon]="this.cancelButton.icon"
+			[disabled]="this.cancelButton.disabled"
+			[type]="this.cancelButton.htmlType"
+			[buttonType]="this.cancelButton.type"
+			[label]="this.cancelButton.label"
+			(click)="this.onCancelButtonClicked()"
+		/>
+	</mat-card-actions>
+	}
 </mat-card>

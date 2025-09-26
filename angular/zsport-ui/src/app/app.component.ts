@@ -13,7 +13,6 @@ const themeButton: Button = {
 	disabled: false,
 	htmlType: 'button',
 	type: 'icon',
-	color: undefined,
 	label: '',
 };
 
@@ -25,7 +24,6 @@ const loggedInButtons: Button[] = [
 		disabled: false,
 		htmlType: 'button',
 		type: 'icon',
-		color: undefined,
 		label: '',
 	},
 ];
@@ -36,7 +34,6 @@ const loggedOutButtons: Button[] = [
 		id: 'login-button',
 		label: 'Iniciar sesión',
 		type: 'flat',
-		color: 'primary',
 		disabled: false,
 		htmlType: 'button',
 	},

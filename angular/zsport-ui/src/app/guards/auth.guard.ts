@@ -3,7 +3,7 @@ import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '@services/auth.service';
 import { Store } from '@ngrx/store';
-import { setToken } from '../../state/auth/auth.actions';
+import { authActions, setToken } from '../../state/auth/auth.actions';
 import { switchMap, take, map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -30,8 +30,15 @@ export class AuthGuard implements CanActivate {
 					return this.authService.validateToken().pipe(
 						map((res) => {
 							if (res && res.valid) {
+								this.store.dispatch(authActions.tokenValidated({
+									valid: res.valid,
+									username: res.username,
+									usuario: res.usuario,
+									error: res.error
+								}));
 								return true;
 							} else {
+								this.store.dispatch(authActions.tokenValidationFailure({ error: res.error }));
 								// Si el token no es válido, intentar refresh
 								return null;
 							}

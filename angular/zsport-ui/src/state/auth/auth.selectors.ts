@@ -20,7 +20,7 @@ export const selectAuthRefreshToken = createSelector(
 // Selector para el userName
 export const selectAuthUserName = createSelector(
 	selectAuthState,
-	(state) => state.userName
+	(state) => state.username
 );
 
 // Selector para el usuario
@@ -35,6 +35,13 @@ export const selectAuthError = createSelector(
 	(state) => state.error
 );
 
+// Selector para el loading
+export const selectAuthLoading = createSelector(
+	selectAuthState,
+	(state) => state.loading
+);
+
+// Selector para el estado de login
 export const selectLoggedInSucceded = createSelector(
 	selectAuthState,
 	(state) => ({
@@ -47,4 +54,9 @@ export const selectLoggedInSucceded = createSelector(
 export const selectAuthRegisterSucceded = createSelector(
 	selectAuthState,
 	(state) => ({ succeded: state.registerSucceded, errors: state.error }) 
+);
+
+export const selectAuthUpdateSucceded = createSelector(
+	selectAuthState,
+	(state) => ({ succeded: state.updateSucceded, errors: state.error })
 );

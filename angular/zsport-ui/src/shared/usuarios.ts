@@ -15,7 +15,7 @@ export interface LoginUsuario {
 export interface LoginUsuarioResponse {
 	token: string;
 	refreshToken: string;
-	userName: string;
+	username: string;
 	usuario: Usuario;
 }
 
@@ -28,4 +28,11 @@ export interface RegistroUsuario {
 export interface RegistroUsuarioResponse {
 	succeded: boolean;
 	errors: string[];
+}
+
+export interface UpdateUsuario {
+	id: string;
+	nombre: string;
+	apellido: string;
+	email: string;
 }

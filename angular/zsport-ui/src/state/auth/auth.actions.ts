@@ -1,5 +1,5 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
-import { LoginUsuarioResponse, RegistroUsuarioResponse } from '../../shared/usuarios';
+import { LoginUsuarioResponse, RegistroUsuarioResponse, UpdateUsuario, Usuario } from '../../shared/usuarios';
 
 export const authActions = createActionGroup({
 	source: 'Auth',
@@ -16,6 +16,11 @@ export const authActions = createActionGroup({
 		UpdateRefreshToken: props<{ refreshToken: string }>(),
 		RefreshTokenUpdated: props<{ response: LoginUsuarioResponse }>(),
 		RefreshTokenUpdateFailure: props<{ error: any }>(),
+		TokenValidated: props<{ valid: boolean, username: string, usuario: Usuario, error: any }>(),
+		TokenValidationFailure: props<{ error: any }>(),
+		UpdateUsuario: props<{data: UpdateUsuario}>(),
+		UpdateUsuarioSuccess: props<{usuario: Usuario}>(),
+		UpdateUsuarioFailure: props<{error: any}>(),
 	},
 });
 

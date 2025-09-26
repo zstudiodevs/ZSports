@@ -10,7 +10,6 @@ export type ButtonHtmlType = 'button' | 'submit' | 'reset';
 export type Button = {
 	id: string;
 	type: ButtonType;
-	color: ButtonColor;
 	disabled: boolean;
 	htmlType: ButtonHtmlType;
 	label: string;
@@ -26,7 +25,6 @@ export type Button = {
 export class ButtonComponent {
 	@Input() id: string = '';
 	@Input() buttonType: ButtonType = 'simple';
-	@Input() color: ButtonColor = undefined;
 	@Input() disabled = false;
 	@Input() type: ButtonHtmlType = 'button';
 	@Input() label = '';

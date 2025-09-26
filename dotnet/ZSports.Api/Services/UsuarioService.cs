@@ -167,4 +167,50 @@ public class UsuarioService(
         await repository.SaveChangesAsync();
         return true;
     }
+    public async Task<UsuarioDto> GetUserByUsername(string username, CancellationToken cancellationToken = default)
+    {
+        var user = await userManager.FindByNameAsync(username);
+        if (user == null)
+            throw new KeyNotFoundException("Usuario no encontrado.");
+        var roles = await userManager.GetRolesAsync(user);
+
+        return new UsuarioDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Nombre = user.Nombre,
+            Apellido = user.Apellido,
+            Activo = user.Activo,
+            Roles = roles
+        };
+    }
+    public async Task<UsuarioDto> UpdateUsuarioAsync(UpdateUsuarioDto request, CancellationToken cancellationToken = default)
+    {
+        var user = await userManager.FindByIdAsync(request.Id.ToString());
+        if (user == null)
+            throw new KeyNotFoundException("Usuario no encontrado.");
+
+        user.SetNombre(request.Nombre);
+        user.SetApellido(request.Apellido);
+
+        if (!string.IsNullOrWhiteSpace(request.Email) && user.Email != request.Email)
+            user.Email = request.Email;
+
+        if (!string.IsNullOrWhiteSpace(request.Nombre) && user.UserName != request.Nombre)
+            user.UserName = request.Nombre;
+
+        var result = await userManager.UpdateAsync(user);
+        if (!result.Succeeded)
+            throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+
+        return new UsuarioDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Nombre = user.Nombre,
+            Apellido = user.Apellido,
+            Activo = user.Activo,
+            Roles = await userManager.GetRolesAsync(user)
+        };
+    }
 }
