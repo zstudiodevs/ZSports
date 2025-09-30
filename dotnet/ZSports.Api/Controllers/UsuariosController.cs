@@ -67,9 +67,9 @@ public class UsuariosController(
     }
 
     [HttpPost("logout")]
-    public async Task<IActionResult> Logout([FromBody] string refreshToken)
+    public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
     {
-        var result = await usuarioService.LogoutAsync(refreshToken);
+        var result = await usuarioService.LogoutAsync(request.RefreshToken);
         if (!result)
             return BadRequest(new { error = "No se pudo cerrar la sesión." });
         return Ok(new { message = "Sesión cerrada correctamente." });

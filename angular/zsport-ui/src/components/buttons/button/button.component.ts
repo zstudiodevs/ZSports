@@ -2,19 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
-export type ButtonType = 'simple' | 'raised' | 'stroked' | 'flat' | 'icon';
-export type ButtonColor = 'primary' | 'accent' | 'warn' | undefined;
-export type ButtonHtmlType = 'button' | 'submit' | 'reset';
-
-export type Button = {
-	id: string;
-	type: ButtonType;
-	disabled: boolean;
-	htmlType: ButtonHtmlType;
-	label: string;
-	icon?: string;
-};
+import { ButtonHtmlType, ButtonType } from '../models';
 
 @Component({
 	selector: 'zs-button',

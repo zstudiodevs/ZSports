@@ -1,18 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators,
+} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule, MatLabel } from '@angular/material/input';
 import { AuthService } from '@app/services/auth.service';
 import { NavigationService } from '@app/services/navigation.service';
-import {
-	Button,
-	ButtonComponent,
-} from '@components/buttons/button/button.component';
+import { Button, ButtonComponent } from '@components/buttons';
 import { UpdateUsuario, Usuario } from '@shared/usuarios';
 import { filter, Observable, Subject, takeUntil } from 'rxjs';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { authActions } from '../../../state/auth/auth.actions';
 
 @Component({
@@ -29,10 +33,10 @@ import { authActions } from '../../../state/auth/auth.actions';
 		MatIconModule,
 		MatLabel,
 		ButtonComponent,
-		MatProgressSpinnerModule
+		MatProgressSpinnerModule,
 	],
 })
-export class ProfileComponent implements OnInit, OnDestroy{
+export class ProfileComponent implements OnInit, OnDestroy {
 	private readonly navigationService = inject(NavigationService);
 	private readonly authService = inject(AuthService);
 	private readonly formBuilder = inject(FormBuilder);
@@ -44,11 +48,21 @@ export class ProfileComponent implements OnInit, OnDestroy{
 	protected usuario$: Observable<Usuario | null>;
 
 	protected form: FormGroup = this.formBuilder.nonNullable.group({
-		nombre: new FormControl<string>('', [Validators.required, Validators.maxLength(100)]),
-		apellido: new FormControl<string>('', [Validators.required, Validators.maxLength(100)]),
-		email: new FormControl<string>('', [Validators.required, Validators.email, Validators.maxLength(200)]),
+		nombre: new FormControl<string>('', [
+			Validators.required,
+			Validators.maxLength(100),
+		]),
+		apellido: new FormControl<string>('', [
+			Validators.required,
+			Validators.maxLength(100),
+		]),
+		email: new FormControl<string>('', [
+			Validators.required,
+			Validators.email,
+			Validators.maxLength(200),
+		]),
 	});
-	
+
 	protected backButton: Button = {
 		id: 'back-button',
 		icon: 'arrow_back',
@@ -65,7 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
 		disabled: this.form.invalid,
 		htmlType: 'submit',
 		type: 'raised',
-	}
+	};
 
 	protected cancelButton: Button = {
 		id: 'cancel-button',
@@ -78,32 +92,33 @@ export class ProfileComponent implements OnInit, OnDestroy{
 
 	ngOnInit(): void {
 		this.loading$ = this.authService.loading$.pipe(
-			filter(x => !!x),
+			filter((x) => !!x),
 			takeUntil(this.destroy$)
 		);
 		this.username$ = this.authService.username$.pipe(
-			filter(x => !!x),
+			filter((x) => !!x),
 			takeUntil(this.destroy$)
 		);
 		this.usuario$ = this.authService.usuario$.pipe(
-			filter(x => !!x),
+			filter((x) => !!x),
 			takeUntil(this.destroy$)
 		);
 
 		this.usuario$
-		.pipe(
-			filter(usuario => !!usuario),
-			takeUntil(this.destroy$))
-		.subscribe(usuario => {
-			if (usuario) {
-				this.formInitialData = usuario;
-				this.form.patchValue({
-					nombre: usuario.nombre,
-					apellido: usuario.apellido,
-					email: usuario.email
-				});
-			}
-		});
+			.pipe(
+				filter((usuario) => !!usuario),
+				takeUntil(this.destroy$)
+			)
+			.subscribe((usuario) => {
+				if (usuario) {
+					this.formInitialData = usuario;
+					this.form.patchValue({
+						nombre: usuario.nombre,
+						apellido: usuario.apellido,
+						email: usuario.email,
+					});
+				}
+			});
 	}
 
 	ngOnDestroy(): void {
@@ -123,25 +138,29 @@ export class ProfileComponent implements OnInit, OnDestroy{
 				id: this.formInitialData.id,
 				nombre: updatedProfile.nombre,
 				apellido: updatedProfile.apellido,
-				email: updatedProfile.email
-			}
-			
-			this.authService.dispatch(authActions.updateUsuario({
-				data: request
-			}));
-			
-			this.authService.updateSucceded$.pipe(
-				filter(result => result !== null),
-				takeUntil(this.destroy$)
-			).subscribe(result => {
-				if (result.succeded) {
-					// Actualización exitosa, manejar según sea necesario
-					console.log('Perfil actualizado con éxito');
-				} else {
-					// Manejar errores de actualización
-					console.error('Error al actualizar el perfil:', result.errors);
-				}
-			});
+				email: updatedProfile.email,
+			};
+
+			this.authService.dispatch(
+				authActions.updateUsuario({
+					data: request,
+				})
+			);
+
+			this.authService.updateSucceded$
+				.pipe(
+					filter((result) => result !== null),
+					takeUntil(this.destroy$)
+				)
+				.subscribe((result) => {
+					if (result.succeded) {
+						// Actualización exitosa, manejar según sea necesario
+						console.log('Perfil actualizado con éxito');
+					} else {
+						// Manejar errores de actualización
+						console.error('Error al actualizar el perfil:', result.errors);
+					}
+				});
 		}
 	}
 
@@ -152,7 +171,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
 			this.form.patchValue({
 				nombre: this.formInitialData.nombre,
 				apellido: this.formInitialData.apellido,
-				email: this.formInitialData.email
+				email: this.formInitialData.email,
 			});
 		}
 	}

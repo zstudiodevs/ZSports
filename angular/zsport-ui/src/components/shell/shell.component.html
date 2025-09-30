@@ -8,17 +8,16 @@
 	/>
 	<span>ZSport UI</span>
 	<span class="spacer"></span>
-	@for(button of this.secondaryButtons; track $index) {
-	<zs-button
-		[id]="button.id"
-		[buttonType]="button.type"
-		[disabled]="button.disabled"
-		[type]="button.htmlType"
-		[icon]="button.icon"
-		[label]="button.label"
-		(onClick)="secondaryButtonClicked.emit(button.id)"
+	<zs-dropdown-button
+		[id]="profileDropdownButton.id"
+		[icon]="profileDropdownButton.icon"
+		[label]="profileDropdownButton.label"
+		[buttonType]="profileDropdownButton.buttonType"
+		[htmlType]="profileDropdownButton.htmlType"
+		[disabled]="profileDropdownButton.disabled"
+		[items]="profileDropdownButton.items"
+		(optionClicked)="secondaryButtonClicked.emit($event)"
 	/>
-	}
 </mat-toolbar>
 <mat-drawer-container autosize class="sidenav-container">
 	<mat-drawer #sidenav class="sidenav" [mode]="this.sidenavMode">

@@ -1,7 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { LoginUsuario, LoginUsuarioResponse, RegistroUsuario, UpdateUsuario, Usuario } from '../../shared/usuarios';
+import {
+	LoginUsuario,
+	LoginUsuarioResponse,
+	RegistroUsuario,
+	UpdateUsuario,
+	Usuario,
+} from '../../shared/usuarios';
 import { Action, Store } from '@ngrx/store';
 import {
 	selectAuthLoading,
@@ -39,7 +45,10 @@ export class AuthService {
 	}
 
 	public register(data: RegistroUsuario) {
-		return this.http.post<{succeded: boolean, errors: string[]}>(`${this.authUrl}/register`, data);
+		return this.http.post<{ succeded: boolean; errors: string[] }>(
+			`${this.authUrl}/register`,
+			data
+		);
 	}
 
 	public login(data: LoginUsuario) {
@@ -47,9 +56,7 @@ export class AuthService {
 	}
 
 	public logout(refreshToken: string) {
-		return this.http.post<void>(`${this.authUrl}/logout`, {
-			refreshToken,
-		});
+		return this.http.post<void>(`${this.authUrl}/logout`, { refreshToken });
 	}
 
 	public update(data: UpdateUsuario) {
@@ -57,7 +64,12 @@ export class AuthService {
 	}
 
 	public validateToken() {
-		return this.http.get<{valid: boolean, username: string, usuario: Usuario, error: any}>(`${this.authUrl}/validate-token`);
+		return this.http.get<{
+			valid: boolean;
+			username: string;
+			usuario: Usuario;
+			error: any;
+		}>(`${this.authUrl}/validate-token`);
 	}
 
 	public refreshToken(refreshToken: string) {

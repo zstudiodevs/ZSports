@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '@services/auth.service';
 import { authActions, setToken } from './auth.actions';
-import { filter, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { filter, map, tap, withLatestFrom } from 'rxjs';
+import { of } from 'rxjs';
+import { switchMap, catchError } from 'rxjs/operators';
 import { fetch } from '@ngrx/router-store/data-persistence';
 
 @Injectable()
@@ -10,14 +12,42 @@ export class AuthEffects {
 	init$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType('@ngrx/effects/init'),
-			map(() => {
+			switchMap(() => {
 				const token = localStorage.getItem('authToken');
 				const refreshToken = localStorage.getItem('refreshToken');
 				if (token && refreshToken) {
-					return setToken({ token, refreshToken });
-				} else {
-					return { type: 'NO_ACTION' };
+					// Valida el token únicamente contra el backend
+					return this.authService.validateToken().pipe(
+						switchMap((result) => {
+							if (result && result.valid) {
+								// Token válido, sincroniza el store
+								return of(setToken({ token, refreshToken }));
+							} else if (refreshToken) {
+								// Token inválido, intenta refrescar
+								return this.authService.refreshToken(refreshToken).pipe(
+									map((response) => {
+										if (response && response.token && response.refreshToken) {
+											localStorage.setItem('authToken', response.token);
+											localStorage.setItem(
+												'refreshToken',
+												response.refreshToken
+											);
+											return setToken({
+												token: response.token,
+												refreshToken: response.refreshToken,
+											});
+										}
+										return { type: 'NO_ACTION' };
+									}),
+									catchError(() => of({ type: 'NO_ACTION' }))
+								);
+							}
+							return of({ type: 'NO_ACTION' });
+						}),
+						catchError(() => of({ type: 'NO_ACTION' }))
+					);
 				}
+				return of({ type: 'NO_ACTION' });
 			})
 		)
 	);
@@ -67,9 +97,13 @@ export class AuthEffects {
 			ofType(authActions.logout),
 			fetch({
 				run: ({ refreshToken }) =>
-					this.authService
-						.logout(refreshToken)
-						.pipe(map(() => authActions.logoutSuccess())),
+					this.authService.logout(refreshToken).pipe(
+						map(() => {
+							localStorage.removeItem('authToken');
+							localStorage.removeItem('refreshToken');
+							return authActions.logoutSuccess();
+						})
+					),
 				onError: (action, error) => authActions.logoutFailure({ error }),
 			})
 		)

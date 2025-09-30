@@ -3,9 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { RouterOutlet } from '@angular/router';
 import { ShellComponent } from '@components/shell/shell.component';
 import { LoginComponent } from './login/login.component';
-import { Button } from '@components/buttons/button/button.component';
+import { Button } from '@components/buttons';
 import { AuthService } from './services/auth.service';
 import { NavigationService } from './services/navigation.service';
+import { Subject, take, takeUntil } from 'rxjs';
+import { authActions } from '../state/auth/auth.actions';
 
 const themeButton: Button = {
 	id: 'theme-button',
@@ -48,6 +50,7 @@ const loggedOutButtons: Button[] = [
 })
 export class AppComponent implements OnInit {
 	title = 'zsport-ui';
+	private destroy$ = new Subject<void>();
 	private dialog = inject(MatDialog);
 	private readonly authService = inject(AuthService);
 	private readonly navigationService = inject(NavigationService);
@@ -55,16 +58,28 @@ export class AppComponent implements OnInit {
 	protected secondaryButtons: Button[] = [];
 
 	ngOnInit(): void {
-		this.authService.token$.subscribe((isLoggedIn) => {
-			this.secondaryButtons = isLoggedIn ? loggedInButtons : loggedOutButtons;
-		});
+		this.authService.token$
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((isLoggedIn) => {
+				this.secondaryButtons = isLoggedIn ? loggedInButtons : loggedOutButtons;
+			});
 	}
 
-	onProfileButtonClicked() {
+	onLoginButtonClicked() {
 		const dialog = this.dialog.open(LoginComponent);
 		dialog.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');
 		});
+	}
+
+	onLogoutButtonClicked() {
+		this.authService.refreshToken$.pipe(take(1)).subscribe((refreshToken) => {
+			if (refreshToken) {
+				this.authService.dispatch(authActions.logout({ refreshToken }));
+			}
+		});
+
+		this.navigationService.navigateTo(['/']);
 	}
 
 	toggleTheme() {
@@ -73,16 +88,20 @@ export class AppComponent implements OnInit {
 
 	onSecondaryButtonClicked(buttonId: string) {
 		switch (buttonId) {
-			case 'login-button': {
-				this.onProfileButtonClicked();
+			case 'login': {
+				this.onLoginButtonClicked();
 				break;
 			}
 			case 'theme-button': {
 				this.toggleTheme();
 				break;
 			}
-			case 'profile-button': {
+			case 'profile': {
 				this.navigationService.navigateTo(['/my-profile']);
+				break;
+			}
+			case 'logout': {
+				this.onLogoutButtonClicked();
 				break;
 			}
 			default:
