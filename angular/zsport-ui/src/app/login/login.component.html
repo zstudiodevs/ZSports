@@ -1,76 +1,89 @@
 <mat-card class="card">
-	<mat-card-header class="card-header">
-		<mat-card-title>Iniciar Sesión</mat-card-title>
-		<mat-card-subtitle>
-			Ingrese sus credenciales para continuar
-		</mat-card-subtitle>
-	</mat-card-header>
-	<mat-card-content class="card-content">
-		<form [formGroup]="this.formGroup" class="form">
-			<mat-form-field *ngIf="this.isRegistering" appearance="fill" class="full-width">
-				<mat-label>Nombre de Usuario</mat-label>
-				<input matInput formControlName="userName" type="text" />
-				<mat-error *ngIf="this.formGroup.get('userName')?.hasError('required')">
-					El nombre de usuario es obligatorio.
-				</mat-error>
-				<mat-error *ngIf="this.formGroup.get('userName')?.hasError('maxlength')">
-					El nombre de usuario no puede tener más de 255 caracteres.
-				</mat-error>
-			</mat-form-field>
+  <mat-card-header class="card-header">
+    <mat-card-title>Iniciar Sesión</mat-card-title>
+    <mat-card-subtitle>
+      Ingrese sus credenciales para continuar
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="card-content">
+    <form [formGroup]="this.formGroup" class="form">
+      @if (this.isRegistering) {
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre de Usuario</mat-label>
+          <input matInput formControlName="userName" type="text" />
+          @if (this.formGroup.get('userName')?.hasError('required')) {
+            <mat-error>
+              El nombre de usuario es obligatorio.
+            </mat-error>
+          }
+          @if (this.formGroup.get('userName')?.hasError('maxlength')) {
+            <mat-error>
+              El nombre de usuario no puede tener más de 255 caracteres.
+            </mat-error>
+          }
+        </mat-form-field>
+      }
 
-			<mat-form-field appearance="fill" class="full-width">
-				<mat-label>Correo Electrónico</mat-label>
-				<input matInput formControlName="email" type="email" />
-				<mat-error *ngIf="this.formGroup.get('email')?.hasError('required')">
-					El correo electrónico es obligatorio.
-				</mat-error>
-				<mat-error *ngIf="this.formGroup.get('email')?.hasError('email')">
-					Ingrese un correo electrónico válido.
-				</mat-error>
-			</mat-form-field>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput formControlName="email" type="email" />
+        @if (this.formGroup.get('email')?.hasError('required')) {
+          <mat-error>
+            El correo electrónico es obligatorio.
+          </mat-error>
+        }
+        @if (this.formGroup.get('email')?.hasError('email')) {
+          <mat-error>
+            Ingrese un correo electrónico válido.
+          </mat-error>
+        }
+      </mat-form-field>
 
-			<mat-form-field appearance="fill" class="full-width">
-				<mat-label>Contraseña</mat-label>
-				<input matInput formControlName="password" type="password" />
-				<mat-error *ngIf="this.formGroup.get('password')?.hasError('required')">
-					La contraseña es obligatoria.
-				</mat-error>
-				<mat-error
-					*ngIf="this.formGroup.get('password')?.hasError('minlength')"
-				>
-					La contraseña debe tener al menos 6 caracteres.
-				</mat-error>
-			</mat-form-field>
-		</form>
-		<span class="register-text" (click)="this.onRegisterTextClick()">
-			@if (this.isRegistering) {
-				¿No tienes cuenta? Registrate!
-			} @else {
-				¿Ya tienes cuenta? Inicia Sesión!
-			}
-		</span>
-	</mat-card-content>
-	<mat-card-actions class="card-actions">
-		@if (this.isRegistering) {
-			<button
-			mat-raised-button
-			class="login-button"
-			(click)="onRegister()"
-			[disabled]="this.formGroup.invalid"
-			>Registrarse</button>
-		} @else {
-			<button
-			mat-raised-button
-			class="login-button"
-			(click)="onLogin()"
-			[disabled]="this.formGroup.invalid"
-		>
-			Iniciar Sesión
-		</button>
-		}
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password" />
+        @if (this.formGroup.get('password')?.hasError('required')) {
+          <mat-error>
+            La contraseña es obligatoria.
+          </mat-error>
+        }
+        @if (this.formGroup.get('password')?.hasError('minlength')) {
+          <mat-error
+            >
+            La contraseña debe tener al menos 6 caracteres.
+          </mat-error>
+        }
+      </mat-form-field>
+    </form>
+    <span class="register-text" (click)="this.onRegisterTextClick()">
+      @if (this.isRegistering) {
+        ¿No tienes cuenta? Registrate!
+      } @else {
+        ¿Ya tienes cuenta? Inicia Sesión!
+      }
+    </span>
+  </mat-card-content>
+  <mat-card-actions class="card-actions">
+    @if (this.isRegistering) {
+      <button
+        mat-raised-button
+        class="login-button"
+        (click)="onRegister()"
+        [disabled]="this.formGroup.invalid"
+      >Registrarse</button>
+    } @else {
+      <button
+        mat-raised-button
+        class="login-button"
+        (click)="onLogin()"
+        [disabled]="this.formGroup.invalid"
+        >
+        Iniciar Sesión
+      </button>
+    }
 
-		<button mat-button class="cancel-button" (click)="this.onCancel()">
-			Cancelar
-		</button>
-	</mat-card-actions>
+    <button mat-button class="cancel-button" (click)="this.onCancel()">
+      Cancelar
+    </button>
+  </mat-card-actions>
 </mat-card>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +8,7 @@ import { ButtonHtmlType, ButtonType } from '../models';
 	selector: 'zs-button',
 	templateUrl: './button.component.html',
 	styleUrl: './button.component.scss',
-	imports: [CommonModule, MatButtonModule, MatIconModule],
+	imports: [MatButtonModule, MatIconModule],
 })
 export class ButtonComponent {
 	@Input() id: string = '';

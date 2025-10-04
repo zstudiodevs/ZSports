@@ -1,55 +1,65 @@
 @switch (this.buttonType) { @case ('flat') {
-<button
-	mat-flat-button
-	[id]="id"
-	[disabled]="disabled"
-	[type]="type"
-	(click)="onClick.emit()"
->
-	<mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-	{{ label }}
-</button>
-} @case ('stroked') {
-<button
-	mat-stroked-button
-	[id]="id"
-	[disabled]="disabled"
-	[type]="type"
-	(click)="onClick.emit()"
->
-	<mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-	{{ label }}
-</button>
-} @case ('raised') {
-<button
-	mat-raised-button
-	[id]="id"
-	[disabled]="disabled"
-	[type]="type"
-	(click)="onClick.emit()"
->
-	<mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-	{{ label }}
-</button>
-} @case ('icon') {
-<button
-	mat-icon-button
-	[id]="id"
-	[disabled]="disabled"
-	[type]="type"
-	(click)="onClick.emit()"
->
-	<mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-</button>
-} @default {
-<button
-	mat-button
-	[id]="id"
-	[disabled]="disabled"
-	[type]="type"
-	(click)="onClick.emit()"
->
-	<mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-	{{ label }}
-</button>
-} }
+  <button
+    mat-flat-button
+    [id]="id"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="onClick.emit()"
+    >
+    @if (icon) {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+    {{ label }}
+  </button>
+  } @case ('stroked') {
+  <button
+    mat-stroked-button
+    [id]="id"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="onClick.emit()"
+    >
+    @if (icon) {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+    {{ label }}
+  </button>
+  } @case ('raised') {
+  <button
+    mat-raised-button
+    [id]="id"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="onClick.emit()"
+    >
+    @if (icon) {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+    {{ label }}
+  </button>
+  } @case ('icon') {
+  <button
+    mat-icon-button
+    [id]="id"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="onClick.emit()"
+    >
+    @if (icon) {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+  </button>
+  } @default {
+  <button
+    mat-button
+    [id]="id"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="onClick.emit()"
+    >
+    @if (icon) {
+      <mat-icon>{{ icon }}</mat-icon>
+    }
+    {{ label }}
+  </button>
+  } }

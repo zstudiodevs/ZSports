@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import {
 	FormBuilder,
@@ -22,15 +22,14 @@ import { authActions } from '../../state/auth/auth.actions';
 	styleUrl: './login.component.scss',
 	standalone: true,
 	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatCardModule,
-		MatInputModule,
-		MatIconModule,
-		MatLabel,
-		MatButtonModule,
-	],
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatLabel,
+    MatButtonModule
+],
 })
 export class LoginComponent {
 	private readonly dialogRef = inject(MatDialogRef<LoginComponent>);

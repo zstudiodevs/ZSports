@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit, output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -16,12 +16,11 @@ import { AuthService } from '@app/services/auth.service';
 	templateUrl: './shell.component.html',
 	styleUrl: './shell.component.scss',
 	imports: [
-		CommonModule,
-		MatToolbarModule,
-		MatSidenavModule,
-		ButtonComponent,
-		DropdownButtonComponent,
-	],
+    MatToolbarModule,
+    MatSidenavModule,
+    ButtonComponent,
+    DropdownButtonComponent
+],
 })
 export class ShellComponent implements OnInit {
 	sidenavMode: 'side' | 'over' = 'side';
