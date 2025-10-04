@@ -7,7 +7,6 @@ import { Button } from '@components/buttons';
 import { AuthService } from './services/auth.service';
 import { NavigationService } from './services/navigation.service';
 import { Subject, take, takeUntil } from 'rxjs';
-import { authActions } from '../state/auth/auth.actions';
 
 const themeButton: Button = {
 	id: 'theme-button',
@@ -57,13 +56,7 @@ export class AppComponent implements OnInit {
 
 	protected secondaryButtons: Button[] = [];
 
-	ngOnInit(): void {
-		this.authService.token$
-			.pipe(takeUntil(this.destroy$))
-			.subscribe((isLoggedIn) => {
-				this.secondaryButtons = isLoggedIn ? loggedInButtons : loggedOutButtons;
-			});
-	}
+	ngOnInit(): void {}
 
 	onLoginButtonClicked() {
 		const dialog = this.dialog.open(LoginComponent);
@@ -73,12 +66,6 @@ export class AppComponent implements OnInit {
 	}
 
 	onLogoutButtonClicked() {
-		this.authService.refreshToken$.pipe(take(1)).subscribe((refreshToken) => {
-			if (refreshToken) {
-				this.authService.dispatch(authActions.logout({ refreshToken }));
-			}
-		});
-
 		this.navigationService.navigateTo(['/']);
 	}
 

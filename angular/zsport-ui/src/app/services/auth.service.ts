@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import {
 	LoginUsuario,
@@ -8,34 +8,12 @@ import {
 	UpdateUsuario,
 	Usuario,
 } from '../../shared/usuarios';
-import { Action, Store } from '@ngrx/store';
-import {
-	selectAuthLoading,
-	selectAuthRefreshToken,
-	selectAuthRegisterSucceded,
-	selectAuthToken,
-	selectAuthUpdateSucceded,
-	selectAuthUserName,
-	selectAuthUsuario,
-	selectLoggedInSucceded,
-} from '../../state/auth/auth.selectors';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
-	private store = inject(Store);
 	private authUrl = `${environment.apiUrl}/Usuarios`;
-
-	public token$ = this.store.select(selectAuthToken);
-	public refreshToken$ = this.store.select(selectAuthRefreshToken);
-	public username$ = this.store.select(selectAuthUserName);
-	public usuario$ = this.store.select(selectAuthUsuario);
-	public loading$ = this.store.select(selectAuthLoading);
-
-	public registerSucceded$ = this.store.select(selectAuthRegisterSucceded);
-	public loggedInSucceded$ = this.store.select(selectLoggedInSucceded);
-	public updateSucceded$ = this.store.select(selectAuthUpdateSucceded);
 
 	constructor(private readonly http: HttpClient) {}
 
@@ -79,9 +57,5 @@ export class AuthService {
 				refreshToken,
 			}
 		);
-	}
-
-	public dispatch(action: Action) {
-		this.store.dispatch(action);
 	}
 }

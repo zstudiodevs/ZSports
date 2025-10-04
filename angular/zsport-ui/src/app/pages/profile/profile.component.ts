@@ -17,7 +17,6 @@ import { Button, ButtonComponent } from '@components/buttons';
 import { UpdateUsuario, Usuario } from '@shared/usuarios';
 import { filter, Observable, Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { authActions } from '../../../state/auth/auth.actions';
 
 @Component({
 	selector: 'zs-profile',
@@ -91,19 +90,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	};
 
 	ngOnInit(): void {
-		this.loading$ = this.authService.loading$.pipe(
-			filter((x) => !!x),
-			takeUntil(this.destroy$)
-		);
-		this.username$ = this.authService.username$.pipe(
-			filter((x) => !!x),
-			takeUntil(this.destroy$)
-		);
-		this.usuario$ = this.authService.usuario$.pipe(
-			filter((x) => !!x),
-			takeUntil(this.destroy$)
-		);
-
 		this.usuario$
 			.pipe(
 				filter((usuario) => !!usuario),
@@ -140,27 +126,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				apellido: updatedProfile.apellido,
 				email: updatedProfile.email,
 			};
-
-			this.authService.dispatch(
-				authActions.updateUsuario({
-					data: request,
-				})
-			);
-
-			this.authService.updateSucceded$
-				.pipe(
-					filter((result) => result !== null),
-					takeUntil(this.destroy$)
-				)
-				.subscribe((result) => {
-					if (result.succeded) {
-						// Actualización exitosa, manejar según sea necesario
-						console.log('Perfil actualizado con éxito');
-					} else {
-						// Manejar errores de actualización
-						console.error('Error al actualizar el perfil:', result.errors);
-					}
-				});
 		}
 	}
 

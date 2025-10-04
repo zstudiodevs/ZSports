@@ -1,4 +1,3 @@
-
 import { Component, Input, OnInit, output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -16,11 +15,11 @@ import { AuthService } from '@app/services/auth.service';
 	templateUrl: './shell.component.html',
 	styleUrl: './shell.component.scss',
 	imports: [
-    MatToolbarModule,
-    MatSidenavModule,
-    ButtonComponent,
-    DropdownButtonComponent
-],
+		MatToolbarModule,
+		MatSidenavModule,
+		ButtonComponent,
+		DropdownButtonComponent,
+	],
 })
 export class ShellComponent implements OnInit {
 	sidenavMode: 'side' | 'over' = 'side';
@@ -50,39 +49,5 @@ export class ShellComponent implements OnInit {
 				this.sidenavMode = result.matches ? 'over' : 'side';
 				this.isSidenavOpened = !result.matches;
 			});
-
-		this.authService.loggedInSucceded$.subscribe((response) => {
-			if (response && response.succeded) {
-				this.profileDropdownButton.items = [
-					{
-						id: 'profile',
-						type: 'simple',
-						disabled: false,
-						htmlType: 'button',
-						label: 'Perfil',
-						icon: 'person',
-					},
-					{
-						id: 'logout',
-						type: 'simple',
-						disabled: false,
-						htmlType: 'button',
-						label: 'Cerrar Sesión',
-						icon: 'logout',
-					},
-				];
-			} else {
-				this.profileDropdownButton.items = [
-					{
-						id: 'login',
-						type: 'simple',
-						disabled: false,
-						htmlType: 'button',
-						label: 'Iniciar Sesión',
-						icon: 'login',
-					},
-				];
-			}
-		});
 	}
 }
