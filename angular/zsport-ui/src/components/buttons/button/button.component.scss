@@ -1,13 +1,24 @@
 button[mat-raised-button] {
 	background-color: var(--success);
 	color: var(--text-primary);
+	&:disabled {
+		background-color: var(--surface-variant);
+		color: var(--text-muted);
+	}
 }
 button[mat-stroked-button] {
 	background-color: var(--danger);
 	color: var(--text-secondary);
+	&:disabled {
+		background-color: var(--surface-variant);
+		color: var(--text-muted);
+	}
 }
 
 button[mat-icon-button] {
 	background-color: transparent;
 	color: var(--text-primary);
+	&:disabled {
+		color: var(--text-muted);
+	}
 }

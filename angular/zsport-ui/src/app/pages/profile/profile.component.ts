@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
-	FormBuilder,
+	Component,
+	computed,
+	effect,
+	ElementRef,
+	inject,
+	signal,
+	ViewChild,
+} from '@angular/core';
+import {
 	FormControl,
-	FormGroup,
 	FormsModule,
 	ReactiveFormsModule,
 	Validators,
@@ -11,12 +17,15 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule, MatLabel } from '@angular/material/input';
-import { AuthService } from '@app/services/auth.service';
 import { NavigationService } from '@app/services/navigation.service';
 import { Button, ButtonComponent } from '@components/buttons';
-import { UpdateUsuario, Usuario } from '@shared/usuarios';
-import { filter, Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingService } from '@app/shared/loading/services/loading.service';
+import { AuthStore } from '@app/auth/store/auth.store';
+import { UpdateUserRequest, User } from '@app/auth/types/auth.type';
+import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
+import { AuthService } from '@app/auth/auth.service';
 
 @Component({
 	selector: 'zs-profile',
@@ -35,81 +44,92 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 		MatProgressSpinnerModule,
 	],
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent {
+	@ViewChild('loadingRef', { static: true }) loadingRef: ElementRef;
+	private readonly loadingService = inject(LoadingService);
 	private readonly navigationService = inject(NavigationService);
+	private readonly snackbarService = inject(SnackbarService);
 	private readonly authService = inject(AuthService);
-	private readonly formBuilder = inject(FormBuilder);
+	private readonly authStore = inject(AuthStore);
 	private destroy$ = new Subject<void>();
-	private formInitialData: Usuario;
+	private isFormValid = signal<boolean>(false);
 
-	protected loading$: Observable<boolean>;
-	protected username$: Observable<string | null>;
-	protected usuario$: Observable<Usuario | null>;
+	protected username: string | null = null;
+	protected user: User | null = null;
 
-	protected form: FormGroup = this.formBuilder.nonNullable.group({
-		nombre: new FormControl<string>('', [
-			Validators.required,
-			Validators.maxLength(100),
-		]),
-		apellido: new FormControl<string>('', [
-			Validators.required,
-			Validators.maxLength(100),
-		]),
-		email: new FormControl<string>('', [
-			Validators.required,
-			Validators.email,
-			Validators.maxLength(200),
-		]),
-	});
+	protected nombreControl = new FormControl('', [Validators.required]);
+	protected apellidoControl = new FormControl('', [Validators.required]);
+	protected emailControl = new FormControl('', [
+		Validators.required,
+		Validators.email,
+	]);
 
-	protected backButton: Button = {
-		id: 'back-button',
-		icon: 'arrow_back',
-		disabled: false,
-		htmlType: 'button',
-		type: 'icon',
-		label: '',
-	};
-
-	protected saveButton: Button = {
-		id: 'save-button',
-		icon: 'save',
+	protected saveButton = computed<Button>(() => ({
+		id: 'save',
 		label: 'Guardar',
-		disabled: this.form.invalid,
-		htmlType: 'submit',
+		icon: 'save',
 		type: 'raised',
-	};
-
-	protected cancelButton: Button = {
-		id: 'cancel-button',
-		icon: 'cancel',
+		htmlType: 'submit',
+		disabled: !this.isFormValid(),
+		action: () => this.onSaveButtonClicked(),
+	}));
+	protected cancelButton = computed<Button>(() => ({
+		id: 'cancel',
 		label: 'Cancelar',
-		disabled: false,
-		htmlType: 'button',
+		icon: 'cancel',
 		type: 'stroked',
+		htmlType: 'button',
+		disabled: false,
+		action: () => this.onCancelButtonClicked(),
+	}));
+	protected backButton: Button = {
+		id: 'back',
+		icon: 'arrow_back',
+		type: 'icon',
+		htmlType: 'button',
+		disabled: false,
+		action: () => this.onBackButtonClicked(),
 	};
 
-	ngOnInit(): void {
-		this.usuario$
-			.pipe(
-				filter((usuario) => !!usuario),
-				takeUntil(this.destroy$)
-			)
-			.subscribe((usuario) => {
-				if (usuario) {
-					this.formInitialData = usuario;
-					this.form.patchValue({
-						nombre: usuario.nombre,
-						apellido: usuario.apellido,
-						email: usuario.email,
-					});
-				}
-			});
+	constructor() {
+		effect(() => {
+			this.loadingService.show(this.loadingRef);
+			const user = this.authStore.user$();
+			if (user) {
+				this.user = user;
+				this.nombreControl.setValue(user.nombre);
+				this.apellidoControl.setValue(user.apellido);
+				this.emailControl.setValue(user.email);
+				this.loadingService.hide();
+			} else {
+				this.snackbarService.open({
+					message: 'Error al cargar los datos del usuario',
+					type: 'danger',
+					duration: 5000,
+				});
+			}
+		});
+		effect(() => {
+			this.username = this.authStore.username$();
+		});
+
+		this.nombreControl.valueChanges
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => this.updateFormValidity());
+		this.apellidoControl.valueChanges
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => this.updateFormValidity());
+		this.emailControl.valueChanges
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => this.updateFormValidity());
 	}
 
-	ngOnDestroy(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
+	private updateFormValidity() {
+		this.isFormValid.set(
+			this.nombreControl.valid &&
+				this.apellidoControl.valid &&
+				this.emailControl.valid
+		);
 	}
 
 	onBackButtonClicked() {
@@ -117,27 +137,48 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	}
 
 	onSaveButtonClicked() {
-		// Lógica para guardar los cambios del perfil
-		if (this.form.valid) {
-			const updatedProfile = this.form.value;
-			const request: UpdateUsuario = {
-				id: this.formInitialData.id,
-				nombre: updatedProfile.nombre,
-				apellido: updatedProfile.apellido,
-				email: updatedProfile.email,
+		if (this.isFormValid()) {
+			const nombre = this.nombreControl.value!;
+			const apellido = this.apellidoControl.value!;
+			const email = this.emailControl.value!;
+			const request: UpdateUserRequest = {
+				id: this.user!.id,
+				nombre,
+				apellido,
+				email,
 			};
+			this.loadingService.show(this.loadingRef);
+			this.authService
+				.updateProfile(request)
+				.pipe(takeUntil(this.destroy$))
+				.subscribe({
+					next: (user) => {
+						this.authStore.setState({ user });
+						this.loadingService.hide();
+						this.snackbarService.open({
+							message: 'Perfil actualizado correctamente',
+							type: 'success',
+						});
+					},
+					error: (error) => {
+						this.loadingService.hide();
+						this.snackbarService.open({
+							message: error.message
+								? error.message
+								: 'Error al actualizar el perfil',
+							type: 'danger',
+							duration: 5000,
+						});
+					},
+				});
 		}
 	}
 
 	onCancelButtonClicked() {
-		// Lógica para cancelar los cambios y posiblemente restaurar los valores originales
-		if (this.formInitialData) {
-			this.form.reset();
-			this.form.patchValue({
-				nombre: this.formInitialData.nombre,
-				apellido: this.formInitialData.apellido,
-				email: this.formInitialData.email,
-			});
+		if (this.user) {
+			this.nombreControl.setValue(this.user.nombre);
+			this.apellidoControl.setValue(this.user.apellido);
+			this.emailControl.setValue(this.user.email);
 		}
 	}
 }

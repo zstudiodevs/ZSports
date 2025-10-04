@@ -7,8 +7,9 @@ export type Button = {
 	type: ButtonType;
 	disabled: boolean;
 	htmlType: ButtonHtmlType;
-	label: string;
+	label?: string;
 	icon?: string;
+	action: () => void;
 };
 
 export type DropdownButton = {

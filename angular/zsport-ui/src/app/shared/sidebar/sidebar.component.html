@@ -1,0 +1,23 @@
+<zs-toolbar
+	class="menu-toolbar"
+	[title]="this.title"
+	[secondaryButtons]="this.secondaryButtons"
+/>
+<mat-nav-list class="menu-list">
+	@for (item of this.menuItems; track $index) {
+	<mat-list-item
+		class="menu-list-item"
+		[routerLink]="item.route"
+		(click)="closeSidebar()"
+	>
+		@if (item.icon) {
+		<mat-icon class="menu-list-item-icon" matListItemIcon>{{
+			item.icon
+		}}</mat-icon>
+		}
+		<span class="menu-list-item-label" matListItemLabel>{{ item.label }}</span>
+	</mat-list-item>
+	@if ($index < this.menuItems.length - 1) {
+	<mat-divider></mat-divider>
+	} }
+</mat-nav-list>

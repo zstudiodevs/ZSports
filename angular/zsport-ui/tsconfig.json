@@ -22,7 +22,6 @@
       "@env/*": ["./src/environment/*"],
       "@components/*": ["./src/components/*"],
       "@services/*": ["./src/app/services/*"],
-      "@shared/*" : ["./src/shared/*"]
     },
     "strictPropertyInitialization": false,
     "useDefineForClassFields": false

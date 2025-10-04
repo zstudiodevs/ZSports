@@ -1,98 +1,73 @@
+<div #loadingRef></div>
 <mat-card class="profile-card">
-  @if (this.loading$ | async) {
-    <div class="loading-container">
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-    </div>
-  } @else {
-    <mat-card-header class="profile-card-header">
-      <zs-button
-        [id]="this.backButton.id"
-        [icon]="this.backButton.icon"
-        [disabled]="this.backButton.disabled"
-        [type]="this.backButton.htmlType"
-        [buttonType]="this.backButton.type"
-        [label]="this.backButton.label"
-        (click)="this.onBackButtonClicked()"
-        />
-        <div>
-          <mat-card-title class="profile-card-title">
-            Mi Perfil
-          </mat-card-title>
-          <mat-card-subtitle class="profile-card-subtitle">
-            {{ this.username$ | async }}
-          </mat-card-subtitle>
-        </div>
-      </mat-card-header>
-      <mat-card-content class="profile-card-content">
-        <form [formGroup]="this.form" class="profile-form">
-          <mat-form-field appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre" />
-            @if (this.form.get('nombre')?.hasError('required')) {
-              <mat-error>
-                El nombre es obligatorio.
-              </mat-error>
-            }
-            @if (this.form.get('nombre')?.hasError('maxlength')) {
-              <mat-error>
-                El nombre no puede exceder los 100 caracteres.
-              </mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Apellido</mat-label>
-            <input matInput formControlName="apellido" />
-            @if (this.form.get('apellido')?.hasError('required')) {
-              <mat-error>
-                El apellido es obligatorio.
-              </mat-error>
-            }
-            @if (this.form.get('apellido')?.hasError('maxlength')) {
-              <mat-error>
-                El apellido no puede exceder los 100 caracteres.
-              </mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" />
-            @if (this.form.get('email')?.hasError('required')) {
-              <mat-error>
-                El email es obligatorio.
-              </mat-error>
-            }
-            @if (this.form.get('email')?.hasError('email')) {
-              <mat-error>
-                El email no es válido.
-              </mat-error>
-            }
-            @if (this.form.get('email')?.hasError('maxlength')) {
-              <mat-error>
-                El email no puede exceder los 200 caracteres.
-              </mat-error>
-            }
-          </mat-form-field>
-        </form>
-      </mat-card-content>
-      <mat-card-actions class="profile-card-actions">
-        <zs-button
-          [id]="this.saveButton.id"
-          [icon]="this.saveButton.icon"
-          [disabled]="this.saveButton.disabled || this.form.invalid"
-          [type]="this.saveButton.htmlType"
-          [buttonType]="this.saveButton.type"
-          [label]="this.saveButton.label"
-          (click)="this.onSaveButtonClicked()"
-          />
-          <zs-button
-            [id]="this.cancelButton.id"
-            [icon]="this.cancelButton.icon"
-            [disabled]="this.cancelButton.disabled"
-            [type]="this.cancelButton.htmlType"
-            [buttonType]="this.cancelButton.type"
-            [label]="this.cancelButton.label"
-            (click)="this.onCancelButtonClicked()"
-            />
-          </mat-card-actions>
-        }
-      </mat-card>
+	<mat-card-header class="profile-card-header">
+		<zs-button
+			[id]="this.backButton.id"
+			[icon]="this.backButton.icon"
+			[buttonType]="this.backButton.type"
+			[htmlType]="this.backButton.htmlType"
+			[disabled]="this.backButton.disabled"
+			[action]="this.backButton.action"
+		/>
+		<div>
+			<mat-card-title class="profile-card-title"> Mi Perfil </mat-card-title>
+			<mat-card-subtitle class="profile-card-subtitle">
+				{{ this.username }}
+			</mat-card-subtitle>
+		</div>
+	</mat-card-header>
+	<mat-card-content class="profile-card-content">
+		<mat-form-field appearance="outline">
+			<mat-label>Nombre</mat-label>
+			<input matInput [formControl]="nombreControl" />
+			@if (nombreControl.invalid && (nombreControl.dirty ||
+			nombreControl.touched)) { @if (nombreControl.errors?.['required']) {
+			<mat-error> El nombre es obligatorio. </mat-error>
+			} @else if (nombreControl.errors?.['maxlength']) {
+			<mat-error> El nombre no puede exceder los 100 caracteres. </mat-error>
+			} }
+		</mat-form-field>
+		<mat-form-field appearance="outline">
+			<mat-label>Apellido</mat-label>
+			<input matInput [formControl]="apellidoControl" />
+			@if (apellidoControl.invalid && (apellidoControl.dirty ||
+			apellidoControl.touched)) { @if (apellidoControl.errors?.['required']) {
+			<mat-error> El apellido es obligatorio. </mat-error>
+			} @else if (apellidoControl.errors?.['maxlength']) {
+			<mat-error> El apellido no puede exceder los 100 caracteres. </mat-error>
+			} }
+		</mat-form-field>
+		<mat-form-field appearance="outline">
+			<mat-label>Email</mat-label>
+			<input matInput [formControl]="emailControl" />
+			@if (emailControl.invalid && (emailControl.dirty || emailControl.touched))
+			{ @if (emailControl.errors?.['required']) {
+			<mat-error> El email es obligatorio. </mat-error>
+			} @if (emailControl.hasError('email')) {
+			<mat-error> El email no es válido. </mat-error>
+			} @if (emailControl.hasError('maxlength')) {
+			<mat-error> El email no puede exceder los 200 caracteres. </mat-error>
+			}}
+		</mat-form-field>
+	</mat-card-content>
+	<mat-card-actions class="profile-card-actions">
+		<zs-button
+			[id]="this.saveButton().id"
+			[label]="this.saveButton().label"
+			[icon]="this.saveButton().icon"
+			[buttonType]="this.saveButton().type"
+			[htmlType]="this.saveButton().htmlType"
+			[disabled]="this.saveButton().disabled"
+			[action]="this.saveButton().action"
+		/>
+		<zs-button
+			[id]="this.cancelButton().id"
+			[label]="this.cancelButton().label"
+			[icon]="this.cancelButton().icon"
+			[buttonType]="this.cancelButton().type"
+			[htmlType]="this.cancelButton().htmlType"
+			[disabled]="this.cancelButton().disabled"
+			[action]="this.cancelButton().action"
+		/>
+	</mat-card-actions>
+</mat-card>

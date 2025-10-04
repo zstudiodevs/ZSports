@@ -1,0 +1,41 @@
+<mat-toolbar class="toolbar">
+	@if (this.mainButton()) {
+	<zs-button
+		class="main-button"
+		[id]="this.mainButton()!.id"
+		[label]="this.mainButton()!.label"
+		[icon]="this.mainButton()!.icon"
+		[buttonType]="this.mainButton()!.type"
+		[htmlType]="this.mainButton()!.htmlType"
+		[disabled]="this.mainButton()!.disabled"
+		[action]="this.mainButton()!.action"
+	/>
+	} @if (this.title()) {
+	<span class="toolbar-title">{{ this.title() }}</span>
+	}
+	<span class="toolbar-spacer"></span>
+	@for (button of this.secondaryButtons(); track $index) { @if ('items' in
+	button) {
+	<zs-dropdown-button
+		class="secondary-button"
+		[id]="button.id"
+		[label]="button.label"
+		[icon]="button.icon"
+		[buttonType]="button.buttonType"
+		[htmlType]="button.htmlType"
+		[disabled]="button.disabled"
+		[items]="button.items"
+	/>
+	} @else {
+	<zs-button
+		class="secondary-button"
+		[id]="button.id"
+		[label]="button.label"
+		[icon]="button.icon"
+		[buttonType]="button.type"
+		[htmlType]="button.htmlType"
+		[disabled]="button.disabled"
+		[action]="button.action"
+	/>
+	} }
+</mat-toolbar>

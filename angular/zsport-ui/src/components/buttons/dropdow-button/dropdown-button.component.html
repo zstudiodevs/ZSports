@@ -31,7 +31,7 @@
 		class="zs-dropdown-button-option"
 		[id]="item.id"
 		[disabled]="item.disabled"
-		(click)="optionClicked.emit(item.id)"
+		(click)="item.action()"
 	>
 		@if (item.icon) {
 		<mat-icon>{{ item.icon }}</mat-icon>

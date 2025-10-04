@@ -1,5 +1,11 @@
-
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	input,
+	Input,
+	output,
+	Output,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonHtmlType, ButtonType } from '../models';
@@ -11,11 +17,11 @@ import { ButtonHtmlType, ButtonType } from '../models';
 	imports: [MatButtonModule, MatIconModule],
 })
 export class ButtonComponent {
-	@Input() id: string = '';
-	@Input() buttonType: ButtonType = 'simple';
-	@Input() disabled = false;
-	@Input() type: ButtonHtmlType = 'button';
-	@Input() label = '';
-	@Input() icon?: string;
-	@Output() onClick = new EventEmitter<void>();
+	id = input.required<string>();
+	label = input<string>();
+	icon = input<string>();
+	buttonType = input<ButtonType>('simple');
+	htmlType = input<ButtonHtmlType>('button');
+	disabled = input<boolean>(false);
+	action = input.required<() => void>();
 }
