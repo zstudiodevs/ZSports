@@ -1,9 +1,11 @@
-﻿using ZSports.Contracts.Repositories;
+﻿using Microsoft.Extensions.Logging;
+using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
 using ZSports.Contracts.Superficies;
 using ZSports.Domain.Entities;
+using ZSports.Domain.Mapper;
 
-namespace ZSports.Api.Services;
+namespace ZSports.Persistence.Services;
 
 public class SuperficieService(
     ILogger<SuperficieService> logger,
@@ -24,11 +26,7 @@ public class SuperficieService(
                 if (superficieExistente is not null)
                 {
                     logger.LogInformation("La superficie {Superficie} ya existe con Id: {Id}", superficie, superficieExistente.Id);
-                    return new SuperficieDto
-                    {
-                        Id = superficieExistente.Id,
-                        Nombre = superficieExistente.Nombre
-                    };
+                    return superficieExistente;
                 }
 
                 logger.LogInformation("Creando superficie: {Superficie}", superficie);
@@ -41,11 +39,7 @@ public class SuperficieService(
                 transaction.Commit();
 
                 logger.LogInformation("Superficie {Superficie} creada con Id: {Id}", superficie, nuevaSuperficie.Id);
-                return new SuperficieDto
-                {
-                    Id = nuevaSuperficie.Id,
-                    Nombre = nuevaSuperficie.Nombre
-                };
+                return SuperficieMapper.Map(nuevaSuperficie);
             }
             catch (Exception)
             {
@@ -57,9 +51,9 @@ public class SuperficieService(
         }
     }
 
-    public async Task<IEnumerable<SuperficieDto>> GetAllSuperficiesAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<SuperficieDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var superficies = await genericRepository.GetAllAsync();
-        return superficies.Select(s => new SuperficieDto() { Id = s.Id, Nombre = s.Nombre });
+        return SuperficieMapper.MapCollection(superficies);
     }
 }

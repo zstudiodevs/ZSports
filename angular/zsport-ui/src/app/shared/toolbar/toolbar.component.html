@@ -26,14 +26,24 @@
 		[disabled]="button.disabled"
 		[items]="button.items"
 	/>
-	} @else {
+	} @else if ('label' in button) {
 	<zs-button
 		class="secondary-button"
 		[id]="button.id"
 		[label]="button.label"
 		[icon]="button.icon"
-		[buttonType]="button.type"
+		[buttonType]="button.buttonType"
 		[htmlType]="button.htmlType"
+		[disabled]="button.disabled"
+		[action]="button.action"
+	/>
+	} @else {
+	<zs-icon-button
+		class="secondary-button"
+		[id]="button.id"
+		[icon]="button.icon!"
+		[iconType]="typeof button.buttonType === 'IconButtonType' ? button.buttonType : 'icon'"
+		[type]="button.htmlType"
 		[disabled]="button.disabled"
 		[action]="button.action"
 	/>

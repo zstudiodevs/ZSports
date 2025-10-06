@@ -26,4 +26,22 @@ public class SuperficiesController(
             return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while creating the superficie.");
         }
     }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var superficies = await service.GetAllAsync(cancellationToken);
+            return Ok(superficies);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error retrieving superficies");
+            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving the superficies.");
+        }
+    }
+
 }

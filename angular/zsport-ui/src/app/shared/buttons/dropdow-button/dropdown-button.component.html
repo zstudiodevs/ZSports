@@ -24,7 +24,7 @@
 	<mat-icon>{{ this.icon() }}</mat-icon>
 </button>
 }
-<mat-menu #zsOptions>
+<mat-menu #zsOptions xPosition="before" yPosition="below">
 	@for (item of items; track $index) {
 	<button
 		mat-menu-item

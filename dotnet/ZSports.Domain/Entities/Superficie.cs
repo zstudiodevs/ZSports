@@ -5,6 +5,13 @@ public class Superficie
     public Guid Id{ get; private set; } = Guid.NewGuid();
     public string Nombre { get; private set; } = string.Empty;
 
+    public void SetId(Guid id)
+    {
+        if (id == Guid.Empty)
+            throw new ArgumentException("El ID no puede ser vacío.");
+        Id = id;
+    }
+
     public void SetNombre(string nombre)
     {
         if (string.IsNullOrWhiteSpace(nombre))

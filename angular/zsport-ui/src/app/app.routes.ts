@@ -13,6 +13,14 @@ export const routes: Routes = [
 					),
 				canActivate: [authGuard],
 			},
+			{
+				path: 'superficies',
+				loadComponent: () =>
+					import('./pages/Superficies/superficies.component').then(
+						(m) => m.SuperficiesComponent
+					),
+				canActivate: [authGuard],
+			},
 		],
 	},
 ];

@@ -1,0 +1,37 @@
+@switch (this.iconType()) { @case ('fab') {
+<button
+	mat-fab
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="type()"
+	(click)="action()()"
+>
+	@if (icon()) {
+	<mat-icon>{{ icon() }}</mat-icon>
+	}
+</button>
+} @case ('mini-fab') {
+<button
+	mat-mini-fab
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="type()"
+	(click)="action()()"
+>
+	@if (icon()) {
+	<mat-icon>{{ icon() }}</mat-icon>
+	}
+</button>
+} @default {
+<button
+	mat-icon-button
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="type()"
+	(click)="action()()"
+>
+	@if (icon()) {
+	<mat-icon>{{ icon() }}</mat-icon>
+	}
+</button>
+} }

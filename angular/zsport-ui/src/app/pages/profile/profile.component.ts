@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule, MatLabel } from '@angular/material/input';
 import { NavigationService } from '@app/services/navigation.service';
-import { Button, ButtonComponent } from '@components/buttons';
+import { Button, ButtonComponent } from '@app/shared/buttons';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingService } from '@app/shared/loading/services/loading.service';
@@ -68,7 +68,7 @@ export class ProfileComponent {
 		id: 'save',
 		label: 'Guardar',
 		icon: 'save',
-		type: 'raised',
+		buttonType: 'raised',
 		htmlType: 'submit',
 		disabled: !this.isFormValid(),
 		action: () => this.onSaveButtonClicked(),
@@ -77,7 +77,7 @@ export class ProfileComponent {
 		id: 'cancel',
 		label: 'Cancelar',
 		icon: 'cancel',
-		type: 'stroked',
+		buttonType: 'stroked',
 		htmlType: 'button',
 		disabled: false,
 		action: () => this.onCancelButtonClicked(),
@@ -85,7 +85,7 @@ export class ProfileComponent {
 	protected backButton: Button = {
 		id: 'back',
 		icon: 'arrow_back',
-		type: 'icon',
+		buttonType: 'icon',
 		htmlType: 'button',
 		disabled: false,
 		action: () => this.onBackButtonClicked(),

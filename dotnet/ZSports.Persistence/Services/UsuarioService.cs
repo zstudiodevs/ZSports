@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,11 +11,10 @@ using ZSports.Contracts.Usuarios;
 using ZSports.Domain.Constants;
 using ZSports.Domain.Entities;
 
-namespace ZSports.Api.Services;
+namespace ZSports.Persistence.Services;
 
 public class UsuarioService(
     UserManager<Usuario> userManager,
-    RoleManager<IdentityRole<Guid>> roleManager,
     IRepository<RefreshToken, Guid> repository,
     IConfiguration configuration) : IUsuarioService
 {

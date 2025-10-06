@@ -10,7 +10,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { Button, DropdownButton } from '@components/buttons';
+import { Button, DropdownButton } from '@app/shared/buttons';
 import { NavigationService } from './services/navigation.service';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
 	protected mainButton: Button = {
 		id: 'menu',
 		icon: 'menu',
-		type: 'icon',
+		buttonType: 'icon',
 		htmlType: 'button',
 		disabled: false,
 		action: () => this.onMenuButtonClicked(),
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
 							id: 'profile',
 							label: 'Mi Perfil',
 							icon: 'person',
-							type: 'flat',
+							buttonType: 'flat',
 							htmlType: 'button',
 							disabled: false,
 							action: () => this.onSecondaryButtonClicked('profile'),
@@ -95,7 +95,7 @@ export class AppComponent implements OnInit {
 							id: 'logout',
 							label: 'Cerrar Sesión',
 							icon: 'logout',
-							type: 'flat',
+							buttonType: 'flat',
 							htmlType: 'button',
 							disabled: false,
 							action: () => this.onSecondaryButtonClicked('logout'),
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
 							id: 'login',
 							label: 'Iniciar Sesión',
 							icon: 'login',
-							type: 'flat',
+							buttonType: 'flat',
 							htmlType: 'button',
 							disabled: false,
 							action: () => this.onSecondaryButtonClicked('login'),

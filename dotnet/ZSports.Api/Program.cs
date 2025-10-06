@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ZSports.Api.Services;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
 using ZSports.Domain.Entities;
 using ZSports.Persistence;
 using ZSports.Persistence.Repositories;
+using ZSports.Persistence.Services;
 
 namespace ZSports.Api
 {

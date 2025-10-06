@@ -1,8 +1,8 @@
-﻿using ZSports.Domain.Entities;
+﻿using ZSports.Contracts.Superficies;
 
 namespace ZSports.Contracts.Repositories;
 
 public interface ISuperficieRepository
 {
-    Task<Superficie?> GetByNombreAsync(string nombre, CancellationToken cancellationToken = default);
+    Task<SuperficieDto?> GetByNombreAsync(string nombre, CancellationToken cancellationToken = default);
 }

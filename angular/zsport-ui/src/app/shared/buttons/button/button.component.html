@@ -37,18 +37,6 @@
 	}
 	{{ label() }}
 </button>
-} @case ('icon') {
-<button
-	mat-icon-button
-	[id]="id()"
-	[disabled]="disabled()"
-	[type]="htmlType()"
-	(click)="action()()"
->
-	@if (icon()) {
-	<mat-icon>{{ icon() }}</mat-icon>
-	}
-</button>
 } @default {
 <button
 	mat-button
@@ -59,7 +47,8 @@
 >
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
-	}
+	} @if (label()) {
 	{{ label() }}
+	}
 </button>
 } }
