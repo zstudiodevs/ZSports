@@ -1,12 +1,8 @@
 import {
 	Component,
-	ElementRef,
 	inject,
-	signal,
-	ViewChild,
 } from '@angular/core';
 import {
-	FormBuilder,
 	FormControl,
 	FormsModule,
 	ReactiveFormsModule,
@@ -85,6 +81,14 @@ export class LoginComponent {
 						this.dialogRef.close(true);
 					},
 					error: (error) => {
+						this.loadingService.hide();
+						this.authStore.setState({
+							token: null,
+							refreshToken: null,
+							username: null,
+							user: null,
+							isAuthenticated: false,
+						});
 						this.snackbarService.open({
 							message: error.error?.message || 'Error en el inicio de sesión',
 							duration: 5000,

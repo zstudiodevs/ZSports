@@ -24,9 +24,11 @@ public class UsuariosController(
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginUsuarioDto loginDto)
     {
-        var result = await usuarioService.LoginAsync(loginDto);
+        var loginResult = await usuarioService.LoginAsync(loginDto);
+        var result = loginResult.Response;
+        var error = loginResult.Error;
         if (result == null)
-            return Unauthorized(new { error = "Credenciales inválidas." });
+            return Unauthorized(new { error });
 
         return Ok(result);
     }
@@ -89,5 +91,15 @@ public class UsuariosController(
             return BadRequest(new { error = "No se pudo actualizar el usuario." });
             throw;
         }
+    }
+
+    [HttpPost("change-password")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+    {
+        var (succeeded, errors) = await usuarioService.ChangePasswordAsync(dto);
+        if (!succeeded)
+            return BadRequest(new { errors });
+        return Ok(new { message = "Contraseña cambiada correctamente." });
     }
 }

@@ -1,9 +1,9 @@
-@switch (this.iconType()) { @case ('fab') {
+@switch (this.buttonType()) { @case ('fab') {
 <button
 	mat-fab
 	[id]="id()"
 	[disabled]="disabled()"
-	[type]="type()"
+	[type]="htmlType()"
 	(click)="action()()"
 >
 	@if (icon()) {
@@ -15,7 +15,7 @@
 	mat-mini-fab
 	[id]="id()"
 	[disabled]="disabled()"
-	[type]="type()"
+	[type]="htmlType()"
 	(click)="action()()"
 >
 	@if (icon()) {
@@ -27,7 +27,7 @@
 	mat-icon-button
 	[id]="id()"
 	[disabled]="disabled()"
-	[type]="type()"
+	[type]="htmlType()"
 	(click)="action()()"
 >
 	@if (icon()) {

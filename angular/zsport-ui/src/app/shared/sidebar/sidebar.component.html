@@ -8,7 +8,7 @@
 	<mat-list-item
 		class="menu-list-item"
 		[routerLink]="item.route"
-		(click)="closeSidebar()"
+		(routerLinkActive)="closeSidebar()"
 	>
 		@if (item.icon) {
 		<mat-icon class="menu-list-item-icon" matListItemIcon>{{

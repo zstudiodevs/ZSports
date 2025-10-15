@@ -38,59 +38,84 @@ public class UsuarioService(
 
         return (true, Enumerable.Empty<string>());
     }
-    public async Task<LoginUsuarioResponseDto?> LoginAsync(LoginUsuarioDto dto)
+    public async Task<(LoginUsuarioResponseDto? Response, string Error)> LoginAsync(LoginUsuarioDto dto)
     {
-        var user = await userManager.FindByEmailAsync(dto.Email);
-        if (user == null || !await userManager.CheckPasswordAsync(user, dto.Password))
-            return null;
+        string error = string.Empty;
+        try
+        {
+            var user = await userManager.FindByEmailAsync(dto.Email);
+            bool userExists = user != null;
+            bool passwordCorrect = false;
+            if (userExists)
+            {
+                passwordCorrect = await userManager.CheckPasswordAsync(user, dto.Password);
+            }
 
-        var roles = await userManager.GetRolesAsync(user);
+            if (!userExists)
+            {
+                error = "Usuario incorrecto";
+            }
+            if (userExists && !passwordCorrect)
+            {
+                error = string.IsNullOrEmpty(error) ? "Contraseña incorrecta" : error + ".Contraseña incorrecta";
+            }
+            if (!userExists || !passwordCorrect)
+            {
+                return (null, error);
+            }
 
-        var claims = new List<Claim>
+            var roles = await userManager.GetRolesAsync(user);
+            var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(ClaimTypes.Name, user.UserName)
         };
-        claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
+            claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
-        var jwtSettings = configuration.GetSection("Jwt");
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var jwtSettings = configuration.GetSection("Jwt");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(
-            issuer: jwtSettings["Issuer"],
-            audience: jwtSettings["Audience"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddHours(2),
-            signingCredentials: creds
-        );
+            var token = new JwtSecurityToken(
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(2),
+                signingCredentials: creds
+            );
 
-        var refreshToken = new RefreshToken
-        {
-            Token = Guid.NewGuid().ToString("N") + Guid.NewGuid().ToString("N"),
-            Expiration = DateTime.UtcNow.AddDays(7),
-            UsuarioId = user.Id
-        };
-
-        await repository.AddAsync(refreshToken, default);
-        await repository.SaveChangesAsync();
-
-        return new LoginUsuarioResponseDto
-        {
-            Token = new JwtSecurityTokenHandler().WriteToken(token),
-            RefreshToken = refreshToken.Token,
-            Username = user.UserName,
-            Usuario = new UsuarioDto
+            var refreshToken = new RefreshToken
             {
-                Id = user.Id,
-                Email = user.Email,
-                Nombre = user.Nombre,
-                Apellido = user.Apellido,
-                Activo = user.Activo,
-                Roles = roles
-            }
-        };
+                Token = Guid.NewGuid().ToString("N") + Guid.NewGuid().ToString("N"),
+                Expiration = DateTime.UtcNow.AddDays(7),
+                UsuarioId = user.Id
+            };
+
+            await repository.AddAsync(refreshToken, default);
+            await repository.SaveChangesAsync();
+
+            var response = new LoginUsuarioResponseDto
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                RefreshToken = refreshToken.Token,
+                Username = user.UserName,
+                Usuario = new UsuarioDto
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Nombre = user.Nombre,
+                    Apellido = user.Apellido,
+                    Activo = user.Activo,
+                    Roles = roles
+                }
+            };
+            return (response, string.Empty);
+        }
+        catch (Exception ex)
+        {
+            return (null, "Error crítico: " + ex.Message);
+        }
     }
     public async Task<LoginUsuarioResponseDto?> RefreshTokenAsync(RefreshTokenDto dto)
     {
@@ -212,5 +237,17 @@ public class UsuarioService(
             Activo = user.Activo,
             Roles = await userManager.GetRolesAsync(user)
         };
+    }
+    public async Task<(bool Succeeded, IEnumerable<string> Errors)> ChangePasswordAsync(ChangePasswordDto dto)
+    {
+        var user = await userManager.FindByEmailAsync(dto.Email);
+        if (user == null)
+            return (false, new[] { "Usuario no encontrado." });
+
+        var result = await userManager.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
+        if (!result.Succeeded)
+            return (false, result.Errors.Select(e => e.Description));
+
+        return (true, Enumerable.Empty<string>());
     }
 }

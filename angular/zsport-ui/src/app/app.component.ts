@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
 		{
 			id: 'theme',
 			icon: 'contrast',
-			type: 'icon',
+			buttonType: 'icon',
 			htmlType: 'button',
 			disabled: false,
 			action: () => this.toggleTheme(),

@@ -1,5 +1,4 @@
-export type ButtonType = 'simple' | 'raised' | 'stroked' | 'flat';
-export type IconButtonType = 'icon' | 'fab' | 'mini-fab';
+export type ButtonType = 'simple' | 'raised' | 'stroked' | 'flat' |'icon' | 'fab' | 'mini-fab';
 export type ButtonColor = 'primary' | 'accent' | 'warn' | undefined;
 export type ButtonHtmlType = 'button' | 'submit' | 'reset';
 
@@ -13,13 +12,8 @@ export type Button = {
 	action: () => void;
 };
 
-export type IconButton = {
-	id: string;
+export type IconButton = Button & {
 	icon: string;
-	buttonType: IconButtonType;
-	htmlType: ButtonHtmlType;
-	disabled: boolean;
-	action: () => void;
 };
 
 export type DropdownButton = {
