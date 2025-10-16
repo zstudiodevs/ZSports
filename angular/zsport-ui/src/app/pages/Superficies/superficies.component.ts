@@ -1,22 +1,30 @@
 import { Component, effect, inject } from '@angular/core';
 import { SuperficiesService } from './services/superficies.service';
 import { SuperficiesStore } from './store/superficies.store';
-import { Superficie } from './types/superficies.types';
+import { Superficie, superficiesColumns } from './types/superficies.types';
 import { ToolbarComponent } from '@app/shared/toolbar/toolbar.component';
 import { Button } from '@app/shared/buttons';
+import { MatDialog } from '@angular/material/dialog';
+import { CrearEditarSuperficieComponent } from './components/crear-editar-superficie/crear-editar-superficie.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatTableModule } from '@angular/material/table';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
 	selector: 'zs-superficies',
 	templateUrl: './superficies.component.html',
 	styleUrl: './superficies.component.scss',
 	standalone: true,
-	imports: [ToolbarComponent],
+	imports: [ToolbarComponent, MatTableModule, TitleCasePipe],
 })
 export class SuperficiesComponent {
 	private readonly superficiesService = inject(SuperficiesService);
 	private readonly superficiesStore = inject(SuperficiesStore);
+	private readonly dialog = inject(MatDialog);
+	private readonly breakpointObserver = inject(BreakpointObserver);
 
 	protected title = 'Superficies';
+	private isMobile: boolean = false;
 	protected backButton: Button = {
 		id: 'back',
 		icon: 'arrow_back',
@@ -25,6 +33,25 @@ export class SuperficiesComponent {
 		disabled: false,
 		action: () => window.history.back(),
 	};
+	protected toolbarActions: Button[] = [
+		{
+			id: 'add',
+			label: 'Nueva',
+			icon: 'add',
+			buttonType: 'raised',
+			htmlType: 'button',
+			disabled: false,
+			action: () => {
+				this.dialog.open(CrearEditarSuperficieComponent, {
+					data: { isEditMode: false, isMobile: this.isMobile },
+					width: this.isMobile ? '100%' : '400px',
+					maxWidth: '100%',
+				});
+			},
+		},
+	];
+
+	protected displayedColumns: (keyof Superficie)[] = superficiesColumns;
 	protected superficies: Superficie[] = [];
 
 	constructor() {
@@ -37,6 +64,16 @@ export class SuperficiesComponent {
 			});
 		});
 
-		effect(() => (this.superficies = this.superficiesStore.superficies$()));
+		effect(() => {
+			this.superficies = this.superficiesStore.superficies$();
+		});
+
+		effect(() => {
+			this.breakpointObserver
+				.observe(Breakpoints.XSmall)
+				.subscribe((result) => {
+					this.isMobile = result.matches;
+				});
+		});
 	}
 }

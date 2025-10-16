@@ -139,9 +139,56 @@ body {
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+.table {
+	@include mat.table-overrides(
+		(
+			background-color: var(--surface-variant),
+			header-headline-color: var(--text-primary),
+			row-item-label-text-color: var(--text-secondary),
+			row-item-outline-width: 2px,
+		)
+	);
+
+	tr:nth-child(odd) {
+		@include mat.table-overrides(
+			(
+				background-color: var(--surface),
+			)
+		);
+	}
+}
+
 .snackbar {
-	.success {
-		background-color: var(--success);
-		color: white;
+	&.success {
+		@include mat.snack-bar-overrides(
+			(
+				container-color: var(--success),
+				supporting-text-color: white,
+			)
+		);
+	}
+	&.warning {
+		@include mat.snack-bar-overrides(
+			(
+				container-color: var(--warning),
+				supporting-text-color: black,
+			)
+		);
+	}
+	&.danger {
+		@include mat.snack-bar-overrides(
+			(
+				container-color: var(--danger),
+				supporting-text-color: white,
+			)
+		);
+	}
+	&.info {
+		@include mat.snack-bar-overrides(
+			(
+				container-color: var(--info),
+				supporting-text-color: white,
+			)
+		);
 	}
 }

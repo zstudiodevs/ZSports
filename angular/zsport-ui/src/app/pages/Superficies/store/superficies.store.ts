@@ -41,4 +41,9 @@ export class SuperficiesStore {
 	public resetState() {
 		this.setState(this.initialState);
 	}
+
+	public addSuperficie(superficie: Superficie) {
+		this.superficies.update((current) => [...current, superficie]);
+		this.setState({ superficies: this.superficies() });
+	}
 }

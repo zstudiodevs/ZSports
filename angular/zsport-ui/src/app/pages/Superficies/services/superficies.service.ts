@@ -13,4 +13,8 @@ export class SuperficiesService {
 	getAll() {
 		return this.http.get<Superficie[]>(this.apiUrl);
 	}
+
+	create(nombre: string) {
+		return this.http.post<Superficie>(this.apiUrl, { superficie: nombre });
+	}
 }

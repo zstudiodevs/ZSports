@@ -8,3 +8,5 @@ export type SuperficiesState = {
 	currentSuperficie: Superficie | null;
 	error: string | null;
 };
+
+export const superficiesColumns: (keyof Superficie)[] = ['nombre'];
