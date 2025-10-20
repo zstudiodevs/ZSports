@@ -26,6 +26,7 @@ import { AuthStore } from '@app/auth/store/auth.store';
 import { UpdateUserRequest, User } from '@app/auth/types/auth.type';
 import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
 import { AuthService } from '@app/auth/auth.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
 	selector: 'zs-profile',
@@ -42,6 +43,7 @@ import { AuthService } from '@app/auth/auth.service';
 		MatLabel,
 		ButtonComponent,
 		MatProgressSpinnerModule,
+		MatChipsModule
 	],
 })
 export class ProfileComponent {

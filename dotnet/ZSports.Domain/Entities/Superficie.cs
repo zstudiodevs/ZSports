@@ -4,6 +4,7 @@ public class Superficie
 {
     public Guid Id{ get; private set; } = Guid.NewGuid();
     public string Nombre { get; private set; } = string.Empty;
+    public bool Activo { get; private set; } = true;
 
     public void SetId(Guid id)
     {
@@ -19,5 +20,14 @@ public class Superficie
         if (nombre.Length > 100)
             throw new ArgumentException("El nombre no puede tener más de 100 caracteres.");
         Nombre = nombre;
+    }
+
+    public void Habilitar()
+    {
+        Activo = true;
+    }
+    public void Deshabilitar()
+    {
+        Activo = false;
     }
 }

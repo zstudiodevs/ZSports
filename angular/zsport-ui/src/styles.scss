@@ -192,3 +192,23 @@ body {
 		);
 	}
 }
+
+.chip {
+	&.available {
+		@include mat.chips-overrides(
+			(
+				selected-focus-state-layer-color: var(--available),
+				label-text-color: black,
+			)
+		);
+	}
+
+	&.disabled {
+		@include mat.chips-overrides(
+			(
+				selected-focus-state-layer-color: var(--occupied),
+				label-text-color: white,
+			)
+		);
+	}
+}

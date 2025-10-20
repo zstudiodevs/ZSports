@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ButtonHtmlType, ButtonType } from '../models';
+import { ButtonColor, ButtonHtmlType, ButtonType } from '../models';
 
 @Component({
 	selector: 'zs-button',
@@ -23,5 +23,14 @@ export class ButtonComponent {
 	buttonType = input<ButtonType>('simple');
 	htmlType = input<ButtonHtmlType>('button');
 	disabled = input<boolean>(false);
+	color = input<ButtonColor>('primary');
 	action = input.required<() => void>();
+	click = output<void>();
+
+	onClick() {
+		if (!this.disabled) {
+			this.action();
+			this.click.emit();
+		}
+	}
 }

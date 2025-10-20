@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
 using ZSports.Contracts.Superficies;
@@ -51,9 +52,53 @@ public class SuperficieService(
         }
     }
 
-    public async Task<IEnumerable<SuperficieDto>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<SuperficieDto>> GetAllAsync(bool includeDisabled = false, CancellationToken cancellationToken = default)
     {
-        var superficies = await genericRepository.GetAllAsync();
-        return SuperficieMapper.MapCollection(superficies);
+        var superficies = genericRepository.GetQueryable();
+        if (includeDisabled)
+        {
+            superficies = superficies.Where(s => s.Activo);
+        }
+        return SuperficieMapper.MapCollection(await superficies.ToListAsync(cancellationToken));
+    }
+
+    public async Task<SuperficieDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var superficie = await genericRepository.GetByIdAsync(id, cancellationToken);
+        if (superficie is null)
+            return null;
+        return SuperficieMapper.Map(superficie);
+    }
+
+    public async Task<SuperficieDto> UpdateAsync(SuperficieDto superficieDto, CancellationToken cancellationToken = default)
+    {
+        using(var transaction = await genericRepository.BeginTransaction())
+        {
+            try
+            {
+                logger.LogInformation("Iniciando el proceso de actualizacion de superficie con Id: {Id}", superficieDto.Id);
+                var superficieExistente = await genericRepository.GetByIdAsync(superficieDto.Id, cancellationToken);
+                if (superficieExistente is null)
+                {
+                    string error = $"No se encontro la superficie con Id: {superficieDto.Id}";
+                    logger.LogError(error);
+                    throw new KeyNotFoundException(error);
+                }
+                logger.LogInformation("Actualizando superficie con Id: {Id}", superficieDto.Id);
+                superficieExistente.SetNombre(superficieDto.Nombre);
+                genericRepository.Update(superficieExistente);
+                await genericRepository.SaveChangesAsync(cancellationToken);
+                transaction.Commit();
+                logger.LogInformation("Superficie con Id: {Id} actualizada correctamente", superficieDto.Id);
+                return SuperficieMapper.Map(superficieExistente);
+            }
+            catch (Exception)
+            {
+                string error = $"Error al actualizar la superficie con Id: {superficieDto.Id}";
+                logger.LogError(error);
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 }

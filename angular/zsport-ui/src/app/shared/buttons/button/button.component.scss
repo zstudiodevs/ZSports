@@ -22,3 +22,22 @@ button[mat-icon-button] {
 		color: var(--text-muted);
 	}
 }
+
+.mini-fab {
+	&[color="success"] {
+		background-color: var(--success);
+		color: var(--text-primary);
+	}
+	&[color="danger"] {
+		background-color: var(--danger);
+		color: var(--text-secondary);
+	}
+	&[color="info"] {
+		background-color: var(--info);
+		color: var(--text-primary);
+	}
+	&:disabled {
+		background-color: var(--surface-variant);
+		color: var(--text-muted);
+	}
+}

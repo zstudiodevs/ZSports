@@ -46,4 +46,10 @@ export class SuperficiesStore {
 		this.superficies.update((current) => [...current, superficie]);
 		this.setState({ superficies: this.superficies() });
 	}
+	public updateSuperficie(superficie: Superficie) {
+		this.superficies.update((current) =>
+			current.map((s) => (s.id === superficie.id ? superficie : s))
+		);
+		this.setState({ superficies: this.superficies() });
+	}
 }

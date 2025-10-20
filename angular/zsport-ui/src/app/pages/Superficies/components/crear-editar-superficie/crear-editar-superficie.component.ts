@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
 import { LoadingService } from '@app/shared/loading/services/loading.service';
+import { delay } from 'rxjs';
 
 export interface CrearEditarSuperficieData {
 	isEditMode: boolean;
@@ -65,6 +66,14 @@ export class CrearEditarSuperficieComponent {
 					this.idControl.setValue(superficie.id);
 					this.nombreControl.setValue(superficie.nombre);
 					this.loadingService.hide();
+				} else {
+					this.snackbarService.open({
+						message: 'Error al cargar la superficie.',
+						duration: 3000,
+						type: 'danger',
+					});
+					this.loadingService.hide();
+					this.dialogRef.close();
 				}
 			}
 		});
@@ -94,13 +103,30 @@ export class CrearEditarSuperficieComponent {
 				});
 				return;
 			}
-			// TODO: Implementar edición de superficie
-			this.loadingService.hide();
-			this.snackbarService.open({
-				message: 'Funcionalidad de edición no implementada aún.',
-				duration: 3000,
+			this.service.update(id, nombre).subscribe({
+				next: (superficie) => {
+					this.store.updateSuperficie(superficie);
+					this.loadingService.hide();
+					this.snackbarService.open({
+						message: 'Superficie actualizada con éxito.',
+						duration: 3000,
+						type: 'success',
+					});
+					this.dialogRef.close();
+				},
+				error: (error) => {
+					this.store.setState({
+						error: error.error?.message || 'Error al actualizar la superficie.',
+					});
+					this.loadingService.hide();
+					this.snackbarService.open({
+						message:
+							error.error?.message || 'Error al actualizar la superficie.',
+						duration: 3000,
+						type: 'danger',
+					});
+				}
 			});
-			this.dialogRef.close();
 		} else {
 			if (this.nombreControl.invalid) {
 				this.loadingService.hide();

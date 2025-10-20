@@ -26,9 +26,9 @@ public class UsuariosController(
     {
         var loginResult = await usuarioService.LoginAsync(loginDto);
         var result = loginResult.Response;
-        var error = loginResult.Error;
+        var message = loginResult.Error;
         if (result == null)
-            return Unauthorized(new { error });
+            return Unauthorized(new { message });
 
         return Ok(result);
     }

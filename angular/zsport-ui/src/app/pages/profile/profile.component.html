@@ -1,18 +1,18 @@
 <div #loadingRef></div>
 <mat-card class="profile-card">
 	<mat-card-header class="profile-card-header">
-		<zs-button
-			[id]="this.backButton.id"
-			[icon]="this.backButton.icon"
-			[buttonType]="this.backButton.buttonType"
-			[htmlType]="this.backButton.htmlType"
-			[disabled]="this.backButton.disabled"
-			[action]="this.backButton.action"
-		/>
+		<zs-button [id]="this.backButton.id" [icon]="this.backButton.icon" [buttonType]="this.backButton.buttonType"
+			[htmlType]="this.backButton.htmlType" [disabled]="this.backButton.disabled"
+			[action]="this.backButton.action" />
 		<div>
 			<mat-card-title class="profile-card-title"> Mi Perfil </mat-card-title>
 			<mat-card-subtitle class="profile-card-subtitle">
 				{{ this.username }}
+				@if (this.user?.activo) {
+					<mat-chip selected class="chip available">Activo</mat-chip>
+				} @else {
+					<mat-chip selected class="chip unavailable">Inactivo</mat-chip>
+				}
 			</mat-card-subtitle>
 		</div>
 	</mat-card-header>
@@ -51,23 +51,11 @@
 		</mat-form-field>
 	</mat-card-content>
 	<mat-card-actions class="profile-card-actions">
-		<zs-button
-			[id]="this.saveButton().id"
-			[label]="this.saveButton().label"
-			[icon]="this.saveButton().icon"
-			[buttonType]="this.saveButton().buttonType"
-			[htmlType]="this.saveButton().htmlType"
-			[disabled]="this.saveButton().disabled"
-			[action]="this.saveButton().action"
-		/>
-		<zs-button
-			[id]="this.cancelButton().id"
-			[label]="this.cancelButton().label"
-			[icon]="this.cancelButton().icon"
-			[buttonType]="this.cancelButton().buttonType"
-			[htmlType]="this.cancelButton().htmlType"
-			[disabled]="this.cancelButton().disabled"
-			[action]="this.cancelButton().action"
-		/>
+		<zs-button [id]="this.saveButton().id" [label]="this.saveButton().label" [icon]="this.saveButton().icon"
+			[buttonType]="this.saveButton().buttonType" [htmlType]="this.saveButton().htmlType"
+			[disabled]="this.saveButton().disabled" [action]="this.saveButton().action" />
+		<zs-button [id]="this.cancelButton().id" [label]="this.cancelButton().label" [icon]="this.cancelButton().icon"
+			[buttonType]="this.cancelButton().buttonType" [htmlType]="this.cancelButton().htmlType"
+			[disabled]="this.cancelButton().disabled" [action]="this.cancelButton().action" />
 	</mat-card-actions>
 </mat-card>

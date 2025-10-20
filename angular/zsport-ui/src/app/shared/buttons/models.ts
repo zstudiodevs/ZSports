@@ -1,5 +1,5 @@
 export type ButtonType = 'simple' | 'raised' | 'stroked' | 'flat' |'icon' | 'fab' | 'mini-fab';
-export type ButtonColor = 'primary' | 'accent' | 'warn' | undefined;
+export type ButtonColor = 'primary' | 'accent' | 'warn' | 'success' | 'info' | 'danger' | undefined;
 export type ButtonHtmlType = 'button' | 'submit' | 'reset';
 
 export type Button = {
@@ -9,6 +9,7 @@ export type Button = {
 	htmlType: ButtonHtmlType;
 	label?: string;
 	icon?: string;
+	color?: ButtonColor;
 	action: () => void;
 };
 
