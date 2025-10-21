@@ -8,42 +8,41 @@
 		[buttonType]="this.mainButton()!.buttonType"
 		[htmlType]="this.mainButton()!.htmlType"
 		[disabled]="this.mainButton()!.disabled"
-		[action]="this.mainButton()!.action"
+		(onClick)="this.mainButton()!.action()"
 	/>
 	} @if (this.title()) {
 	<span class="toolbar-title">{{ this.title() }}</span>
 	}
 	<span class="toolbar-spacer"></span>
-	@for (button of this.secondaryButtons(); track $index) {
-		@if (this.isDropdownButton(button)) {
-			<zs-dropdown-button
-				[id]="this.asDropdownButton(button)!.id"
-				[label]="this.asDropdownButton(button)!.label"
-				[icon]="this.asDropdownButton(button)!.icon"
-				[buttonType]="this.asDropdownButton(button)!.buttonType"
-				[htmlType]="this.asDropdownButton(button)!.htmlType"
-				[disabled]="this.asDropdownButton(button)!.disabled"	
-				[items]="this.asDropdownButton(button)!.items"
-			/>
-		} @else if(this.isButton(button)) {
-			<zs-button
-				[id]="this.asButton(button)!.id"
-				[label]="this.asButton(button)!.label"
-				[icon]="this.asButton(button)!.icon"
-				[buttonType]="this.asButton(button)!.buttonType"
-				[htmlType]="this.asButton(button)!.htmlType"
-				[disabled]="this.asButton(button)!.disabled"
-				[action]="this.asButton(button)!.action"
-			/>
-		} @else {
-			<zs-icon-button 
-				[id]="this.asIconButton(button)!.id"
-				[icon]="this.asIconButton(button)!.icon"
-				[buttonType]="this.asIconButton(button)!.buttonType"
-				[htmlType]="this.asIconButton(button)!.htmlType"
-				[disabled]="this.asIconButton(button)!.disabled"
-				[action]="this.asIconButton(button)!.action"
-			/>
-		}
-	}
+	@for (button of this.secondaryButtons(); track $index) { @if
+	(this.isDropdownButton(button)) {
+	<zs-dropdown-button
+		[id]="this.asDropdownButton(button)!.id"
+		[label]="this.asDropdownButton(button)!.label"
+		[icon]="this.asDropdownButton(button)!.icon"
+		[buttonType]="this.asDropdownButton(button)!.buttonType"
+		[htmlType]="this.asDropdownButton(button)!.htmlType"
+		[disabled]="this.asDropdownButton(button)!.disabled"
+		[items]="this.asDropdownButton(button)!.items"
+	/>
+	} @else if(this.isButton(button)) {
+	<zs-button
+		[id]="this.asButton(button)!.id"
+		[label]="this.asButton(button)!.label"
+		[icon]="this.asButton(button)!.icon"
+		[buttonType]="this.asButton(button)!.buttonType"
+		[htmlType]="this.asButton(button)!.htmlType"
+		[disabled]="this.asButton(button)!.disabled"
+		(onClick)="this.asButton(button)!.action()"
+	/>
+	} @else {
+	<zs-icon-button
+		[id]="this.asIconButton(button)!.id"
+		[icon]="this.asIconButton(button)!.icon"
+		[buttonType]="this.asIconButton(button)!.buttonType"
+		[htmlType]="this.asIconButton(button)!.htmlType"
+		[disabled]="this.asIconButton(button)!.disabled"
+		[action]="this.asIconButton(button)!.action"
+	/>
+	} }
 </mat-toolbar>

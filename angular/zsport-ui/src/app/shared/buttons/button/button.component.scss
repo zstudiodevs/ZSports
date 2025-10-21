@@ -24,15 +24,15 @@ button[mat-icon-button] {
 }
 
 .mini-fab {
-	&[color="success"] {
+	&.success {
 		background-color: var(--success);
 		color: var(--text-primary);
 	}
-	&[color="danger"] {
+	&.danger {
 		background-color: var(--danger);
 		color: var(--text-secondary);
 	}
-	&[color="info"] {
+	&.info {
 		background-color: var(--info);
 		color: var(--text-primary);
 	}

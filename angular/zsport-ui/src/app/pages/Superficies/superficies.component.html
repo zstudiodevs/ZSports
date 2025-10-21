@@ -1,21 +1,31 @@
-<zs-toolbar [title]="this.title" [mainButton]="this.backButton" [secondaryButtons]="this.toolbarActions" />
+<zs-toolbar
+	[title]="this.title"
+	[mainButton]="this.backButton"
+	[secondaryButtons]="this.toolbarActions"
+/>
 <table mat-table [dataSource]="superficies" class="table mat-elevation-z8">
-	@for(column of this.displayedColumns; track $index) {
-	@if (column !== 'actions') {
+	@for(column of this.displayedColumns; track $index) { @if (column !==
+	'actions') {
 	<ng-container [matColumnDef]="column">
 		<th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
 		<td mat-cell *matCellDef="let element">{{ element[column] }}</td>
 	</ng-container>
-	}
-	}
+	} }
 	<ng-container matColumnDef="actions">
-		<th mat-header-cell *matHeaderCellDef> </th>
+		<th mat-header-cell *matHeaderCellDef></th>
 		<td mat-cell *matCellDef="let element">
 			<div class="actions">
 				@for (action of this.actions; track $index) {
-				<zs-button [id]="action.id" [label]="action.label" [icon]="action.icon" [buttonType]="action.buttonType"
-					[htmlType]="action.htmlType" [disabled]="action.disabled" [action]="action.action" [color]="action.color"
-					(click)="this.onEdit(element.id)" />
+				<zs-button
+					[id]="action.id"
+					[label]="action.label"
+					[icon]="action.icon"
+					[buttonType]="action.buttonType"
+					[htmlType]="action.htmlType"
+					[disabled]="action.disabled"
+					[color]="action.color"
+					(click)="this.onEdit(element.id)"
+				/>
 				}
 			</div>
 		</td>

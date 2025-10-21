@@ -1,50 +1,97 @@
 @switch (this.buttonType()) { @case ('flat') {
-<button mat-flat-button [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+<button
+	mat-flat-button
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+	[color]="color()"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
 	}
 	{{ label() }}
 </button>
 } @case ('stroked') {
-<button mat-stroked-button [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+<button
+	mat-stroked-button
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+	[color]="color()"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
 	}
 	{{ label() }}
 </button>
 } @case ('raised') {
-<button mat-raised-button [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+<button
+	mat-raised-button
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+	[color]="color()"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
 	}
 	{{ label() }}
 </button>
 } @case ('icon') {
-<button mat-icon-button [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+<button
+	mat-icon-button
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+	[color]="color()"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
 	}
 </button>
-}
-@case ('fab') {
-<button mat-fab [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+} @case ('fab') {
+<button
+	mat-fab
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+	[color]="color()"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
 	}
 </button>
 } @case ('mini-fab') {
-<button mat-mini-fab class="mini-fab" [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+<button
+	mat-mini-fab
+	class="mini-fab"
+	[ngClass]="color()"
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
 	}
 </button>
-}
-@default {
-<button mat-button [id]="id()" [disabled]="disabled()" [type]="htmlType()" (click)="this.onClick()" [color]="color()">
+} @default {
+<button
+	mat-button
+	[id]="id()"
+	[disabled]="disabled()"
+	[type]="htmlType()"
+	(click)="this.onClick.emit()"
+	[color]="color()"
+	color="{{ color() }}"
+>
 	@if (icon()) {
 	<mat-icon>{{ icon() }}</mat-icon>
-	} @if (label()) {
-	{{ label() }}
 	}
 </button>
 } }

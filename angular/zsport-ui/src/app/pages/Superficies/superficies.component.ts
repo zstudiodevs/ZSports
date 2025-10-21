@@ -53,7 +53,10 @@ export class SuperficiesComponent {
 		},
 	];
 
-	protected displayedColumns: (keyof Superficie | 'actions')[] = [...superficiesColumns, 'actions'];
+	protected displayedColumns: (keyof Superficie | 'actions')[] = [
+		...superficiesColumns,
+		'actions',
+	];
 	protected actions: Button[] = [
 		{
 			id: 'edit',
@@ -72,7 +75,7 @@ export class SuperficiesComponent {
 			disabled: false,
 			color: 'danger',
 			action: () => {},
-		}
+		},
 	];
 	protected superficies: Superficie[] = [];
 
@@ -100,24 +103,27 @@ export class SuperficiesComponent {
 	}
 
 	protected onEdit(rowId: string) {
-		this.superficiesService.getById(rowId)
-			.subscribe({
-				next: (superficie) => {
-					this.superficiesStore.setState({ currentSuperficie: superficie });
-					this.dialog.open(CrearEditarSuperficieComponent, {
-						data: { isEditMode: true, isMobile: this.isMobile, superficieId: rowId },
-						width: this.isMobile ? '100%' : '400px',
-						maxWidth: '100%',
-					});
-				},
-				error: (error) => {
-					this.superficiesStore.setState({ error });
-					this.snackbarService.open({
-						message: 'Error al cargar la superficie.',
-						duration: 3000,
-						type: 'danger',
-					});
-				},
-			});
+		this.superficiesService.getById(rowId).subscribe({
+			next: (superficie) => {
+				this.superficiesStore.setState({ currentSuperficie: superficie });
+				this.dialog.open(CrearEditarSuperficieComponent, {
+					data: {
+						isEditMode: true,
+						isMobile: this.isMobile,
+						superficieId: rowId,
+					},
+					width: this.isMobile ? '100%' : '400px',
+					maxWidth: '100%',
+				});
+			},
+			error: (error) => {
+				this.superficiesStore.setState({ error });
+				this.snackbarService.open({
+					message: 'Error al cargar la superficie.',
+					duration: 3000,
+					type: 'danger',
+				});
+			},
+		});
 	}
 }
