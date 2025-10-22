@@ -79,4 +79,50 @@ public class SuperficiesController(
             return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating the superficie.");
         }
     }
+
+    [HttpPatch("enable/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> EnableAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await service.EnableAsync(id, cancellationToken);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            logger.LogWarning(ex, "No se encontro la Superficie con Id: {Id}", id);
+            return BadRequest($"No se encontro la Superficie con Id: {id}");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Ocurrio un error durante la habilitacion de una Superficie con Id: {Id}", id);
+            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while enabling the superficie.");
+        }
+    }
+
+    [HttpPatch("disable/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DisableAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await service.DisableAsync(id, cancellationToken);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            logger.LogWarning(ex, "No se encontro la Superficie con Id: {Id}", id);
+            return BadRequest($"No se encontro la Superficie con Id: {id}");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Ocurrio un error durante la deshabilitacion de una Superficie con Id: {Id}", id);
+            return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while disabling the superficie.");
+        }
+    }
 }

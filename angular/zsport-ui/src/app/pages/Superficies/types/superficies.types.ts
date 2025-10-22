@@ -1,6 +1,7 @@
 export interface Superficie {
 	id: string;
 	nombre: string;
+	activo: boolean;
 }
 
 export type SuperficiesState = {

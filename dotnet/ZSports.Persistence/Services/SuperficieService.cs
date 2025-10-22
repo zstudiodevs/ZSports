@@ -101,4 +101,25 @@ public class SuperficieService(
             }
         }
     }
+
+    public async Task<bool> EnableAsync(Guid superficieId, CancellationToken cancellationToken = default)
+    {
+        var superficie = await genericRepository.GetByIdAsync(superficieId, cancellationToken)
+            ?? throw new KeyNotFoundException($"No se encontro la superficie con Id: {superficieId}");            
+
+        superficie.Habilitar();
+        genericRepository.Update(superficie);
+        await genericRepository.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
+    public async Task<bool> DisableAsync(Guid superficieId, CancellationToken cancellationToken = default)
+    {
+        var superficie = await genericRepository.GetByIdAsync(superficieId, cancellationToken)
+            ?? throw new KeyNotFoundException($"No se encontro la superficie con Id: {superficieId}");            
+        superficie.Deshabilitar();
+        genericRepository.Update(superficie);
+        await genericRepository.SaveChangesAsync(cancellationToken);
+        return true;
+    }
 }

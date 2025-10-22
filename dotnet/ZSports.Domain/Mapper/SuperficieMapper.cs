@@ -11,7 +11,8 @@ public static class SuperficieMapper
         return new SuperficieDto()
         {
             Id = source.Id,
-            Nombre = source.Nombre
+            Nombre = source.Nombre,
+            Activo = source.Activo
         };
     }
 
@@ -20,8 +21,12 @@ public static class SuperficieMapper
         var destination = new Superficie();
         destination.SetId(source.Id);
         destination.SetNombre(source.Nombre);
+        if (source.Activo)
+            destination.Habilitar();
+        else
+            destination.Deshabilitar();
 
-        return destination;
+            return destination;
     }
 
     public static IEnumerable<SuperficieDto> MapCollection(IEnumerable<Superficie> sourceCollection)

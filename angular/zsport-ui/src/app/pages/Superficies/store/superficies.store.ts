@@ -52,4 +52,20 @@ export class SuperficiesStore {
 		);
 		this.setState({ superficies: this.superficies() });
 	}
+	public enableSuperficie(superficieId: string) {
+		this.superficies.update((current) =>
+			current.map((s) =>
+				s.id === superficieId ? { ...s, activo: true } : s
+			)
+		);
+		this.setState({ superficies: this.superficies() });
+	}
+	public disableSuperficie(superficieId: string) {
+		this.superficies.update((current) =>
+			current.map((s) =>
+				s.id === superficieId ? { ...s, activo: false } : s
+			)
+		);
+		this.setState({ superficies: this.superficies() });
+	}
 }

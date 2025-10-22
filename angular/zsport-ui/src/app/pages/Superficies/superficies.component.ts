@@ -57,26 +57,33 @@ export class SuperficiesComponent {
 		...superficiesColumns,
 		'actions',
 	];
-	protected actions: Button[] = [
-		{
-			id: 'edit',
-			icon: 'edit',
-			buttonType: 'mini-fab',
-			htmlType: 'button',
-			disabled: false,
-			color: 'info',
-			action: () => {},
-		},
-		{
-			id: 'disable',
-			icon: 'block',
-			buttonType: 'mini-fab',
-			htmlType: 'button',
-			disabled: false,
-			color: 'danger',
-			action: () => {},
-		},
-	];
+	protected readonly editButton: Button = {
+		id: 'edit',
+		icon: 'edit',
+		buttonType: 'mini-fab',
+		htmlType: 'button',
+		disabled: false,
+		color: 'info',
+		action: () => { },
+	}
+	protected readonly disableButton: Button = {
+		id: 'disable',
+		icon: 'block',
+		buttonType: 'mini-fab',
+		htmlType: 'button',
+		disabled: false,
+		color: 'danger',
+		action: () => { },
+	}
+	protected readonly enableButton: Button = {
+		id: 'enable',
+		icon: 'check_circle',
+		buttonType: 'mini-fab',
+		htmlType: 'button',
+		disabled: false,
+		color: 'success',
+		action: () => { },
+	}
 	protected superficies: Superficie[] = [];
 
 	constructor() {
@@ -124,6 +131,47 @@ export class SuperficiesComponent {
 					type: 'danger',
 				});
 			},
+		});
+	}
+
+	protected onDisable(rowId: string) {
+		this.superficiesService.disable(rowId).subscribe({
+			next: () => {
+				this.superficiesStore.disableSuperficie(rowId);
+				this.snackbarService.open({
+					message: `Superficie deshabilitada.`,
+					duration: 3000,
+					type: 'success',
+				});
+			},
+			error: (error) => {
+				this.superficiesStore.setState({ error });
+				this.snackbarService.open({
+					message: 'Error al deshabilitar la superficie.',
+					duration: 3000,
+					type: 'danger',
+				});
+			}
+		});
+	}
+	protected onEnable(rowId: string) {
+		this.superficiesService.enable(rowId).subscribe({
+			next: () => {
+				this.superficiesStore.enableSuperficie(rowId);
+				this.snackbarService.open({
+					message: `Superficie habilitada.`,
+					duration: 3000,
+					type: 'success',
+				});
+			},
+			error: (error) => {
+				this.superficiesStore.setState({ error });
+				this.snackbarService.open({
+					message: 'Error al habilitar la superficie.',
+					duration: 3000,
+					type: 'danger',
+				});
+			}
 		});
 	}
 }

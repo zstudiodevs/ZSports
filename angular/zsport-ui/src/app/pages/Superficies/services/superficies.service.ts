@@ -30,4 +30,12 @@ export class SuperficiesService {
 			nombre: nombre,
 		});
 	}
+
+	enable(id: string) {
+		return this.http.patch<boolean>(`${this.apiUrl}/enable/${id}`, {});
+	}
+
+	disable(id: string) {
+		return this.http.patch<boolean>(`${this.apiUrl}/disable/${id}`, {});
+	}
 }
