@@ -38,6 +38,7 @@ export class SidebarComponent {
 	menuItems: { label: string; icon: string; route: string }[] = [
 		{ label: 'Inicio', icon: 'home', route: '/' },
 		{ label: 'Superficies', icon: 'square_foot', route: '/superficies' },
+		{ label: 'Canchas', icon: 'sports_soccer', route: '/canchas' },
 	];
 
 	closeSidebar() {

@@ -21,6 +21,14 @@ export const routes: Routes = [
 					),
 				canActivate: [authGuard],
 			},
+			{
+				path: 'canchas',
+				loadComponent: () =>
+					import('./pages/Canchas/canchas.component').then(
+						(m) => m.CanchasComponent
+					),
+				canActivate: [authGuard],
+			}
 		],
 	},
 ];
