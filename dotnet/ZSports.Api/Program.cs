@@ -22,7 +22,8 @@ namespace ZSports.Api
             // Add services to the container.
             builder.Services.AddDbContext<ZSportsDbContext>(opts =>
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                assembly => assembly.MigrationsAssembly(typeof(ZSportsDbContext).Assembly.FullName)));
+                assembly => assembly.MigrationsAssembly(typeof(ZSportsDbContext).Assembly.FullName))
+                    .UseLazyLoadingProxies());
 
             builder.Services.AddIdentity<Usuario, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ZSportsDbContext>()
@@ -55,6 +56,7 @@ namespace ZSports.Api
             builder.Services.AddScoped<ISuperficieService, SuperficieService>();
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
             builder.Services.AddScoped<IRolesService, RolesService>();
+            builder.Services.AddScoped<IDeportesService, DeportesService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

@@ -7,5 +7,5 @@ public class RefreshToken
     public DateTime Expiration { get; set; }
     public bool Revoked { get; set; } = false;
     public Guid UsuarioId { get; set; }
-    public Usuario Usuario { get; set; } = null!;
+    public virtual Usuario Usuario { get; set; } = null!;
 }

@@ -1,4 +1,6 @@
-﻿namespace ZSports.Domain.Entities;
+﻿using ZSports.Domain.Constants;
+
+namespace ZSports.Domain.Entities;
 
 public class Superficie
 {
@@ -17,7 +19,7 @@ public class Superficie
     {
         if (string.IsNullOrWhiteSpace(nombre))
             throw new ArgumentException("El nombre no puede estar vacío.");
-        if (nombre.Length > 100)
+        if (nombre.Length > SuperficiesConstants.MaxNombreLength)
             throw new ArgumentException("El nombre no puede tener más de 100 caracteres.");
         Nombre = nombre;
     }
