@@ -20,6 +20,18 @@
 				}
 			</mat-card-subtitle>
 		</div>
+		<span class="spacer"></span>
+		@if (!this.isOwner()) {
+		<zs-button
+			[id]="this.ownerButton.id"
+			[label]="this.ownerButton.label"
+			[icon]="this.ownerButton.icon"
+			[buttonType]="this.ownerButton.buttonType"
+			[htmlType]="this.ownerButton.htmlType"
+			[disabled]="this.ownerButton.disabled"
+			(onClick)="this.ownerButton.action()"
+		/>
+		}
 	</mat-card-header>
 	<mat-card-content class="profile-card-content">
 		<mat-form-field appearance="outline">

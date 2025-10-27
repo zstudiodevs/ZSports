@@ -23,7 +23,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingService } from '@app/shared/loading/services/loading.service';
 import { AuthStore } from '@app/auth/store/auth.store';
-import { UpdateUserRequest, User } from '@app/auth/types/auth.type';
+import { UpdateUserRequest, User, UserRoles } from '@app/auth/types/auth.type';
 import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
 import { AuthService } from '@app/auth/auth.service';
 import { MatChipsModule } from '@angular/material/chips';
@@ -43,7 +43,7 @@ import { MatChipsModule } from '@angular/material/chips';
 		MatLabel,
 		ButtonComponent,
 		MatProgressSpinnerModule,
-		MatChipsModule
+		MatChipsModule,
 	],
 })
 export class ProfileComponent {
@@ -91,6 +91,15 @@ export class ProfileComponent {
 		htmlType: 'button',
 		disabled: false,
 		action: () => this.onBackButtonClicked(),
+	};
+	protected ownerButton: Button = {
+		id: 'owner',
+		label: 'Propietario',
+		icon: 'badge',
+		buttonType: 'flat',
+		htmlType: 'button',
+		disabled: false,
+		action: () => {},
 	};
 
 	constructor() {
@@ -182,5 +191,9 @@ export class ProfileComponent {
 			this.apellidoControl.setValue(this.user.apellido);
 			this.emailControl.setValue(this.user.email);
 		}
+	}
+
+	isOwner(): boolean {
+		return this.user?.roles.includes(UserRoles.Owner) || false;
 	}
 }

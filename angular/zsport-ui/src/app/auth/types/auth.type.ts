@@ -40,3 +40,8 @@ export type AuthState = {
 	user: User | null;
 	isAuthenticated: boolean;
 };
+
+export enum UserRoles {
+	Admin = 'System Administrator',
+	Owner = 'Owner',
+}
