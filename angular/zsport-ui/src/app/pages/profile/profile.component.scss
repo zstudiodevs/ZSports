@@ -1,64 +1,14 @@
-.profile-card {
-	background-color: var(--surface-variant);
-	border-radius: 0;
+@use '@angular/material' as mat;
 
-	&-header {
-		border-bottom: 2px solid var(--border-color);
+.tab-group {
+  background-color: var(--surface-variant);
+  
+  @include mat.tabs-overrides((
+		active-focus-indicator-color: var(--orange-accent),
+			active-focus-label-text-color: var(--blue-accent),
+		));
 
-		.chip {
-			&.available {
-				background-color: var(--available);
-				color: black;
-			}
-
-			&.unavailable {
-				background-color: var(--occupied);
-				color: white;
-			}
-		}
-
-		.spacer {
-			flex: 1 1 auto;
-		}
-	}
-
-	&-title {
-		color: var(--text-primary);
-	}
-
-	&-subtitle {
-		color: var(--text-secondary);
-	}
-
-	&-content {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 1rem 0;
-
-		mat-form-field {
-			width: 85%;
-			margin-left: 5%;
-			margin-right: 5%;
-
-			mat-label {
-				color: var(--text-secondary);
-			}
-
-			input[matInput] {
-				color: var(--text-primary);
-			}
-		}
-	}
-
-	&-actions {
-		display: flex;
-		justify-content: flex-start;
-		padding-top: 1rem;
-		gap: 1rem;
-
-		button {
-			min-width: 120px;
-		}
-	}
+    .mdc-tab__text-label {
+      color: var(--text-primary);
+    }
 }

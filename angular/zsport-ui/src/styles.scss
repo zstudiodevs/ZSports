@@ -3,18 +3,15 @@
 @use '@angular/material' as mat;
 
 html {
-	@include mat.theme(
-		(
-			color: (
-				theme-type: light,
+	@include mat.theme((color: (theme-type: light,
 				primary: mat.$azure-palette,
 				tertiary: mat.$blue-palette,
 			),
 			typography: Roboto,
 			density: 0,
-		)
-	);
+		));
 }
+
 * {
 	margin: 0;
 	padding: 0;
@@ -134,81 +131,61 @@ html,
 body {
 	height: 100%;
 }
+
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .table {
-	@include mat.table-overrides(
-		(
-			background-color: var(--surface-variant),
+	@include mat.table-overrides((background-color: var(--surface-variant),
 			header-headline-color: var(--text-primary),
 			row-item-label-text-color: var(--text-secondary),
 			row-item-outline-width: 2px,
-		)
-	);
+		));
 
 	tr:nth-child(odd) {
-		@include mat.table-overrides(
-			(
-				background-color: var(--surface),
-			)
-		);
+		@include mat.table-overrides((background-color: var(--surface),
+			));
 	}
 }
 
 .snackbar {
 	&.success {
-		@include mat.snack-bar-overrides(
-			(
-				container-color: var(--success),
+		@include mat.snack-bar-overrides((container-color: var(--success),
 				supporting-text-color: white,
-			)
-		);
+			));
 	}
+
 	&.warning {
-		@include mat.snack-bar-overrides(
-			(
-				container-color: var(--warning),
+		@include mat.snack-bar-overrides((container-color: var(--warning),
 				supporting-text-color: black,
-			)
-		);
+			));
 	}
+
 	&.danger {
-		@include mat.snack-bar-overrides(
-			(
-				container-color: var(--danger),
+		@include mat.snack-bar-overrides((container-color: var(--danger),
 				supporting-text-color: white,
-			)
-		);
+			));
 	}
+
 	&.info {
-		@include mat.snack-bar-overrides(
-			(
-				container-color: var(--info),
+		@include mat.snack-bar-overrides((container-color: var(--info),
 				supporting-text-color: white,
-			)
-		);
+			));
 	}
 }
 
 .chip {
 	&.available {
-		@include mat.chips-overrides(
-			(
-				selected-focus-state-layer-color: var(--available),
+		@include mat.chips-overrides((selected-focus-state-layer-color: var(--available),
 				label-text-color: black,
-			)
-		);
+			));
 	}
 
 	&.disabled {
-		@include mat.chips-overrides(
-			(
-				selected-focus-state-layer-color: var(--occupied),
+		@include mat.chips-overrides((selected-focus-state-layer-color: var(--occupied),
 				label-text-color: white,
-			)
-		);
+			));
 	}
 }

@@ -1,90 +1,11 @@
 <div #loadingRef></div>
-<mat-card class="profile-card">
-	<mat-card-header class="profile-card-header">
-		<zs-button
-			[id]="this.backButton.id"
-			[icon]="this.backButton.icon"
-			[buttonType]="this.backButton.buttonType"
-			[htmlType]="this.backButton.htmlType"
-			[disabled]="this.backButton.disabled"
-			(onClick)="this.backButton.action()"
-		/>
-		<div>
-			<mat-card-title class="profile-card-title"> Mi Perfil </mat-card-title>
-			<mat-card-subtitle class="profile-card-subtitle">
-				{{ this.username }}
-				@if (this.user?.activo) {
-				<mat-chip selected class="chip available">Activo</mat-chip>
-				} @else {
-				<mat-chip selected class="chip unavailable">Inactivo</mat-chip>
-				}
-			</mat-card-subtitle>
-		</div>
-		<span class="spacer"></span>
-		@if (!this.isOwner()) {
-		<zs-button
-			[id]="this.ownerButton.id"
-			[label]="this.ownerButton.label"
-			[icon]="this.ownerButton.icon"
-			[buttonType]="this.ownerButton.buttonType"
-			[htmlType]="this.ownerButton.htmlType"
-			[disabled]="this.ownerButton.disabled"
-			(onClick)="this.ownerButton.action()"
-		/>
-		}
-	</mat-card-header>
-	<mat-card-content class="profile-card-content">
-		<mat-form-field appearance="outline">
-			<mat-label>Nombre</mat-label>
-			<input matInput [formControl]="nombreControl" />
-			@if (nombreControl.invalid && (nombreControl.dirty ||
-			nombreControl.touched)) { @if (nombreControl.errors?.['required']) {
-			<mat-error> El nombre es obligatorio. </mat-error>
-			} @else if (nombreControl.errors?.['maxlength']) {
-			<mat-error> El nombre no puede exceder los 100 caracteres. </mat-error>
-			} }
-		</mat-form-field>
-		<mat-form-field appearance="outline">
-			<mat-label>Apellido</mat-label>
-			<input matInput [formControl]="apellidoControl" />
-			@if (apellidoControl.invalid && (apellidoControl.dirty ||
-			apellidoControl.touched)) { @if (apellidoControl.errors?.['required']) {
-			<mat-error> El apellido es obligatorio. </mat-error>
-			} @else if (apellidoControl.errors?.['maxlength']) {
-			<mat-error> El apellido no puede exceder los 100 caracteres. </mat-error>
-			} }
-		</mat-form-field>
-		<mat-form-field appearance="outline">
-			<mat-label>Email</mat-label>
-			<input matInput [formControl]="emailControl" />
-			@if (emailControl.invalid && (emailControl.dirty || emailControl.touched))
-			{ @if (emailControl.errors?.['required']) {
-			<mat-error> El email es obligatorio. </mat-error>
-			} @if (emailControl.hasError('email')) {
-			<mat-error> El email no es válido. </mat-error>
-			} @if (emailControl.hasError('maxlength')) {
-			<mat-error> El email no puede exceder los 200 caracteres. </mat-error>
-			}}
-		</mat-form-field>
-	</mat-card-content>
-	<mat-card-actions class="profile-card-actions">
-		<zs-button
-			[id]="this.saveButton().id"
-			[label]="this.saveButton().label"
-			[icon]="this.saveButton().icon"
-			[buttonType]="this.saveButton().buttonType"
-			[htmlType]="this.saveButton().htmlType"
-			[disabled]="this.saveButton().disabled"
-			(onClick)="this.saveButton().action()"
-		/>
-		<zs-button
-			[id]="this.cancelButton().id"
-			[label]="this.cancelButton().label"
-			[icon]="this.cancelButton().icon"
-			[buttonType]="this.cancelButton().buttonType"
-			[htmlType]="this.cancelButton().htmlType"
-			[disabled]="this.cancelButton().disabled"
-			(onClick)="this.cancelButton().action()"
-		/>
-	</mat-card-actions>
-</mat-card>
+<mat-tab-group class="tab-group">
+	<mat-tab label="Información Personal">
+		<zs-profile-info [loadingRef]="this.loadingRef" />
+	</mat-tab>
+	@if (this.isOwner) {
+		<mat-tab label="Configuración de la Cuenta">
+			Prueba
+		</mat-tab>
+	}
+</mat-tab-group>
