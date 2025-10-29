@@ -8,7 +8,7 @@ button[mat-raised-button] {
 }
 button[mat-stroked-button] {
 	background-color: var(--danger);
-	color: var(--text-secondary);
+	color: var(--text-primary);
 	&:disabled {
 		background-color: var(--surface-variant);
 		color: var(--text-muted);

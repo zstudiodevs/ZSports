@@ -1,33 +1,20 @@
 import { CommonModule } from '@angular/common';
 import {
 	Component,
-	computed,
 	effect,
 	ElementRef,
 	inject,
-	signal,
 	ViewChild,
 } from '@angular/core';
-import {
-	FormControl,
-	FormsModule,
-	ReactiveFormsModule,
-	Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule, MatLabel } from '@angular/material/input';
-import { NavigationService } from '@app/services/navigation.service';
-import { Button, ButtonComponent } from '@app/shared/buttons';
-import { Subject, takeUntil } from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoadingService } from '@app/shared/loading/services/loading.service';
 import { AuthStore } from '@app/auth/store/auth.store';
-import { UpdateUserRequest, User, UserRoles } from '@app/auth/types/auth.type';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
-import { AuthService } from '@app/auth/auth.service';
+import { User, UserRoles } from '@app/auth/types/auth.type';
 import { MatChipsModule } from '@angular/material/chips';
-import { ProfileInfoComponent } from "./profile-info/profile-info.component";
+import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
@@ -45,10 +32,26 @@ import { MatTabsModule } from '@angular/material/tabs';
 		MatProgressSpinnerModule,
 		MatChipsModule,
 		ProfileInfoComponent,
-		MatTabsModule
+		MatTabsModule,
 	],
 })
 export class ProfileComponent {
 	@ViewChild('loadingRef', { static: true }) loadingRef: ElementRef;
-	protected isOwner = true;
+	private authStore = inject(AuthStore);
+
+	protected user: User;
+	protected username: string;
+	protected isOwner = false;
+
+	constructor() {
+		effect(() => {
+			if (this.authStore.user$() !== null) this.user = this.authStore.user$()!;
+
+			if (this.authStore.username$() !== null)
+				this.username = this.authStore.username$()!;
+
+			this.isOwner =
+				this.user?.roles.some((role) => role === UserRoles.Owner) || false;
+		});
+	}
 }

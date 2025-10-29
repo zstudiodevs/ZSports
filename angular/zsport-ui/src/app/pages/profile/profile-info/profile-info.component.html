@@ -11,8 +11,8 @@
 		<div>
 			<mat-card-title class="profile-card-title"> Mi Perfil </mat-card-title>
 			<mat-card-subtitle class="profile-card-subtitle">
-				{{ this.username }}
-				@if (this.user?.activo) {
+				{{ this.username() }}
+				@if (this.user().activo) {
 				<mat-chip selected class="chip available">Activo</mat-chip>
 				} @else {
 				<mat-chip selected class="chip unavailable">Inactivo</mat-chip>
