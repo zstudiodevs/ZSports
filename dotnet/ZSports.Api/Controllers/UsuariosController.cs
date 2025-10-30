@@ -93,6 +93,16 @@ public class UsuariosController(
         }
     }
 
+    [HttpPatch]
+    [Authorize(Roles = "System Administrator")]
+    public async Task<IActionResult> AddRoleToUser([FromBody] AddRoleToUserRequest request)
+    {
+        var (succeeded, errors) = await usuarioService.AddRoleToUser(request.Email, request.Role);
+        if (!succeeded)
+            return BadRequest(new { errors });
+        return Ok(new { message = $"Rol {request.Role} agregado exitosamente al usuario con email: {request.Email}"});
+    }
+
     [HttpPost("change-password")]
     [AllowAnonymous]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)

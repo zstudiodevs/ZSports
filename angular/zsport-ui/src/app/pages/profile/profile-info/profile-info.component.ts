@@ -106,10 +106,7 @@ export class ProfileInfoComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.loadingService.show(this.loadingRef()!);
-		this.nombreControl.setValue(this.user().nombre);
-		this.apellidoControl.setValue(this.user().apellido);
-		this.emailControl.setValue(this.user().email);
-
+		
 		this.nombreControl.valueChanges
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(() => this.updateFormValidity());
@@ -119,6 +116,11 @@ export class ProfileInfoComponent implements OnInit {
 		this.emailControl.valueChanges
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(() => this.updateFormValidity());
+
+		this.nombreControl.setValue(this.user().nombre);
+		this.apellidoControl.setValue(this.user().apellido);
+		this.emailControl.setValue(this.user().email);
+		
 		this.loadingService.hide();
 	}
 

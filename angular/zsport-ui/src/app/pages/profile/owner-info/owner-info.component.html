@@ -1,0 +1,17 @@
+<mat-card class="owner-card">
+  <mat-card-header>
+    <div mat-card-avatar class="owner-avatar"></div>
+    @if (this.establecimiento !== undefined) {
+        <mat-card-title>{{ establecimiento.nombre }}</mat-card-title>
+    }
+  </mat-card-header>
+  <mat-card-content>
+    @if (this.establecimiento !== undefined) {
+        <p>Email: {{ establecimiento.email }}</p>
+        <p>Phone: {{ establecimiento.telefono }}</p>
+        <p>Description: {{ establecimiento.descripcion }}</p>
+    } @else {
+        <p>Cargando información del establecimiento...</p>
+    }
+  </mat-card-content>
+</mat-card>

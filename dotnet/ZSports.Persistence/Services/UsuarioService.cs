@@ -250,4 +250,15 @@ public class UsuarioService(
 
         return (true, Enumerable.Empty<string>());
     }
+
+    public async Task<(bool Succeeded, IEnumerable<string> Errors)> AddRoleToUser(string email, string role)
+    {
+        var user = await userManager.FindByEmailAsync(email);
+        if (user == null)
+            return (false, new[] { "Usuario no encontrado." });
+        var result = await userManager.AddToRoleAsync(user, role);
+        if (!result.Succeeded)
+            return (false, result.Errors.Select(e => e.Description));
+        return (true, Enumerable.Empty<string>());
+    }
 }
