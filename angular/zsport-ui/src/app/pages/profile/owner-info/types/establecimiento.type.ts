@@ -1,0 +1,25 @@
+import { User } from '@app/auth/types/auth.type';
+
+export type CrearEstablecimiento = {
+	nombre: string;
+	descripcion: string;
+	telefono: string;
+	email: string;
+	activo: boolean;
+	propietarioId: string;
+};
+
+export type Establecimiento = {
+	id: string;
+	nombre: string;
+	descripcion: string;
+	telefono: string;
+	email: string;
+	activo: boolean;
+	propietario: User;
+};
+
+export type EstablecimientoState = {
+	currentEstablecimiento: Establecimiento | null;
+	error: string | null;
+};

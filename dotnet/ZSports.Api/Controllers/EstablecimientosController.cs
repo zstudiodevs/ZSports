@@ -43,4 +43,27 @@ public class EstablecimientosController(
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
+
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpGet("{propietarioId:guid}")]
+    public async Task<IActionResult> GetEstablecimientoByPropietarioId(Guid propietarioId, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await service.GetEstablecimientoByPropietarioId(propietarioId, cancellationToken);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException knf)
+        {
+            logger.LogWarning(knf, "GetEstablecimientoByPropietarioId: Establecimiento not found.");
+            return NotFound(knf.Message);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError("GetEstablecimientoByPropietarioId: Internal server error.");
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
 }

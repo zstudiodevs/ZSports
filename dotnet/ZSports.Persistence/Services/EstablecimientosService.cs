@@ -105,4 +105,19 @@ public class EstablecimientosService(
             })
             .FirstOrDefaultAsync(cancellationToken) ?? throw new KeyNotFoundException($"No se encontro un/a Establecimiento con Id {establecimientoId}.");
     }
+
+    public async Task<EstablecimientoDto> GetEstablecimientoByPropietarioId(Guid propietarioId, CancellationToken cancellationToken = default)
+    {
+        return await repository.GetQueryable()
+            .Where(e => e.PropietarioId.Equals(propietarioId))
+            .Select(e => new EstablecimientoDto
+            {
+                Id = e.Id,
+                Nombre = e.Nombre,
+                Descripcion = e.Descripcion,
+                Telefono = e.Telefono,
+                Email = e.Email,
+                Activo = e.Activo,
+            }).FirstOrDefaultAsync(cancellationToken) ?? throw new KeyNotFoundException($"No se encontro un Establecimiento asociado al propietario con Id: {propietarioId}");
+    }
 }
