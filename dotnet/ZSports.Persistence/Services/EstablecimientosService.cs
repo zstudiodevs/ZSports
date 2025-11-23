@@ -64,7 +64,7 @@ public class EstablecimientosService(
 
     public async Task<IEnumerable<EstablecimientoDto>> GetAllEstablecimientosAsync(CancellationToken cancellationToken = default)
     {
-        return repository.GetQueryable()
+        return await repository.GetQueryable()
             .Include(e => e.Propietario)
             .Select(e => new EstablecimientoDto
             {
@@ -80,7 +80,7 @@ public class EstablecimientosService(
                     Nombre = e.Propietario.Nombre,
                     Email = e.Propietario.Email!
                 }
-            });
+            }).ToListAsync();
     }
 
     public async Task<EstablecimientoDto> GetEstablecimientoByIdAsync(Guid establecimientoId, CancellationToken cancellationToken = default)

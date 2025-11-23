@@ -4,6 +4,7 @@ import { environment } from '@env/environment';
 import {
 	CrearEstablecimiento,
 	Establecimiento,
+	UpdateEstablecimiento,
 } from '../types/establecimiento.type';
 
 @Injectable({
@@ -17,8 +18,11 @@ export class EstablecimientoService {
 		return this.http.post<Establecimiento>(this.apiUrl, data);
 	}
 
+	public update(data: UpdateEstablecimiento) {
+		return this.http.put<Establecimiento>(this.apiUrl, data);
+	}
+
 	public getByPropietario(propietarioId: string) {
-		var params = new HttpParams().set('propietarioId', propietarioId);
-		return this.http.get<Establecimiento[]>(this.apiUrl, { params });
+		return this.http.get<Establecimiento>(`${this.apiUrl}/${propietarioId}`);
 	}
 }

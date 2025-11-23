@@ -47,7 +47,7 @@ public class EstablecimientosController(
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [HttpGet("{propietarioId:guid}")]
+    [HttpGet("{propietarioId}")]
     public async Task<IActionResult> GetEstablecimientoByPropietarioId(Guid propietarioId, CancellationToken cancellationToken = default)
     {
         try
@@ -63,6 +63,23 @@ public class EstablecimientosController(
         catch (Exception ex)
         {
             logger.LogError("GetEstablecimientoByPropietarioId: Internal server error.");
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpGet]
+    public async Task<IActionResult> GetEstablecimientos(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await service.GetAllEstablecimientosAsync(cancellationToken);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError("GetEstablecimientos: Internal server error.");
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }

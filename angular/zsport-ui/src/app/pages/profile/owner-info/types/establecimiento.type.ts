@@ -19,6 +19,13 @@ export type Establecimiento = {
 	propietario: User;
 };
 
+export type UpdateEstablecimiento = {
+	id: string;
+	descripcion: string;
+	telefono: string;
+	email: string;
+};
+
 export type EstablecimientoState = {
 	currentEstablecimiento: Establecimiento | null;
 	error: string | null;

@@ -1,17 +1,77 @@
 <mat-card class="owner-card">
-  <mat-card-header>
-    <div mat-card-avatar class="owner-avatar"></div>
-    @if (this.establecimiento !== undefined) {
-        <mat-card-title>{{ establecimiento.nombre }}</mat-card-title>
-    }
-  </mat-card-header>
-  <mat-card-content>
-    @if (this.establecimiento !== undefined) {
-        <p>Email: {{ establecimiento.email }}</p>
-        <p>Phone: {{ establecimiento.telefono }}</p>
-        <p>Description: {{ establecimiento.descripcion }}</p>
-    } @else {
-        <p>Cargando información del establecimiento...</p>
-    }
-  </mat-card-content>
+	<mat-card-header class="owner-card-header">
+		<zs-button
+			[id]="this.backButton.id"
+			[icon]="this.backButton.icon"
+			[buttonType]="this.backButton.buttonType"
+			[htmlType]="this.backButton.htmlType"
+			[disabled]="this.backButton.disabled"
+			(onClick)="this.backButton.action()"
+		/>
+		<div>
+			<mat-card-title class="owner-card-title">{{
+				establecimiento.nombre
+			}}</mat-card-title>
+			<mat-card-subtitle class="owner-card-subtitle">
+				@if (this.establecimiento.activo) {
+				<mat-chip selected class="chip available">Activo</mat-chip>
+				} @else {
+				<mat-chip selected class="chip unavailable">Inactivo</mat-chip>
+				}
+			</mat-card-subtitle>
+		</div>
+	</mat-card-header>
+	<mat-card-content class="owner-card-content">
+		<mat-form-field appearance="outline">
+			<mat-label>Descripción</mat-label>
+			<textarea matInput [formControl]="descripcionControl" rows="4"></textarea>
+			@if (descripcionControl.invalid && (descripcionControl.dirty ||
+			descripcionControl.touched)) { @if
+			(descripcionControl.errors?.['maxlength']) {
+			<mat-error>
+				La descripción no puede exceder los 500 caracteres.
+			</mat-error>
+			} }
+		</mat-form-field>
+		<mat-form-field appearance="outline">
+			<mat-label>Telefono</mat-label>
+			<input matInput [formControl]="telefonoControl" />
+			@if (telefonoControl.invalid && (telefonoControl.dirty ||
+			telefonoControl.touched)) { @if (telefonoControl.errors?.['required']) {
+			<mat-error> El teléfono es obligatorio. </mat-error>
+			} @else if (telefonoControl.errors?.['pattern']) {
+			<mat-error> El teléfono debe contener solo números. </mat-error>
+			} }
+		</mat-form-field>
+		<mat-form-field appearance="outline">
+			<mat-label>Email</mat-label>
+			<input matInput [formControl]="emailControl" />
+			@if (emailControl.invalid && (emailControl.dirty || emailControl.touched))
+			{ @if (emailControl.errors?.['required']) {
+			<mat-error> El email es obligatorio. </mat-error>
+			} @else if (emailControl.errors?.['email']) {
+			<mat-error> El email no es válido. </mat-error>
+			} }
+		</mat-form-field>
+	</mat-card-content>
+	<mat-card-actions class="owner-card-actions">
+		<zs-button
+			[id]="this.saveButton().id"
+			[label]="this.saveButton().label"
+			[icon]="this.saveButton().icon"
+			[buttonType]="this.saveButton().buttonType"
+			[htmlType]="this.saveButton().htmlType"
+			[disabled]="this.saveButton().disabled"
+			(onClick)="this.saveButton().action()"
+		/>
+		<zs-button
+			[id]="this.cancelButton().id"
+			[label]="this.cancelButton().label"
+			[icon]="this.cancelButton().icon"
+			[buttonType]="this.cancelButton().buttonType"
+			[htmlType]="this.cancelButton().htmlType"
+			[disabled]="this.cancelButton().disabled"
+			(onClick)="this.cancelButton().action()"
+		/>
+	</mat-card-actions>
 </mat-card>

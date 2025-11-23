@@ -57,6 +57,7 @@ namespace ZSports.Api
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
             builder.Services.AddScoped<IRolesService, RolesService>();
             builder.Services.AddScoped<IDeportesService, DeportesService>();
+            builder.Services.AddScoped<IEstablecimientosService, EstablecimientosService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
