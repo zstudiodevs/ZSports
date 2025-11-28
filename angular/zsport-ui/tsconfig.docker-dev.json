@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "paths": {
+      "@env/environment": ["environments/environment.docker-dev"]
+    }
+  }
+}

@@ -60,7 +60,6 @@ namespace ZSports.Api
             builder.Services.AddScoped<IEstablecimientosService, EstablecimientosService>();
 
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
             var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? [];
@@ -75,6 +74,32 @@ namespace ZSports.Api
             });
 
             var app = builder.Build();
+
+            // Aplicar migraciones automáticamente al inicio
+            using (var scope = app.Services.CreateScope())
+            {
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<ZSportsDbContext>();
+                    var pending = db.Database.GetPendingMigrations();
+                    if (pending.Any())
+                    {
+                        logger.LogInformation("Aplicando {Count} migraciones pendientes...", pending.Count());
+                        db.Database.Migrate();
+                        logger.LogInformation("Migraciones aplicadas correctamente.");
+                    }
+                    else
+                    {
+                        logger.LogInformation("No hay migraciones pendientes.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Error aplicando migraciones al iniciar la aplicación.");
+                    throw;
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

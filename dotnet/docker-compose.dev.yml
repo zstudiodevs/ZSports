@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  api-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zsports-api-dev
+    ports:
+      - "5001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver-dev,1433;Database=ZSportsDb;User Id=sa;Password=Your_strong_password123;TrustServerCertificate=True;Encrypt=False;MultipleActiveResultSets=true"
+    depends_on:
+      - sqlserver-dev
+    networks:
+      - zsports-dev-net
+
+  sqlserver-dev:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: zsports-sqlserver-dev
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Your_strong_password123"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - zsports_sql_data:/var/opt/mssql
+    networks:
+      - zsports-dev-net
+
+networks:
+  zsports-dev-net:
+    driver: bridge
+
+volumes:
+  zsports_sql_data:
