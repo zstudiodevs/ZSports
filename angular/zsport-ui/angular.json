@@ -23,7 +23,7 @@
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "./tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -58,7 +58,7 @@
               "sourceMap": true
             },
             "docker-dev": {
-              "tsConfig": "tsconfig.docker-dev.json",
+              "tsConfig": "./tsconfig.docker-dev.json",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": false

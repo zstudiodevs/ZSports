@@ -56,7 +56,7 @@ export class OwnerInfoComponent implements OnInit {
 
 	public userId = input.required<string>();
 
-	protected establecimiento: Establecimiento;
+	protected establecimiento!: Establecimiento;
 
 	protected descripcionControl = new FormControl('', [
 		Validators.required,

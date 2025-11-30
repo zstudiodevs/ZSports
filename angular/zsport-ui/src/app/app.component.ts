@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 	private readonly breakpointObserver = inject(BreakpointObserver);
 
 	title = 'ZSports';
-	@ViewChild('loadingRef', { static: true }) loadingRef: ElementRef;
+	@ViewChild('loadingRef', { static: true }) loadingRef!: ElementRef;
 	protected isSidebarOpened = this.sidebarService.isSidebarOpened;
 	protected sidebarMode = this.sidebarService.getSidebarMode;
 	protected mainButton: Button = {
