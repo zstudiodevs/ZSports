@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
 	Component,
 	computed,
-	effect,
 	ElementRef,
 	inject,
 	input,
@@ -20,13 +19,20 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule, MatLabel } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AuthService } from '@app/auth/auth.service';
-import { AuthStore } from '@app/auth/store/auth.store';
-import { User, UpdateUserRequest, UserRoles } from '@app/auth/types/auth.type';
-import { NavigationService } from '@app/services/navigation.service';
-import { Button, ButtonComponent } from '@app/shared/buttons';
-import { LoadingService } from '@app/shared/loading/services/loading.service';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
+import {
+	AuthService,
+	AuthStore,
+	User,
+	UpdateUserRequest,
+	UserRoles,
+} from '../../../auth';
+import { NavigationService } from '../../../services/navigation.service';
+import {
+	Button,
+	ButtonComponent,
+	LoadingService,
+	SnackbarService,
+} from '../../../shared';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -106,7 +112,7 @@ export class ProfileInfoComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.loadingService.show(this.loadingRef()!);
-		
+
 		this.nombreControl.valueChanges
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(() => this.updateFormValidity());
@@ -120,7 +126,7 @@ export class ProfileInfoComponent implements OnInit {
 		this.nombreControl.setValue(this.user().nombre);
 		this.apellidoControl.setValue(this.user().apellido);
 		this.emailControl.setValue(this.user().email);
-		
+
 		this.loadingService.hide();
 	}
 

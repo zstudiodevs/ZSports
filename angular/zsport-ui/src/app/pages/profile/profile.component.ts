@@ -11,12 +11,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AuthStore } from '@app/auth/store/auth.store';
-import { User, UserRoles } from '@app/auth/types/auth.type';
+import { AuthStore, User, UserRoles } from '../../auth';
 import { MatChipsModule } from '@angular/material/chips';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { OwnerInfoComponent } from "./owner-info/owner-info.component";
+import { OwnerInfoComponent } from './owner-info/owner-info.component';
 
 @Component({
 	selector: 'zs-profile',
@@ -24,25 +23,25 @@ import { OwnerInfoComponent } from "./owner-info/owner-info.component";
 	styleUrl: './profile.component.scss',
 	standalone: true,
 	imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatInputModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatChipsModule,
-    ProfileInfoComponent,
-    MatTabsModule,
-    OwnerInfoComponent
-],
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatCardModule,
+		MatInputModule,
+		MatIconModule,
+		MatProgressSpinnerModule,
+		MatChipsModule,
+		ProfileInfoComponent,
+		MatTabsModule,
+		OwnerInfoComponent,
+	],
 })
 export class ProfileComponent {
-	@ViewChild('loadingRef', { static: true }) loadingRef: ElementRef;
+	@ViewChild('loadingRef', { static: true }) loadingRef!: ElementRef;
 	private authStore = inject(AuthStore);
 
-	protected user: User;
-	protected username: string;
+	protected user!: User;
+	protected username!: string;
 	protected isOwner = false;
 
 	constructor() {

@@ -23,7 +23,7 @@
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "./tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -56,6 +56,12 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "docker-dev": {
+              "tsConfig": "./tsconfig.docker-dev.json",
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": false
             }
           },
           "defaultConfiguration": "production"
@@ -68,6 +74,9 @@
             },
             "development": {
               "buildTarget": "zsport-ui:build:development"
+            },
+            "docker-dev": {
+              "buildTarget": "zsport-ui:build:docker-dev"
             }
           },
           "defaultConfiguration": "development"

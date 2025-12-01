@@ -1,4 +1,4 @@
-import { User } from '@app/auth/types/auth.type';
+import { User } from '../../../../auth';
 
 export type CrearEstablecimiento = {
 	nombre: string;

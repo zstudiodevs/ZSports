@@ -10,17 +10,19 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { Button, DropdownButton } from '@app/shared/buttons';
+import {
+	Button,
+	DropdownButton,
+	ToolbarComponent,
+	SidebarService,
+	SidebarComponent,
+	LoadingService,
+	SnackbarService,
+} from './shared';
 import { NavigationService } from './services/navigation.service';
-import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { SidebarService } from './shared/sidebar/services/sidebar.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { AuthStore } from './auth/store/auth.store';
-import { AuthService } from './auth/auth.service';
-import { LoadingService } from './shared/loading/services/loading.service';
-import { SnackbarService } from './shared/snackbar/services/snackbar.service';
+import { AuthStore, AuthService } from './auth';
 
 @Component({
 	selector: 'app-root',
@@ -40,7 +42,7 @@ export class AppComponent implements OnInit {
 	private readonly breakpointObserver = inject(BreakpointObserver);
 
 	title = 'ZSports';
-	@ViewChild('loadingRef', { static: true }) loadingRef: ElementRef;
+	@ViewChild('loadingRef', { static: true }) loadingRef!: ElementRef;
 	protected isSidebarOpened = this.sidebarService.isSidebarOpened;
 	protected sidebarMode = this.sidebarService.getSidebarMode;
 	protected mainButton: Button = {
