@@ -12,9 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
-import { LoadingService } from '@app/shared/loading/services/loading.service';
-import { delay } from 'rxjs';
+import { SnackbarService, LoadingService } from '../../../../shared';
 
 export interface CrearEditarSuperficieData {
 	isEditMode: boolean;
@@ -125,7 +123,7 @@ export class CrearEditarSuperficieComponent {
 						duration: 3000,
 						type: 'danger',
 					});
-				}
+				},
 			});
 		} else {
 			if (this.nombreControl.invalid) {

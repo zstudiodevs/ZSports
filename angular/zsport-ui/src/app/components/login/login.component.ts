@@ -1,7 +1,4 @@
-import {
-	Component,
-	inject,
-} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
 	FormControl,
 	FormsModule,
@@ -12,12 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule, MatLabel } from '@angular/material/input';
-import { AuthStore } from '@app/auth/store/auth.store';
-import { AuthService } from '@app/auth/auth.service';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
+import { AuthStore, AuthService } from '../../auth';
+import { SnackbarService, LoadingService } from '../../shared';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { LoadingService } from '@app/shared/loading/services/loading.service';
 
 @Component({
 	selector: 'zs-login',

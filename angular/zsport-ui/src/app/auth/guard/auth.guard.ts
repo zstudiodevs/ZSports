@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { AuthStore } from '../store/auth.store';
 import { AuthService } from '../auth.service';
 import { catchError, map, of } from 'rxjs';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
+import { SnackbarService } from '../../shared';
 
 export const authGuard: CanActivateFn = (route, state) => {
 	const authStore = inject(AuthStore);

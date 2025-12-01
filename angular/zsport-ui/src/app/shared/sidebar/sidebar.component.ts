@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { IconButton } from '@app/shared/buttons/models';
+import { IconButton } from '../buttons';
 import { SidebarService } from './services/sidebar.service';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';

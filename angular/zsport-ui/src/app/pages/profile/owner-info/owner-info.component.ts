@@ -8,7 +8,12 @@ import {
 	OnInit,
 	signal,
 } from '@angular/core';
-import { LoadingService } from '@app/shared/loading/services/loading.service';
+import {
+	LoadingService,
+	Button,
+	ButtonComponent,
+	SnackbarService,
+} from '../../../shared';
 import { MatCardModule } from '@angular/material/card';
 import {
 	Establecimiento,
@@ -16,8 +21,7 @@ import {
 } from './types/establecimiento.type';
 import { EstablecimientoService } from './services/establecimiento.service';
 import { EstablecimientoStore } from './store/establecimiento.store';
-import { NavigationService } from '@app/services/navigation.service';
-import { Button, ButtonComponent } from '@app/shared/buttons';
+import { NavigationService } from '../../../services/navigation.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { Subject, takeUntil } from 'rxjs';
 import {
@@ -26,7 +30,6 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
 import { MatInputModule, MatLabel } from '@angular/material/input';
 
 @Component({

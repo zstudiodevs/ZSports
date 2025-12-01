@@ -2,14 +2,17 @@ import { Component, effect, inject } from '@angular/core';
 import { SuperficiesService } from './services/superficies.service';
 import { SuperficiesStore } from './store/superficies.store';
 import { Superficie, superficiesColumns } from './types/superficies.types';
-import { ToolbarComponent } from '@app/shared/toolbar/toolbar.component';
-import { Button, ButtonComponent } from '@app/shared/buttons';
+import {
+	ToolbarComponent,
+	Button,
+	ButtonComponent,
+	SnackbarService,
+} from '../../shared';
 import { MatDialog } from '@angular/material/dialog';
 import { CrearEditarSuperficieComponent } from './components/crear-editar-superficie/crear-editar-superficie.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatTableModule } from '@angular/material/table';
 import { TitleCasePipe } from '@angular/common';
-import { SnackbarService } from '@app/shared/snackbar/services/snackbar.service';
 
 @Component({
 	selector: 'zs-superficies',
@@ -64,8 +67,8 @@ export class SuperficiesComponent {
 		htmlType: 'button',
 		disabled: false,
 		color: 'info',
-		action: () => { },
-	}
+		action: () => {},
+	};
 	protected readonly disableButton: Button = {
 		id: 'disable',
 		icon: 'block',
@@ -73,8 +76,8 @@ export class SuperficiesComponent {
 		htmlType: 'button',
 		disabled: false,
 		color: 'danger',
-		action: () => { },
-	}
+		action: () => {},
+	};
 	protected readonly enableButton: Button = {
 		id: 'enable',
 		icon: 'check_circle',
@@ -82,8 +85,8 @@ export class SuperficiesComponent {
 		htmlType: 'button',
 		disabled: false,
 		color: 'success',
-		action: () => { },
-	}
+		action: () => {},
+	};
 	protected superficies: Superficie[] = [];
 
 	constructor() {
@@ -151,7 +154,7 @@ export class SuperficiesComponent {
 					duration: 3000,
 					type: 'danger',
 				});
-			}
+			},
 		});
 	}
 	protected onEnable(rowId: string) {
@@ -171,7 +174,7 @@ export class SuperficiesComponent {
 					duration: 3000,
 					type: 'danger',
 				});
-			}
+			},
 		});
 	}
 }
