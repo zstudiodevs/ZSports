@@ -31,7 +31,7 @@ import { AuthStore, AuthService } from './auth';
 	standalone: true,
 	imports: [RouterOutlet, ToolbarComponent, MatSidenavModule, SidebarComponent],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 	private readonly sidebarService = inject(SidebarService);
 	private readonly snackbarService = inject(SnackbarService);
 	private readonly navigationService = inject(NavigationService);
@@ -134,12 +134,6 @@ export class AppComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {
-		this.breakpointObserver.observe(Breakpoints.XSmall).subscribe((result) => {
-			const isMobile = result.matches;
-		});
-	}
-
 	onMenuButtonClicked() {
 		this.sidebarService.toggleSidebar();
 	}
@@ -199,6 +193,5 @@ export class AppComponent implements OnInit {
 			default:
 				break;
 		}
-		console.log('Secondary button clicked:', buttonId);
 	}
 }

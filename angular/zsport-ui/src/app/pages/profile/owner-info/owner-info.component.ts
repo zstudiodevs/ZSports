@@ -103,9 +103,7 @@ export class OwnerInfoComponent implements OnInit {
 		action: () => this.onCancelButtonClicked(),
 	}));
 
-	constructor() {
-		effect(() => {});
-	}
+	constructor() {}
 
 	ngOnInit(): void {
 		this.loadingService.show(this.loadingRef()!);

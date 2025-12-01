@@ -13,7 +13,7 @@ public class Deporte
     {
         if (string.IsNullOrWhiteSpace(nombre))
         {
-            throw new ArgumentNullException("El nombre no puede estar vacío.");
+            throw new ArgumentException("El nombre no puede estar vacío.");
         }
 
         if (nombre.Length > DeportesConstants.MaxNombreLength)
@@ -28,7 +28,7 @@ public class Deporte
     {
         if (string.IsNullOrWhiteSpace(codigo))
         {
-            throw new ArgumentNullException("El código no puede estar vacío.");
+            throw new ArgumentException("El código no puede estar vacío.");
         }
         if (codigo.Length > DeportesConstants.MaxCodigoLength)
         {

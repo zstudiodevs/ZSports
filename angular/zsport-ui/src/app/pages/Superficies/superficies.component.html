@@ -1,4 +1,8 @@
-<zs-toolbar [title]="this.title" [mainButton]="this.backButton" [secondaryButtons]="this.toolbarActions" />
+<zs-toolbar
+	[title]="this.title"
+	[mainButton]="this.backButton"
+	[secondaryButtons]="this.toolbarActions"
+/>
 <table mat-table [dataSource]="superficies" class="table mat-elevation-z8">
 	@for(column of this.displayedColumns; track $index) { @if (column !==
 	'actions') {
@@ -12,19 +16,37 @@
 		<td mat-cell *matCellDef="let element">
 			<div class="actions">
 				@if (element.activo) {
-				<zs-button [id]="this.editButton.id" [label]="this.editButton.label" [icon]="this.editButton.icon"
-					[buttonType]="this.editButton.buttonType" [htmlType]="this.editButton.htmlType"
-					[disabled]="this.editButton.disabled" [color]="this.editButton.color"
-					(click)="this.onEdit(element.id)" />
-				<zs-button [id]="this.disableButton.id" [label]="this.disableButton.label"
-					[icon]="this.disableButton.icon" [buttonType]="this.disableButton.buttonType"
-					[htmlType]="this.disableButton.htmlType" [disabled]="this.disableButton.disabled"
-					[color]="this.disableButton.color" (click)="this.onDisable(element.id)" />
+				<zs-button
+					[id]="this.editButton.id"
+					[label]="this.editButton.label"
+					[icon]="this.editButton.icon"
+					[buttonType]="this.editButton.buttonType"
+					[htmlType]="this.editButton.htmlType"
+					[disabled]="this.editButton.disabled"
+					[color]="this.editButton.color"
+					(onClick)="this.onEdit(element.id)"
+				/>
+				<zs-button
+					[id]="this.disableButton.id"
+					[label]="this.disableButton.label"
+					[icon]="this.disableButton.icon"
+					[buttonType]="this.disableButton.buttonType"
+					[htmlType]="this.disableButton.htmlType"
+					[disabled]="this.disableButton.disabled"
+					[color]="this.disableButton.color"
+					(onClick)="this.onDisable(element.id)"
+				/>
 				} @else {
-					<zs-button [id]="this.enableButton.id" [label]="this.enableButton.label"
-						[icon]="this.enableButton.icon" [buttonType]="this.enableButton.buttonType"
-						[htmlType]="this.enableButton.htmlType" [disabled]="this.enableButton.disabled"
-						[color]="this.enableButton.color" (click)="this.onEnable(element.id)" />
+				<zs-button
+					[id]="this.enableButton.id"
+					[label]="this.enableButton.label"
+					[icon]="this.enableButton.icon"
+					[buttonType]="this.enableButton.buttonType"
+					[htmlType]="this.enableButton.htmlType"
+					[disabled]="this.enableButton.disabled"
+					[color]="this.enableButton.color"
+					(onClick)="this.onEnable(element.id)"
+				/>
 				}
 			</div>
 		</td>

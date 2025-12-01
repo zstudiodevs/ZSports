@@ -47,7 +47,7 @@ public class Establecimiento
     {
         if (string.IsNullOrEmpty(telefono))
         {
-            ArgumentNullException.ThrowIfNullOrEmpty("El teléfono no puede estar vacío.");
+            throw new ArgumentException("El teléfono no puede estar vacío.");
         }
         if (telefono.Length > EstablecimientosConstants.MaxTelefonoLength)
         {
@@ -60,7 +60,7 @@ public class Establecimiento
     {
         if (string.IsNullOrEmpty(email))
         {
-            ArgumentNullException.ThrowIfNullOrEmpty("El email no puede estar vacío.");
+            throw new ArgumentException("El email no puede estar vacío.");
         }
 
         if (email.Length > EstablecimientosConstants.MaxEmailLength)
