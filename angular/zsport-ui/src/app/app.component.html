@@ -1,0 +1,23 @@
+<div #loadingRef></div>
+<mat-sidenav-container
+	class="sidenav-container"
+	(backdropClick)="onSidebarBackdropClicked()"
+>
+	<mat-sidenav
+		#sidenav
+		class="sidenav"
+		[mode]="sidebarMode()"
+		[opened]="isSidebarOpened()"
+	>
+		<zs-sidebar />
+	</mat-sidenav>
+
+	<mat-sidenav-content class="sidenav-content">
+		<zs-toolbar
+			[mainButton]="this.mainButton"
+			[title]="this.title"
+			[secondaryButtons]="this.secondaryButtons()"
+		/>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>

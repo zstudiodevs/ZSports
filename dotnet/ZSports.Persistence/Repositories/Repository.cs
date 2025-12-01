@@ -17,7 +17,7 @@ public class Repository<TItem, TKey>(ZSportsDbContext dbContext) : IRepository<T
         TItem? item = await dbContext.Set<TItem>().FindAsync(id, cancellationToken);
 
         if (item is null)
-            throw new KeyNotFoundException($"Item with id {id} not found.");
+            throw new KeyNotFoundException($"No se encontro un/a {typeof(TItem).Name} con Id {id}.");
 
         return item;
     }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ZSports.Contracts.Services;
 
-namespace ZSports.Api.Services;
+namespace ZSports.Persistence.Services;
 
 public class RolesService(RoleManager<IdentityRole<Guid>> roleManager) : IRolesService
 {

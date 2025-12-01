@@ -1,0 +1,959 @@
+
+> zsport-ui@0.0.0 build
+> ng build --configuration docker-dev
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [2.611 seconds] - 2025-11-30T15:44:08.262Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/buttons' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.component.ts:13:39:
+[37m      13 │ import { Button, DropdownButton } from [32m'@app/shared/buttons'[37m;
+         ╵                                        [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/snackbar/services/snackbar.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/auth/guard/auth.guard.ts:6:32:
+[37m      6 │ ...barService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+        ╵                      [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS18046: 'snackbarService' is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/auth/guard/auth.guard.ts:26:5:
+[37m      26 │           [32msnackbarService[37m.open({
+         ╵           [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS18046: 'snackbarService' is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/auth/guard/auth.guard.ts:36:4:
+[37m      36 │         [32msnackbarService[37m.open({
+         ╵         [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS18046: 'snackbarService' is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/auth/guard/auth.guard.ts:47:2:
+[37m      47 │     [32msnackbarService[37m.open({
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/store/auth.store' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:15:26:
+[37m      15 │ import { AuthStore } from [32m'@app/auth/store/auth.store'[37m;
+         ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:16:28:
+[37m      16 │ import { AuthService } from [32m'@app/auth/auth.service'[37m;
+         ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/snackbar/services/snackbar.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:17:32:
+[37m      17 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/loading/services/loading.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:20:31:
+[37m      20 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:62:3:
+[37m      62 │       [32mthis.loadingService[37m.show(this.dialogRef.componentRef?.locati...
+         ╵       [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:64:4:
+[37m      64 │         [32mthis.authService[37m.login({ email, password }).subscribe({
+         ╵         [32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'response' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:65:12:
+[37m      65 │           next: ([32mresponse[37m) => {
+         ╵                  [32m~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:66:6:
+[37m      66 │             [32mthis.authStore[37m.setState({
+         ╵             [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:74:6:
+[37m      74 │             [32mthis.snackbarService[37m.open({
+         ╵             [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:80:6:
+[37m      80 │             [32mthis.loadingService[37m.hide();
+         ╵             [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'error' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:83:13:
+[37m      83 │           error: ([32merror[37m) => {
+         ╵                   [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:84:6:
+[37m      84 │             [32mthis.loadingService[37m.hide();
+         ╵             [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:85:6:
+[37m      85 │             [32mthis.authStore[37m.setState({
+         ╵             [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:92:6:
+[37m      92 │             [32mthis.snackbarService[37m.open({
+         ╵             [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/components/login/login.component.ts:101:3:
+[37m      101 │       [32mthis.snackbarService[37m.open({
+          ╵       [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/snackbar/services/snackbar.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:15:32:
+[37m      15 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/loading/services/loading.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:16:31:
+[37m      16 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:63:4:
+[37m      63 │         [32mthis.loadingService[37m.show(this.dialogRef.componentRef?.loca...
+         ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:68:5:
+[37m      68 │           [32mthis.loadingService[37m.hide();
+         ╵           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:70:5:
+[37m      70 │           [32mthis.snackbarService[37m.open({
+         ╵           [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:75:5:
+[37m      75 │           [32mthis.loadingService[37m.hide();
+         ╵           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:84:2:
+[37m      84 │     [32mthis.loadingService[37m.show(this.dialogRef.componentRef?.location!);
+         ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:87:4:
+[37m      87 │         [32mthis.loadingService[37m.hide();
+         ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:88:4:
+[37m      88 │         [32mthis.snackbarService[37m.open({
+         ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:99:4:
+[37m      99 │         [32mthis.loadingService[37m.hide();
+         ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:100:4:
+[37m      100 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:109:5:
+[37m      109 │           [32mthis.loadingService[37m.hide();
+          ╵           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:110:5:
+[37m      110 │           [32mthis.snackbarService[37m.open({
+          ╵           [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:121:5:
+[37m      121 │           [32mthis.loadingService[37m.hide();
+          ╵           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:122:5:
+[37m      122 │           [32mthis.snackbarService[37m.open({
+          ╵           [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:132:4:
+[37m      132 │         [32mthis.loadingService[37m.hide();
+          ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:133:4:
+[37m      133 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:141:4:
+[37m      141 │         [32mthis.loadingService[37m.hide();
+          ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:142:4:
+[37m      142 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:151:5:
+[37m      151 │           [32mthis.loadingService[37m.hide();
+          ╵           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:152:5:
+[37m      152 │           [32mthis.snackbarService[37m.open({
+          ╵           [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:163:5:
+[37m      163 │           [32mthis.loadingService[37m.hide();
+          ╵           [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:164:5:
+[37m      164 │           [32mthis.snackbarService[37m.open({
+          ╵           [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/toolbar/toolbar.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:5:33:
+[37m      5 │ ... { ToolbarComponent } from [32m'@app/shared/toolbar/toolbar.component'[37m;
+        ╵                               [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/buttons' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:6:40:
+[37m      6 │ import { Button, ButtonComponent } from [32m'@app/shared/buttons'[37m;
+        ╵                                         [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/snackbar/services/snackbar.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:12:32:
+[37m      12 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:19:11:
+[37m      19 │   imports: [[32mToolbarComponent[37m, MatTableModule, TitleCasePipe, Butto...
+         ╵             [32m~~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/pages/Superficies/superficies.component.ts:19:11:
+[37m      19 │   imports: [[32mToolbarComponent[37m, MatTableModule, TitleCasePipe, Butto...
+         ╵             [32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:19:60:
+[37m      19 │ ...ToolbarComponent, MatTableModule, TitleCasePipe, [32mButtonComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/pages/Superficies/superficies.component.ts:19:60:
+[37m      19 │ ...ToolbarComponent, MatTableModule, TitleCasePipe, [32mButtonComponent[37m],
+         ╵                                                     [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:128:4:
+[37m      128 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:141:4:
+[37m      141 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:149:4:
+[37m      149 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:161:4:
+[37m      161 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/Superficies/superficies.component.ts:169:4:
+[37m      169 │         [32mthis.snackbarService[37m.open({
+          ╵         [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/loading/services/loading.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:11:31:
+[37m      11 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/services/navigation.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:19:34:
+[37m      19 │ import { NavigationService } from [32m'@app/services/navigation.service'[37m;
+         ╵                                   [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/buttons' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:20:40:
+[37m      20 │ import { Button, ButtonComponent } from [32m'@app/shared/buttons'[37m;
+         ╵                                         [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/snackbar/services/snackbar.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:29:32:
+[37m      29 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:39:2:
+[37m      39 │     [32mButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:39:2:
+[37m      39 │     [32mButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:108:2:
+[37m      108 │     [32mthis.loadingService[37m.show(this.loadingRef()!);
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:120:4:
+[37m      120 │         [32mthis.loadingService[37m.hide();
+          ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:127:4:
+[37m      127 │         [32mthis.loadingService[37m.hide();
+          ╵         [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:133:2:
+[37m      133 │     [32mthis.navigationService[37m.goBack();
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:148:3:
+[37m      148 │       [32mthis.loadingService[37m.show(this.loadingRef()!);
+          ╵       [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:159:6:
+[37m      159 │             [32mthis.loadingService[37m.hide();
+          ╵             [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:160:6:
+[37m      160 │             [32mthis.snackbarService[37m.open({
+          ╵             [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:171:6:
+[37m      171 │             [32mthis.loadingService[37m.hide();
+          ╵             [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:172:6:
+[37m      172 │             [32mthis.snackbarService[37m.open({
+          ╵             [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/types/auth.type' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/owner-info/types/establecimiento.type.ts:1:21:
+[37m      1 │ import { User } from [32m'@app/auth/types/auth.type'[37m;
+        ╵                      [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/auth.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:23:28:
+[37m      23 │ import { AuthService } from [32m'@app/auth/auth.service'[37m;
+         ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/store/auth.store' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:24:26:
+[37m      24 │ import { AuthStore } from [32m'@app/auth/store/auth.store'[37m;
+         ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/types/auth.type' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:25:51:
+[37m      25 │ ..., UpdateUserRequest, UserRoles } from [32m'@app/auth/types/auth.type'[37m;
+         ╵                                          [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/services/navigation.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:26:34:
+[37m      26 │ import { NavigationService } from [32m'@app/services/navigation.service'[37m;
+         ╵                                   [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/buttons' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:27:40:
+[37m      27 │ import { Button, ButtonComponent } from [32m'@app/shared/buttons'[37m;
+         ╵                                         [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/loading/services/loading.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:28:31:
+[37m      28 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/snackbar/services/snackbar.service' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:29:32:
+[37m      29 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:45:2:
+[37m      45 │     [32mButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:45:2:
+[37m      45 │     [32mButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:108:2:
+[37m      108 │     [32mthis.loadingService[37m.show(this.loadingRef()!);
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:124:2:
+[37m      124 │     [32mthis.loadingService[37m.hide();
+          ╵     [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:136:2:
+[37m      136 │     [32mthis.navigationService[37m.goBack();
+          ╵     [32m~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:150:3:
+[37m      150 │       [32mthis.loadingService[37m.show(this.loadingRef()!);
+          ╵       [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:151:3:
+[37m      151 │       [32mthis.authService[37m
+          ╵       [32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'user' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:155:12:
+[37m      155 │           next: ([32muser[37m) => {
+          ╵                  [32m~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:156:6:
+[37m      156 │             [32mthis.authStore[37m.setState({ user });
+          ╵             [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:157:6:
+[37m      157 │             [32mthis.loadingService[37m.hide();
+          ╵             [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:158:6:
+[37m      158 │             [32mthis.snackbarService[37m.open({
+          ╵             [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'error' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:163:13:
+[37m      163 │           error: ([32merror[37m) => {
+          ╵                   [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:164:6:
+[37m      164 │             [32mthis.loadingService[37m.hide();
+          ╵             [32m~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:165:6:
+[37m      165 │             [32mthis.snackbarService[37m.open({
+          ╵             [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/store/auth.store' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:14:26:
+[37m      14 │ import { AuthStore } from [32m'@app/auth/store/auth.store'[37m;
+         ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/auth/types/auth.type' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:15:32:
+[37m      15 │ import { User, UserRoles } from [32m'@app/auth/types/auth.type'[37m;
+         ╵                                 [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:50:7:
+[37m      50 │       if ([32mthis.authStore[37m.user$() !== null) this.user = this.authSt...
+         ╵           [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:50:52:
+[37m      50 │ ...s.authStore.user$() !== null) this.user = [32mthis.authStore[37m.user$()!;
+         ╵                                              [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:52:7:
+[37m      52 │       if ([32mthis.authStore[37m.username$() !== null)
+         ╵           [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:53:20:
+[37m      53 │         this.username = [32mthis.authStore[37m.username$()!;
+         ╵                         [32m~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS7006: Parameter 'role' implicitly has an 'any' type.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/profile/profile.component.ts:56:27:
+[37m      56 │         this.user?.roles.some(([32mrole[37m) => role === UserRoles.Owner) ...
+         ╵                                [32m~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/buttons/models' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/shared/sidebar/sidebar.component.ts:3:27:
+[37m      3 │ import { IconButton } from [32m'@app/shared/buttons/models'[37m;
+        ╵                            [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@app/shared/buttons' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/shared/toolbar/toolbar.component.ts:9:7:
+[37m      9 │ } from [32m'@app/shared/buttons'[37m;
+        ╵        [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/shared/toolbar/toolbar.component.ts:19:4:
+[37m      19 │     [32mButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/shared/toolbar/toolbar.component.ts:19:4:
+[37m      19 │     [32mButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.
+  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/shared/toolbar/toolbar.component.ts:20:4:
+[37m      20 │     [32mDropdownButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/shared/toolbar/toolbar.component.ts:20:4:
+[37m      20 │     [32mDropdownButtonComponent[37m,
+         ╵     [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/snackbar/services/snackbar.service"[0m
+
+    src/app/auth/guard/auth.guard.ts:6:32:
+[37m      6 │ ...barService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+        ╵                      [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/snackbar/services/snackbar.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/store/auth.store"[0m
+
+    src/app/components/login/login.component.ts:7:26:
+[37m      7 │ import { AuthStore } from [32m'@app/auth/store/auth.store'[37m;
+        ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/store/auth.store" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/auth.service"[0m
+
+    src/app/components/login/login.component.ts:8:28:
+[37m      8 │ import { AuthService } from [32m'@app/auth/auth.service'[37m;
+        ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/auth.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/snackbar/services/snackbar.service"[0m
+
+    src/app/components/login/login.component.ts:9:32:
+[37m      9 │ ...barService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+        ╵                      [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/snackbar/services/snackbar.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/loading/services/loading.service"[0m
+
+    src/app/components/login/login.component.ts:12:31:
+[37m      12 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/loading/services/loading.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/snackbar/services/snackbar.service"[0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:10:32:
+[37m      10 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/snackbar/services/snackbar.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/loading/services/loading.service"[0m
+
+    src/app/pages/Superficies/components/crear-editar-superficie/crear-editar-superficie.component.ts:11:31:
+[37m      11 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/loading/services/loading.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/toolbar/toolbar.component"[0m
+
+    src/app/pages/Superficies/superficies.component.ts:6:33:
+[37m      6 │ ... { ToolbarComponent } from [32m'@app/shared/toolbar/toolbar.component'[37m;
+        ╵                               [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/toolbar/toolbar.component" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/buttons"[0m
+
+    src/app/pages/Superficies/superficies.component.ts:7:32:
+[37m      7 │ import { ButtonComponent } from [32m'@app/shared/buttons'[37m;
+        ╵                                 [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/buttons" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/snackbar/services/snackbar.service"[0m
+
+    src/app/pages/Superficies/superficies.component.ts:13:32:
+[37m      13 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/snackbar/services/snackbar.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/loading/services/loading.service"[0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:3:31:
+[37m      3 │ ...adingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+        ╵                        [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/loading/services/loading.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/services/navigation.service"[0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:7:34:
+[37m      7 │ import { NavigationService } from [32m'@app/services/navigation.service'[37m;
+        ╵                                   [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/services/navigation.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/buttons"[0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:8:32:
+[37m      8 │ import { ButtonComponent } from [32m'@app/shared/buttons'[37m;
+        ╵                                 [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/buttons" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/snackbar/services/snackbar.service"[0m
+
+    src/app/pages/profile/owner-info/owner-info.component.ts:12:32:
+[37m      12 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/snackbar/services/snackbar.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/auth.service"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:10:28:
+[37m      10 │ import { AuthService } from [32m'@app/auth/auth.service'[37m;
+         ╵                             [32m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/auth.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/store/auth.store"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:11:26:
+[37m      11 │ import { AuthStore } from [32m'@app/auth/store/auth.store'[37m;
+         ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/store/auth.store" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/types/auth.type"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:12:26:
+[37m      12 │ import { UserRoles } from [32m'@app/auth/types/auth.type'[37m;
+         ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/types/auth.type" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/services/navigation.service"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:13:34:
+[37m      13 │ import { NavigationService } from [32m'@app/services/navigation.service'[37m;
+         ╵                                   [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/services/navigation.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/buttons"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:14:32:
+[37m      14 │ import { ButtonComponent } from [32m'@app/shared/buttons'[37m;
+         ╵                                 [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/buttons" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/loading/services/loading.service"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:15:31:
+[37m      15 │ ...dingService } from [32m'@app/shared/loading/services/loading.service'[37m;
+         ╵                       [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/loading/services/loading.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/snackbar/services/snackbar.service"[0m
+
+    src/app/pages/profile/profile-info/profile-info.component.ts:16:32:
+[37m      16 │ ...arService } from [32m'@app/shared/snackbar/services/snackbar.service'[37m;
+         ╵                     [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/snackbar/services/snackbar.service" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/store/auth.store"[0m
+
+    src/app/pages/profile/profile.component.ts:8:26:
+[37m      8 │ import { AuthStore } from [32m'@app/auth/store/auth.store'[37m;
+        ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/store/auth.store" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/auth/types/auth.type"[0m
+
+    src/app/pages/profile/profile.component.ts:9:26:
+[37m      9 │ import { UserRoles } from [32m'@app/auth/types/auth.type'[37m;
+        ╵                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/auth/types/auth.type" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "@app/shared/buttons"[0m
+
+    src/app/shared/toolbar/toolbar.component.ts:4:58:
+[37m      4 │ ...onComponent, DropdownButtonComponent, } from [32m'@app/shared/buttons'[37m;
+        ╵                                                 [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+  You can mark the path "@app/shared/buttons" as external to exclude it from the bundle, which will remove this error and leave the unresolved path in the bundle.
+
+[39m[22m

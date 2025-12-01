@@ -1,0 +1,15 @@
+<div #loadingRef></div>
+<mat-tab-group class="tab-group">
+	<mat-tab label="Información Personal">
+		<zs-profile-info
+			[loadingRef]="this.loadingRef"
+			[user]="this.user"
+			[username]="this.username"
+		/>
+	</mat-tab>
+	@if (this.isOwner) {
+	<mat-tab label="Información de Propietario">
+		<zs-owner-info [loadingRef]="this.loadingRef" [userId]="this.user.id"
+	/></mat-tab>
+	}
+</mat-tab-group>

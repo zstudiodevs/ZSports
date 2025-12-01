@@ -1,0 +1,191 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+	@include mat.theme((color: (theme-type: light,
+				primary: mat.$azure-palette,
+				tertiary: mat.$blue-palette,
+			),
+			typography: Roboto,
+			density: 0,
+		));
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	// Colores principales del deporte
+	--sport-green: #2e8b57; // Verde césped/cancha
+	--sport-green-light: #3cb371;
+	--sport-green-dark: #228b22;
+
+	// Colores de acento
+	--orange-accent: #ff6b35; // Naranja energético
+	--blue-accent: #1e90ff; // Azul confianza
+
+	// Tema Claro
+	--light-bg-primary: #ffffff;
+	--light-bg-secondary: #f8f9fa;
+	--light-surface: #ffffff;
+	--light-surface-variant: #e3f2fd;
+
+	--light-text-primary: #212529;
+	--light-text-secondary: #6c757d;
+	--light-text-muted: #adb5bd;
+
+	--light-border: #dee2e6;
+	--light-shadow: rgba(0, 0, 0, 0.1);
+
+	// Tema Oscuro
+	--dark-bg-primary: #121212;
+	--dark-bg-secondary: #1e1e1e;
+	--dark-surface: #2d2d2d;
+	--dark-surface-variant: #3a3a3a;
+
+	--dark-text-primary: #ffffff;
+	--dark-text-secondary: #e0e0e0;
+	--dark-text-muted: #9e9e9e;
+
+	--dark-border: #424242;
+	--dark-shadow: rgba(0, 0, 0, 0.3);
+
+	// Estados
+	--success: #28a745;
+	--warning: #ffc107;
+	--danger: #dc3545;
+	--info: #17a2b8;
+
+	// Disponibilidad de canchas
+	--available: #28a745;
+	--occupied: #dc3545;
+	--pending: #ffc107;
+}
+
+// Tema Claro (por defecto)
+body {
+	--bg-primary: var(--light-bg-primary);
+	--bg-secondary: var(--light-bg-secondary);
+	--surface: var(--light-surface);
+	--surface-variant: var(--light-surface-variant);
+
+	--text-primary: var(--light-text-primary);
+	--text-secondary: var(--light-text-secondary);
+	--text-muted: var(--light-text-muted);
+
+	--border-color: var(--light-border);
+	--shadow-color: var(--light-shadow);
+
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+		sans-serif;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Tema Oscuro
+body.dark-theme {
+	--bg-primary: var(--dark-bg-primary);
+	--bg-secondary: var(--dark-bg-secondary);
+	--surface: var(--dark-surface);
+	--surface-variant: var(--dark-surface-variant);
+
+	--text-primary: var(--dark-text-primary);
+	--text-secondary: var(--dark-text-secondary);
+	--text-muted: var(--dark-text-muted);
+
+	--border-color: var(--dark-border);
+	--shadow-color: var(--dark-shadow);
+}
+
+// Clases utilitarias para deportes
+.sport-primary {
+	color: var(--sport-green);
+}
+
+.sport-bg-primary {
+	background-color: var(--sport-green);
+	color: white;
+}
+
+.available-slot {
+	background-color: var(--available);
+	color: white;
+}
+
+.occupied-slot {
+	background-color: var(--occupied);
+	color: white;
+}
+
+.pending-slot {
+	background-color: var(--pending);
+	color: black;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.table {
+	@include mat.table-overrides((background-color: var(--surface-variant),
+			header-headline-color: var(--text-primary),
+			row-item-label-text-color: var(--text-secondary),
+			row-item-outline-width: 2px,
+		));
+
+	tr:nth-child(odd) {
+		@include mat.table-overrides((background-color: var(--surface),
+			));
+	}
+}
+
+.snackbar {
+	&.success {
+		@include mat.snack-bar-overrides((container-color: var(--success),
+				supporting-text-color: white,
+			));
+	}
+
+	&.warning {
+		@include mat.snack-bar-overrides((container-color: var(--warning),
+				supporting-text-color: black,
+			));
+	}
+
+	&.danger {
+		@include mat.snack-bar-overrides((container-color: var(--danger),
+				supporting-text-color: white,
+			));
+	}
+
+	&.info {
+		@include mat.snack-bar-overrides((container-color: var(--info),
+				supporting-text-color: white,
+			));
+	}
+}
+
+.chip {
+	&.available {
+		@include mat.chips-overrides((selected-focus-state-layer-color: var(--available),
+				label-text-color: black,
+			));
+	}
+
+	&.disabled {
+		@include mat.chips-overrides((selected-focus-state-layer-color: var(--occupied),
+				label-text-color: white,
+			));
+	}
+}

@@ -1,0 +1,53 @@
+<mat-card class="login-card">
+	<mat-card-header class="login-card-header">
+		<mat-card-title>Iniciar sesión</mat-card-title>
+		<button mat-icon-button (click)="this.onCloseDialog()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-card-header>
+	<mat-card-content class="login-card-content">
+		<mat-form-field appearance="outline">
+			<mat-label>Correo electrónico</mat-label>
+			<input
+				matInput
+				[formControl]="emailControl"
+				type="email"
+				placeholder="Ingrese su correo electrónico"
+			/>
+			@if(emailControl.invalid && (emailControl.dirty || emailControl.touched))
+			{ @if (emailControl.errors?.['required']) {
+			<mat-error>El correo electrónico es obligatorio.</mat-error>
+			} @else if (emailControl.errors?.['email']) {
+			<mat-error>Por favor, ingrese un correo electrónico válido.</mat-error>
+			} @else if (emailControl.errors?.['maxlength']) {
+			<mat-error
+				>El correo electrónico no debe exceder los 128 caracteres.</mat-error
+			>
+			} }
+		</mat-form-field>
+		<mat-form-field appearance="outline">
+			<mat-label>Contraseña</mat-label>
+			<input
+				matInput
+				[formControl]="passwordControl"
+				type="password"
+				placeholder="Ingrese su contraseña"
+			/>
+			@if(passwordControl.invalid && (passwordControl.dirty ||
+			passwordControl.touched)) { @if (passwordControl.errors?.['required']) {
+			<mat-error>La contraseña es obligatoria.</mat-error>
+			} @else if (passwordControl.errors?.['minlength']) {
+			<mat-error>La contraseña debe tener al menos 6 caracteres.</mat-error>
+			} }
+		</mat-form-field>
+		<p>
+			¿No tienes una cuenta?
+			<a routerLink="/register">Regístrate aquí</a>
+		</p>
+	</mat-card-content>
+	<mat-card-actions class="login-card-actions">
+		<button mat-raised-button class="login-button" (click)="onLogin()">
+			Iniciar sesión
+		</button>
+	</mat-card-actions>
+</mat-card>

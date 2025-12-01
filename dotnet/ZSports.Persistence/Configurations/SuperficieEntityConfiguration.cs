@@ -17,6 +17,9 @@ public class SuperficieEntityConfiguration : IEntityTypeConfiguration<Superficie
             .IsRequired()
             .UseCollation("Latin1_General_100_CI_AI_SC");
 
+        builder.Property(x => x.Activo)
+            .IsRequired();
+
         builder.HasIndex(x => x.Nombre)
         .IsUnique()
         .HasDatabaseName("UQ_Superficie_Nombre");

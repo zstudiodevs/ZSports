@@ -1,0 +1,12 @@
+.zs-dropdown-button {
+	color: var(--text-primary) !important;
+}
+
+.cdk-overlay-pane {
+	background-color: var(--bg-primary);
+
+	.zs-dropdown-button-option {
+		background-color: var(--bg-secondary);
+		color: var(--text-primary);
+	}
+}

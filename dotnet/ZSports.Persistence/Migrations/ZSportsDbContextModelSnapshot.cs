@@ -18,7 +18,10 @@ namespace ZSports.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("zsports")
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "9.0.10")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -154,10 +157,145 @@ namespace ZSports.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", "zsports");
                 });
 
+            modelBuilder.Entity("ZSports.Domain.Entities.Cancha", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activa")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CapacidadJugadores")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("DeporteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DuracionPartido")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EsIndoor")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("EstablecimientoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SuperficieId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeporteId");
+
+                    b.HasIndex("EstablecimientoId");
+
+                    b.HasIndex("SuperficieId");
+
+                    b.ToTable("Cancha", "zsports");
+                });
+
+            modelBuilder.Entity("ZSports.Domain.Entities.Deporte", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Deporte", "zsports");
+                });
+
+            modelBuilder.Entity("ZSports.Domain.Entities.Establecimiento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("PropietarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropietarioId");
+
+                    b.ToTable("Establecimiento", "zsports");
+                });
+
+            modelBuilder.Entity("ZSports.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Revoked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("RefreshToken", "zsports");
+                });
+
             modelBuilder.Entity("ZSports.Domain.Entities.Superficie", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -312,6 +450,55 @@ namespace ZSports.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ZSports.Domain.Entities.Cancha", b =>
+                {
+                    b.HasOne("ZSports.Domain.Entities.Deporte", "Deporte")
+                        .WithMany()
+                        .HasForeignKey("DeporteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ZSports.Domain.Entities.Establecimiento", "Establecimiento")
+                        .WithMany()
+                        .HasForeignKey("EstablecimientoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ZSports.Domain.Entities.Superficie", "Superficie")
+                        .WithMany()
+                        .HasForeignKey("SuperficieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Deporte");
+
+                    b.Navigation("Establecimiento");
+
+                    b.Navigation("Superficie");
+                });
+
+            modelBuilder.Entity("ZSports.Domain.Entities.Establecimiento", b =>
+                {
+                    b.HasOne("ZSports.Domain.Entities.Usuario", "Propietario")
+                        .WithMany()
+                        .HasForeignKey("PropietarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Propietario");
+                });
+
+            modelBuilder.Entity("ZSports.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("ZSports.Domain.Entities.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 #pragma warning restore 612, 618
         }

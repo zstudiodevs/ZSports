@@ -1,15 +1,14 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ZSports.Api.Services;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
 using ZSports.Domain.Entities;
 using ZSports.Persistence;
 using ZSports.Persistence.Repositories;
+using ZSports.Persistence.Services;
 
 namespace ZSports.Api
 {
@@ -23,7 +22,8 @@ namespace ZSports.Api
             // Add services to the container.
             builder.Services.AddDbContext<ZSportsDbContext>(opts =>
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                assembly => assembly.MigrationsAssembly(typeof(ZSportsDbContext).Assembly.FullName)));
+                assembly => assembly.MigrationsAssembly(typeof(ZSportsDbContext).Assembly.FullName))
+                    .UseLazyLoadingProxies());
 
             builder.Services.AddIdentity<Usuario, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ZSportsDbContext>()
@@ -56,12 +56,50 @@ namespace ZSports.Api
             builder.Services.AddScoped<ISuperficieService, SuperficieService>();
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
             builder.Services.AddScoped<IRolesService, RolesService>();
+            builder.Services.AddScoped<IDeportesService, DeportesService>();
+            builder.Services.AddScoped<IEstablecimientosService, EstablecimientosService>();
 
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? [];
+            builder.Services.AddCors(opts =>
+            {
+                opts.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.WithOrigins(origins)
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
+
+            // Aplicar migraciones automáticamente al inicio
+            using (var scope = app.Services.CreateScope())
+            {
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<ZSportsDbContext>();
+                    var pending = db.Database.GetPendingMigrations();
+                    if (pending.Any())
+                    {
+                        logger.LogInformation("Aplicando {Count} migraciones pendientes...", pending.Count());
+                        db.Database.Migrate();
+                        logger.LogInformation("Migraciones aplicadas correctamente.");
+                    }
+                    else
+                    {
+                        logger.LogInformation("No hay migraciones pendientes.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Error aplicando migraciones al iniciar la aplicación.");
+                    throw;
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -69,10 +107,10 @@ namespace ZSports.Api
                 app.MapOpenApi();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

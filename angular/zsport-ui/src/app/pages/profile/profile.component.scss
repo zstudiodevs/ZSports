@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+.tab-group {
+  background-color: var(--surface-variant);
+  
+   @include mat.tabs-overrides((
+    active-indicator-color: var(--blue-accent),
+    active-label-text-color: var(--text-primary),
+    active-hover-label-text-color: var(--sport-green),
+    inactive-label-text-color: var(--text-secondary),
+    inactive-hover-label-text-color: var(--orange-accent),
+  ));
+}

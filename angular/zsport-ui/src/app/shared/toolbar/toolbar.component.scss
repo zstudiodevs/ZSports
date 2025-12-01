@@ -1,0 +1,27 @@
+.toolbar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: start;
+	background-color: var(--surface);
+
+	&-spacer {
+		flex: 1 1 auto;
+	}
+
+	&-title {
+		margin-left: 0.25rem;
+		font-size: 1.25rem;
+		font-weight: 500;
+		color: var(--text-primary);
+	}
+
+	.main-button,
+	.secondary-button {
+		color: var(--text-secondary);
+
+		&:disabled {
+			color: var(--text-muted);
+		}
+	}
+}

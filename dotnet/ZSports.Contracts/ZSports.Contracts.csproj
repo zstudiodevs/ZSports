@@ -10,8 +10,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ZSports.Domain\ZSports.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

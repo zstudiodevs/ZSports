@@ -1,0 +1,43 @@
+@if (label() !== '' && label() !== undefined) {
+<button
+	mat-button
+	class="zs-dropdown-button"
+	[id]="this.id()"
+	[type]="this.htmlType()"
+	[disabled]="this.disabled()"
+	[matMenuTriggerFor]="zsOptions"
+>
+	@if (this.icon()) {
+	<mat-icon>{{ this.icon() }}</mat-icon>
+	}
+	<span>{{ this.label() }}</span>
+</button>
+} @else if (this.icon() !== '') {
+<button
+	mat-icon-button
+	class="zs-dropdown-button"
+	[id]="this.id()"
+	[type]="this.htmlType()"
+	[disabled]="this.disabled()"
+	[matMenuTriggerFor]="zsOptions"
+>
+	<mat-icon>{{ this.icon() }}</mat-icon>
+</button>
+}
+<mat-menu #zsOptions xPosition="before" yPosition="below">
+	@for (item of items; track $index) {
+	<button
+		mat-menu-item
+		class="zs-dropdown-button-option"
+		[id]="item.id"
+		[disabled]="item.disabled"
+		(click)="item.action()"
+	>
+		@if (item.icon) {
+		<mat-icon>{{ item.icon }}</mat-icon>
+		} @if (item.label) {
+		<span>{{ item.label }}</span>
+		}
+	</button>
+	}
+</mat-menu>

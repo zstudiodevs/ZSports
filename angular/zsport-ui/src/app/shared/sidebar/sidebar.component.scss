@@ -1,0 +1,19 @@
+.menu-toolbar {
+	height: 64px;
+}
+
+.menu-list {
+	height: calc(100% - 64px);
+	overflow-y: auto;
+	background-color: var(--surface-variant);
+
+	.menu-list-item {
+		&-icon {
+			color: var(--text-primary);
+		}
+
+		&-label {
+			color: var(--text-primary);
+		}
+	}
+}
