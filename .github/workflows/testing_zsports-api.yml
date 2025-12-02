@@ -23,17 +23,24 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Restore dependencies
+        working-directory: ./dotnet
+        run: dotnet restore dotnet.sln
+
+      - name: Build with dotnet (Release)
+        working-directory: ./dotnet
+        run: dotnet build dotnet.sln --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: ./dotnet
+        # Publica todo lo de la solución en ../publish (carpeta en la raíz del repo)
+        run: dotnet publish dotnet.sln --configuration Release --no-build --output ../publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: publish   # carpeta creada en la raíz
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,4 +69,5 @@ jobs:
           app-name: 'zsports-api'
           slot-name: 'Production'
           package: .
+
           
