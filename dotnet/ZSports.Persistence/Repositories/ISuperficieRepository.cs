@@ -1,6 +1,6 @@
 ﻿using ZSports.Contracts.Superficies;
 
-namespace ZSports.Contracts.Repositories;
+namespace ZSports.Persistence.Repositories;
 
 public interface ISuperficieRepository
 {

@@ -23,6 +23,7 @@ public class CanchaEntityConfiguration : IEntityTypeConfiguration<Cancha>
             .IsRequired();
 
         builder.Property(c => c.Activa)
+            .HasDefaultValue(true)
             .IsRequired();
 
         builder.HasOne(c => c.Superficie)
@@ -42,5 +43,10 @@ public class CanchaEntityConfiguration : IEntityTypeConfiguration<Cancha>
             .HasForeignKey(c => c.EstablecimientoId)
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
+
+        // Índice único compuesto: no puede haber dos canchas con el mismo número en el mismo establecimiento
+        builder.HasIndex(c => new { c.Numero, c.EstablecimientoId })
+            .IsUnique()
+            .HasDatabaseName("UQ_Cancha_Numero_Establecimiento");
     }
 }
