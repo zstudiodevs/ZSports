@@ -53,11 +53,13 @@ namespace ZSports.Api
 
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             builder.Services.AddScoped<ISuperficieRepository, SuperficieRepository>();
+            builder.Services.AddScoped<ICanchasRepository, CanchasRepository>();
             builder.Services.AddScoped<ISuperficieService, SuperficieService>();
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
             builder.Services.AddScoped<IRolesService, RolesService>();
             builder.Services.AddScoped<IDeportesService, DeportesService>();
             builder.Services.AddScoped<IEstablecimientosService, EstablecimientosService>();
+            builder.Services.AddScoped<ICanchasService, CanchasService>();
 
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
