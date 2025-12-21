@@ -30,6 +30,14 @@ public class EstablecimientoEntityConfiguration : IEntityTypeConfiguration<Estab
         builder.Property(e => e.Activo)
             .IsRequired();
 
+        builder.Property(e => e.HoraInicioMinima)
+            .IsRequired()
+            .HasDefaultValue(new TimeSpan(6, 0, 0));
+
+        builder.Property(e => e.HoraFinMaxima)
+            .IsRequired()
+            .HasDefaultValue(new TimeSpan(23, 0, 0));
+
         builder.HasOne(e => e.Propietario)
             .WithMany()
             .HasForeignKey(e => e.PropietarioId)

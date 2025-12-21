@@ -101,6 +101,42 @@ public class CanchasController(
         }
     }
 
+    [HttpGet("{canchaId}/turnos-disponibles")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> ObtenerTurnosDisponibles(
+        Guid canchaId,
+        [FromQuery] DateOnly fecha,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Solicitud para obtener turnos disponibles de cancha {CanchaId} en fecha {Fecha}",
+                canchaId, fecha);
+
+            var request = new ObtenerTurnosDisponiblesRequest
+            {
+                CanchaId = canchaId,
+                Fecha = fecha
+            };
+
+            var result = await service.ObtenerTurnosDisponiblesAsync(request, cancellationToken);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException knf)
+        {
+            logger.LogWarning(knf, "Cancha no encontrada");
+            return NotFound(new { error = knf.Message });
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error al obtener turnos disponibles");
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { error = "Ocurrió un error al procesar la solicitud." });
+        }
+    }
+
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
