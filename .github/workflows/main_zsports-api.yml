@@ -24,9 +24,11 @@ jobs:
           dotnet-version: '10.x'
 
       - name: Build with dotnet
+        working-directory: ./dotnet
         run: dotnet build --configuration Release
 
       - name: dotnet publish
+        working-directory: ./dotnet
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
@@ -62,4 +64,5 @@ jobs:
           app-name: 'zsports-api'
           slot-name: 'Production'
           package: .
+
           
