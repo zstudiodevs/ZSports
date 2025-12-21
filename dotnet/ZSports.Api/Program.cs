@@ -69,8 +69,11 @@ public class Program
             .AddDbContextCheck<ZSportsDbContext>(
                 name: "database",
                 tags: ["db", "sql", "sqlserver"]);
-
         builder.Services.AddControllers();
+
+        builder.Services.AddAuthorization();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
         // OpenAPI/Swagger - habilitado en todos los ambientes usando el nuevo sistema de .NET 10
         builder.Services.AddOpenApi();
@@ -116,11 +119,10 @@ public class Program
 
         // Configure the HTTP request pipeline.
         // OpenAPI habilitado en todos los ambientes
-        app.MapOpenApi();
         app.UseSwagger();
         app.UseSwaggerUI(opts =>
         {
-            opts.SwaggerEndpoint("/openapi/v1.json", "ZSports API V1");
+            opts.SwaggerEndpoint("/swagger/v1/swagger.json", "ZSports API V1");
         });
 
         // Health Check endpoints
