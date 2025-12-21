@@ -10,6 +10,8 @@ public class Establecimiento
     public string Telefono { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
     public bool Activo { get; private set; } = true;
+    public TimeSpan HoraInicioMinima { get; private set; } = new TimeSpan(6, 0, 0); // 06:00 AM por defecto
+    public TimeSpan HoraFinMaxima { get; private set; } = new TimeSpan(23, 0, 0); // 11:00 PM por defecto
     public Guid PropietarioId { get; private set; } = Guid.Empty;
     public virtual Usuario Propietario { get; private set; } = null!;
 
@@ -69,6 +71,22 @@ public class Establecimiento
         }
 
         Email = email;
+    }
+
+    public void SetHorarios(TimeSpan horaInicioMinima, TimeSpan horaFinMaxima)
+    {
+        if (horaInicioMinima >= horaFinMaxima)
+        {
+            throw new ArgumentException("La hora de inicio mínima debe ser menor que la hora de fin máxima.");
+        }
+
+        if (horaFinMaxima - horaInicioMinima < TimeSpan.FromMinutes(60))
+        {
+            throw new ArgumentException("Debe haber al menos 1 hora de diferencia entre la hora de inicio mínima y la hora de fin máxima.");
+        }
+
+        HoraInicioMinima = horaInicioMinima;
+        HoraFinMaxima = horaFinMaxima;
     }
 
     public void Habilitar()

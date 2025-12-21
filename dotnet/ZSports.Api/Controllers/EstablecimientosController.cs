@@ -25,22 +25,23 @@ public class EstablecimientosController(
         catch (KeyNotFoundException knf)
         {
             logger.LogWarning(knf, "CreateEstablecimiento: Related resource not found.");
-            return NotFound(knf.Message);
+            return NotFound(new { error = knf.Message });
         }
         catch (UnauthorizedAccessException uae)
         {
             logger.LogWarning(uae, "CreateEstablecimiento: Unauthorized access.");
-            return Unauthorized(uae.Message);
+            return Unauthorized(new { error = uae.Message });
         }
         catch (ArgumentException ae)
         {
             logger.LogWarning(ae, "CreateEstablecimiento: Bad request.");
-            return BadRequest(ae.Message);
+            return BadRequest(new { error = ae.Message });
         }
         catch (Exception ex)
         {
-            logger.LogError("CreateEstablecimiento: Internal server error.");
-            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            logger.LogError(ex, "CreateEstablecimiento: Internal server error.");
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { error = "Ocurrió un error al procesar la solicitud." });
         }
     }
 
@@ -58,12 +59,13 @@ public class EstablecimientosController(
         catch (KeyNotFoundException knf)
         {
             logger.LogWarning(knf, "GetEstablecimientoByPropietarioId: Establecimiento not found.");
-            return NotFound(knf.Message);
+            return NotFound(new { error = knf.Message });
         }
         catch (Exception ex)
         {
-            logger.LogError("GetEstablecimientoByPropietarioId: Internal server error.");
-            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            logger.LogError(ex, "GetEstablecimientoByPropietarioId: Internal server error.");
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { error = "Ocurrió un error al procesar la solicitud." });
         }
     }
 
@@ -79,8 +81,46 @@ public class EstablecimientosController(
         }
         catch (Exception ex)
         {
-            logger.LogError("GetEstablecimientos: Internal server error.");
-            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            logger.LogError(ex, "GetEstablecimientos: Internal server error.");
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { error = "Ocurrió un error al procesar la solicitud." });
+        }
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpPut]
+    public async Task<IActionResult> UpdateEstablecimiento([FromBody] UpdateEstablecimiento request, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Solicitud para actualizar establecimiento con Id: {EstablecimientoId}", request.Id);
+            var result = await service.UpdateEstablecimientoAsync(request, cancellationToken);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException knf)
+        {
+            logger.LogWarning(knf, "UpdateEstablecimiento: Establecimiento not found.");
+            return NotFound(new { error = knf.Message });
+        }
+        catch (UnauthorizedAccessException uae)
+        {
+            logger.LogWarning(uae, "UpdateEstablecimiento: Unauthorized access.");
+            return Unauthorized(new { error = uae.Message });
+        }
+        catch (ArgumentException ae)
+        {
+            logger.LogWarning(ae, "UpdateEstablecimiento: Bad request.");
+            return BadRequest(new { error = ae.Message });
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "UpdateEstablecimiento: Internal server error.");
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { error = "Ocurrió un error al procesar la solicitud." });
         }
     }
 }
