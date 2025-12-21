@@ -43,9 +43,9 @@ public class CanchasRepository(ZSportsDbContext dbContext) : ICanchasRepository
             query = query.Where(c => c.DeporteId == deporteId.Value);
         }
 
-        if (soloActivas.HasValue && soloActivas.Value)
+        if (soloActivas.HasValue )
         {
-            query = query.Where(c => c.Activa);
+            query = query.Where(c => c.Activa == soloActivas.Value);
         }
 
         var totalCount = await query.CountAsync(cancellationToken);
