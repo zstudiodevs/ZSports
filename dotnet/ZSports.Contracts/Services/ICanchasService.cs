@@ -10,4 +10,5 @@ public interface ICanchasService
     Task<CanchaDto> ObtenerCanchaPorIdAsync(Guid canchaId, CancellationToken cancellationToken = default);
     Task<CanchaDto> ActualizarCanchaAsync(UpdateCancha request, CancellationToken cancellationToken = default);
     Task<bool> CambiarEstadoCanchaAsync(CambiarEstadoCancha request, CancellationToken cancellationToken = default);
+    Task<IEnumerable<TurnoDisponibleDto>> ObtenerTurnosDisponiblesAsync(ObtenerTurnosDisponiblesRequest request, CancellationToken cancellationToken = default);
 }

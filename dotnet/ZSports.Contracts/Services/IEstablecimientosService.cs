@@ -8,4 +8,5 @@ public interface IEstablecimientosService
     Task<EstablecimientoDto> GetEstablecimientoByIdAsync(Guid establecimientoId, CancellationToken cancellationToken = default);
     Task<IEnumerable<EstablecimientoDto>> GetAllEstablecimientosAsync(CancellationToken cancellationToken = default);
     Task<EstablecimientoDto> GetEstablecimientoByPropietarioId(Guid propietarioId, CancellationToken cancellationToken = default);
+    Task<EstablecimientoDto> UpdateEstablecimientoAsync(UpdateEstablecimiento updateEstablecimiento, CancellationToken cancellationToken = default);
 }

@@ -5,6 +5,7 @@ using ZSports.Contracts.Common;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
 using ZSports.Domain.Entities;
+using ZSports.Domain.Enums;
 using ZSports.Domain.Mapper;
 using ZSports.Persistence.Repositories;
 
@@ -16,7 +17,8 @@ public class CanchasService(
     ICanchasRepository canchasRepository,
     IRepository<Superficie, Guid> superficieRepository,
     IRepository<Deporte, Guid> deporteRepository,
-    IRepository<Establecimiento, Guid> establecimientoRepository) : ICanchasService
+    IRepository<Establecimiento, Guid> establecimientoRepository,
+    IRepository<Turno, Guid> turnoRepository) : ICanchasService
 {
     public async Task<CanchaDto> CrearCanchaAsync(CreateCancha request, CancellationToken cancellationToken = default)
     {
@@ -269,6 +271,91 @@ public class CanchasService(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error al cambiar estado de cancha");
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<TurnoDisponibleDto>> ObtenerTurnosDisponiblesAsync(
+        ObtenerTurnosDisponiblesRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            logger.LogInformation("Obteniendo turnos disponibles para cancha {CanchaId} en fecha {Fecha}",
+                request.CanchaId, request.Fecha);
+
+            // Obtener cancha con establecimiento
+            var cancha = await repository.GetQueryable()
+                .Include(c => c.Establecimiento)
+                .FirstOrDefaultAsync(c => c.Id == request.CanchaId, cancellationToken);
+
+            if (cancha == null)
+            {
+                throw new KeyNotFoundException($"No se encontró la cancha con Id {request.CanchaId}.");
+            }
+
+            // Obtener turnos ocupados de la fecha (excluyendo cancelados)
+            var turnosOcupados = await turnoRepository.GetQueryable()
+                .Where(t => t.CanchaId == request.CanchaId
+                    && t.Fecha == request.Fecha
+                    && t.Estado != EstadoTurno.Cancelado)
+                .Select(t => new { t.HoraInicio, t.HoraFin })
+                .ToListAsync(cancellationToken);
+
+            // Generar todos los slots posibles
+            var slots = new List<TurnoDisponibleDto>();
+            var horaActual = cancha.Establecimiento.HoraInicioMinima;
+            var horaFinMaxima = cancha.Establecimiento.HoraFinMaxima;
+            var duracionPartido = TimeSpan.FromMinutes(cancha.DuracionPartido);
+            var margenLimpieza = TimeSpan.FromMinutes(10);
+            var ahora = DateTime.Now;
+            var fechaHoy = DateOnly.FromDateTime(ahora);
+            var horaActualDelDia = ahora.TimeOfDay;
+
+            // Si la fecha es hoy, ajustar la hora inicial mínima
+            if (request.Fecha == fechaHoy && horaActual < horaActualDelDia)
+            {
+                horaActual = horaActualDelDia;
+            }
+
+            while (horaActual.Add(duracionPartido) <= horaFinMaxima)
+            {
+                var horaFin = horaActual.Add(duracionPartido);
+
+                // Verificar si el horario está disponible
+                var disponible = !turnosOcupados.Any(t =>
+                    horaActual < t.HoraFin && horaFin > t.HoraInicio);
+
+                // Si la fecha es hoy, solo incluir horarios futuros
+                if (request.Fecha == fechaHoy && horaActual <= horaActualDelDia)
+                {
+                    disponible = false;
+                }
+
+                slots.Add(new TurnoDisponibleDto
+                {
+                    HoraInicio = horaActual,
+                    HoraFin = horaFin,
+                    Disponible = disponible
+                });
+
+                // Avanzar al siguiente slot con margen de limpieza
+                horaActual = horaFin.Add(margenLimpieza);
+            }
+
+            logger.LogInformation("Se generaron {CantidadSlots} slots de horarios para la cancha",
+                slots.Count);
+
+            return slots;
+        }
+        catch (KeyNotFoundException knf)
+        {
+            logger.LogWarning(knf, "Cancha no encontrada al obtener turnos disponibles");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error al obtener turnos disponibles");
             throw;
         }
     }
