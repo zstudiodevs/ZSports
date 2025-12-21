@@ -117,6 +117,7 @@ public class Program
         // Configure the HTTP request pipeline.
         // OpenAPI habilitado en todos los ambientes
         app.MapOpenApi();
+        app.UseSwagger();
         app.UseSwaggerUI(opts =>
         {
             opts.SwaggerEndpoint("/openapi/v1.json", "ZSports API V1");
