@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 using System.Text;
 using ZSports.Contracts.Repositories;
 using ZSports.Contracts.Services;
@@ -69,13 +70,11 @@ public class Program
             .AddDbContextCheck<ZSportsDbContext>(
                 name: "database",
                 tags: ["db", "sql", "sqlserver"]);
+
         builder.Services.AddControllers();
-
         builder.Services.AddAuthorization();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
 
-        // OpenAPI/Swagger - habilitado en todos los ambientes usando el nuevo sistema de .NET 10
+        // OpenAPI nativo de .NET 10
         builder.Services.AddOpenApi();
 
         var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? [];
@@ -118,11 +117,17 @@ public class Program
         }
 
         // Configure the HTTP request pipeline.
-        // OpenAPI habilitado en todos los ambientes
-        app.UseSwagger();
-        app.UseSwaggerUI(opts =>
+
+        // OpenAPI endpoint
+        app.MapOpenApi();
+
+        // Scalar UI - Documentación interactiva moderna
+        app.MapScalarApiReference(options =>
         {
-            opts.SwaggerEndpoint("/swagger/v1/swagger.json", "ZSports API V1");
+            options
+                .WithTitle("ZSports API")
+                .WithTheme(ScalarTheme.Purple)
+                .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
         });
 
         // Health Check endpoints
