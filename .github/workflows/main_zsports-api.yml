@@ -24,11 +24,9 @@ jobs:
           dotnet-version: '10.x'
 
       - name: Build with dotnet
-        working-directory: ./dotnet
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        working-directory: ./dotnet
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
@@ -53,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7294F9B06B004D30AAEC52049F8F1C24 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9B59295441244F0D89FED2B9AB88CE56 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E7854E225EC34DBEB756F5A6B2B987F3 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_982CC9DE96474C20A109CFADF86384FE }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_02D9065786A14F30B360C4A8E5B47BE0 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_80CEDD093EE24BA1AE3D2D765EE0888E }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -64,5 +62,4 @@ jobs:
           app-name: 'zsports-api'
           slot-name: 'Production'
           package: .
-
           
